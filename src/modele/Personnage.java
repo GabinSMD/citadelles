@@ -5,8 +5,8 @@ public class Personnage {
 	int rang;
 	String caracteristiques;
 	Joueur joueur;
-	Boolean assassiné;
-	Boolean volé;
+	Boolean assassine;
+	Boolean vole;
 	
 	
 	Personnage(String nom,int rang,String caracteristiques){
@@ -14,8 +14,8 @@ public class Personnage {
 		this.rang=rang;
 		this.caracteristiques=caracteristiques;
 		this.joueur=null;
-		this.volé=false;
-		this.assassiné=false;
+		this.vole=false;
+		this.assassine=false;
 	}
 
 
@@ -29,23 +29,23 @@ public class Personnage {
 	}
 
 
-	public Boolean getAssassiné() {
-		return assassiné;
+	public Boolean getAssassine() {
+		return assassine;
 	}
 
 
-	public void setAssassiné() {
-		this.assassiné = true;
+	public void setAssassine() {
+		this.assassine = true;
 	}
 
 
-	public Boolean getVolé() {
-		return volé;
+	public Boolean getVole() {
+		return vole;
 	}
 
 
-	public void setVolé() {
-		this.volé = true;
+	public void setVole() {
+		this.vole = true;
 	}
 
 
@@ -66,7 +66,7 @@ public class Personnage {
 	public void ajouterPieces() {
 		if (this.joueur==null){
 			System.out.println("Joueur nécessaire pour ajouter des pièces");
-		}else if (this.assassiné==true){
+		}else if (this.assassine==true){
 			System.out.println("Impossible d'ajouter des pièces si le personnage est mort");
 		} else {
 			this.joueur.ajouterPiece(2);
@@ -77,7 +77,7 @@ public class Personnage {
 	public void ajouterQuartier(Quartier nouveau) {
 		if (this.joueur==null){
 			System.out.println("Joueur nécessaire pour créer un quartier");
-		}else if (this.assassiné==true){
+		}else if (this.assassine==true){
 			System.out.println("Impossible de créer un quartier si le personnage est mort");
 		} else {
 			this.joueur.ajouterQuartierDansMain(nouveau);
@@ -86,7 +86,7 @@ public class Personnage {
 	public void construire(Quartier nouveau) {
 		if (this.joueur==null){
 			System.out.println("Joueur nécessaire pour construire un quartier");
-		}else if (this.assassiné==true){
+		}else if (this.assassine==true){
 			System.out.println("Impossible de construire un quartier si le personnage est mort");
 		} else {
 			this.joueur.ajouterQuartierDansCite(nouveau);
@@ -95,7 +95,7 @@ public class Personnage {
 	public void percevoirRessourcesSpecifiques() {
 		if (this.joueur==null){
 			System.out.println("Joueur nécessaire pour percevoir des ressources");
-		}else if (this.assassiné==true){
+		}else if (this.assassine==true){
 			System.out.println("Impossible de percevoir des ressources si le personnage est mort");
 		} else {
 			System.out.println("Aucune ressources spécifiques");
@@ -106,7 +106,7 @@ public class Personnage {
 	}
 	public void reinitialiser() {
 		this.joueur=null;
-		this.volé=false;
-		this.assassiné=false;
+		this.vole=false;
+		this.assassine=false;
 	}
 }
