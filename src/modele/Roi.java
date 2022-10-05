@@ -3,28 +3,40 @@ package modele;
 public class Roi extends Personnage {
 
 	public Roi() {
-		super("Roi",4,Caracteristique.ROI);
+		super("Roi",4,Caracteristiques.ROI);
 		// TODO Auto-generated constructor stub
 	}
 	
 	public void utiliserPouvoir() {
-		this.joueur.possedeCouronne=true;
-		System.out.println("Je prend la couronne");
+		if(this.joueur!=null) {
+	
+			this.joueur.setPossedeCouronne(true);
+			System.out.println("Je prend la couronne");
+		}
 	}
 
 	@Override
 	public void percevoirRessourcesSpecifiques() {
-		// TODO Auto-generated method stub
+		int nbQuartierNoble=0;
+		
 		super.percevoirRessourcesSpecifiques();
-		Quartier[] Cite =this.joueur.getCite();
-		int nbQuartierNoble;
-		for(Quartier quartier : Cite) {
-			if(quartier.getType()=="NOBLE") {
-				nbQuartierNoble++;
+		if(this.joueur!=null) {
+			
+			Quartier[] Cite = new Quartier[this.joueur.nbQuartiersDansCite()];
+			
+			for(int i =0;i<Cite.length;i++) {
+				for(int j=0;j<this.joueur.getCite().length;j++) {
+					Cite[i]=this.joueur.getCite()[i];
+				}
 			}
+			for(int k =0;k<Cite.length;k++) {
+				if(Cite[k].getType()=="NOBLE") {
+					nbQuartierNoble++;
+				}
+			}
+			this.joueur.ajouterPieces(nbQuartierNoble);
+			System.out.println("["+nbQuartierNoble+"]"+"pieces en plus dans votre trésor");
 		}
-		this.joueur.ajouterPiece(nbQuartierNoble);
-		System.out.println("["+nbQuartierNoble+"]"+"pieces en plus dans votre trésor");
 	}
 	
 }
