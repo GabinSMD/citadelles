@@ -28,7 +28,11 @@ public class Quartier {
 
 
   public String getType(){
-      return this.type;
+	  if(this.type != null) {
+	      return this.type;
+	  }else {
+		  return "";
+	  }
   }
   public void setType(String type){
       if(Arrays.asList(TYPE_QUARTIERS).contains(type)){
@@ -39,7 +43,7 @@ public class Quartier {
   }
 
   public String getCaracteristiques() {
-      if(caracteristiques != null){
+      if(this.caracteristiques != null){
           return this.caracteristiques;
       }else {
           return "";
