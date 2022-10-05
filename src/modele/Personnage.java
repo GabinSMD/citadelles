@@ -80,7 +80,7 @@ public class Personnage {
 		}else if (this.assassine==true){
 			System.out.println("Impossible d'ajouter des pièces si le personnage est mort");
 		} else {
-			this.joueur.ajouterPiece(2);
+			this.joueur.ajouterPieces(2);
 		}
 			
 			
