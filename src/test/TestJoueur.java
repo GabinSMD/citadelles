@@ -6,10 +6,10 @@ public class TestJoueur {
 	public static void main(String[] args){
 		TestJoueur testJoueur = new TestJoueur();
 		testJoueur.test1();
-		//testJoueur.test2();	
-		//testJoueur.test3();
-		//testJoueur.test4();
-		//testJoueur.test5();	
+		testJoueur.test2();	
+		testJoueur.test3();
+		testJoueur.test4();
+		testJoueur.test5();	
 	}	
 	
 	public void test1(){
@@ -54,7 +54,7 @@ public class TestJoueur {
 		Quartier retour = joueur.retirerQuartierDansCite("prison");
 		Test.test(joueur.nbQuartiersDansCite() == 2 && retour==quartier2, 
 				"test de retrait d'un quartier");
-		Test.test(!joueur.quartierPresentDansCite("march�"), "test de non pr�sence d'un quartier");
+		Test.test(!joueur.quartierPresentDansCite("marche"), "test de non pr�sence d'un quartier");
 	}
 	
 	public void test4() {
