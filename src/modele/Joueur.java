@@ -1,7 +1,9 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Joueur {
 	private String nom;
@@ -12,12 +14,14 @@ public class Joueur {
 	private boolean possedeCouronne;
 
 	public Joueur(String name) {
-		setNom(name);
+		this.nom = name;
+		this.tresor = 0;
+		this.nbQuartiers = 0;
+		this.possedeCouronne = false;
+		this.cite = new Quartier [8];
+		this.main = new ArrayList<Quartier>();
 	}
 
-	public int nbPieces() {
-		return tresor;
-	}
 
 	public int ajouterPieces(int nbPieces) {
 		if (nbPieces >= 0) {
@@ -36,59 +40,37 @@ public class Joueur {
 		}
 		return tresor;
 	}
+
+	public String getNom() {
+		return this.nom;
+	}
+	
+	public int nbPieces() {
+		return this.tresor;
+	}
+
+	public long nbQuartiersDansCite() {
+		return Arrays.stream(this.cite).filter(Objects::nonNull).count();
+	}
 	
 	public Quartier[] getCite() {
-		return cite;
-	}
-	
-	public void setCite() {
-		this.cite = new Quartier[8];
-	}
-	
-	public int nbQuartiersDansCite() {
-		return cite.length;
-	}
-
-	public int setNbQuartiers() {
-		setCite();
-		nbQuartiers = 0;
-		return nbQuartiers;
-	}
-
-	public int nbQuartiersDansMain() {
-		return main.size();
+		return this.cite;
 	}
 	
 	public List<Quartier> getMain() {
-		return main;
+		return this.main;
 	}
+	
 
-	public void setMain(String main) {
-		this.main = new ArrayList<Quartier>();
-	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-
-	public int getTresor() {
-		return tresor;
-	}
-
-	public void setTresor(int tresor) {
-		this.tresor = 0;
+	public long nbQuartiersDansMain() {
+		return this.main.size();
 	}
 
 	public boolean getPossedeCouronne() {
-		return possedeCouronne;
+		return this.possedeCouronne;
 	}
 
 	public void setPossedeCouronne(boolean possedeCouronne) {
-		this.possedeCouronne = false;
+		this.possedeCouronne = possedeCouronne;
 	}
 }
