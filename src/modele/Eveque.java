@@ -9,12 +9,12 @@ public class Eveque extends Personnage {
 	public void percevoirRessourcesSpecifiques() {
 		int nbQuartierReligieux=0;
 
-		if (this.joueur != null) {
-			Quartier[] Cite = new Quartier[this.joueur.nbQuartiersDansCite()];
+		if (this.getJoueur() != null) {
+			Quartier[] Cite = new Quartier[this.getJoueur().nbQuartiersDansCite()];
 
 			for (int i = 0; i < Cite.length; i++) {
-				for (int j = 0; j < this.joueur.getCite().length; j++) {
-					Cite[i] = this.joueur.getCite()[i];
+				for (int j = 0; j < this.getJoueur().getCite().length; j++) {
+					Cite[i] = this.getJoueur().getCite()[i];
 				}
 			}
 			for (int k = 0; k < Cite.length; k++) {
@@ -22,7 +22,7 @@ public class Eveque extends Personnage {
 					nbQuartierReligieux++;
 				}
 			}
-			this.joueur.ajouterPieces(nbQuartierReligieux);
+			this.getJoueur().ajouterPieces(nbQuartierReligieux);
 		}
 	}
 
