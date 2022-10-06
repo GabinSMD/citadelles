@@ -1,13 +1,13 @@
 package modele;
 
 public class Personnage {
-	String nom;
-	int rang;
-	String caracteristiques;
-	Joueur joueur;
-	Boolean assassine;
-	Boolean vole;
-	PlateauDeJeu plateau;
+	private String nom;
+	private int rang;
+	private String caracteristiques;
+	private Joueur joueur;
+	private Boolean assassine;
+	private Boolean vole;
+	private PlateauDeJeu plateau;
 	
 	
 	Personnage(String nom,int rang,String caracteristiques){
