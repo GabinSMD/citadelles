@@ -20,7 +20,7 @@ public class Roi extends Personnage {
 		int nbQuartierNoble=0;
 		
 		super.percevoirRessourcesSpecifiques();
-		if(this.getJoueur().getNom()!=null) {
+		if(this.getJoueur()!=null) {
 			
 			Quartier[] Cite = new Quartier[this.getJoueur().nbQuartiersDansCite()];
 			
