@@ -4,7 +4,6 @@ public class Eveque extends Personnage {
 
 	public Eveque() {
 		super("Eveque", 5, Caracteristiques.EVEQUE);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void percevoirRessourcesSpecifiques() {
