@@ -27,6 +27,7 @@ public class Personnage {
 
 	public void setJoueur(Joueur joueur) {
 		this.joueur = joueur;
+		this.joueur.monPersonnage = this;
 	}
 
 
@@ -119,5 +120,6 @@ public class Personnage {
 		this.joueur=null;
 		this.vole=false;
 		this.assassine=false;
+		this.joueur.monPersonnage = null;
 	}
 }
