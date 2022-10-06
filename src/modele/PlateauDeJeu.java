@@ -7,7 +7,7 @@ public class PlateauDeJeu {
 	int nombrePersonnages;
 	int nombreJoueurs;
 
-	PlateauDeJeu(){
+	public PlateauDeJeu(){
 		this.nombrePersonnages=0;
 		this.nombreJoueurs=0;
 		this.pioche= new Pioche();
@@ -20,10 +20,20 @@ public class PlateauDeJeu {
 	}
 
 	public int getNombrePersonnages() {
+		for (int i = 0; i < this.listePersonnage.length; i++) {
+			if (this.listePersonnage[i] != null) {
+				nombrePersonnages++;
+			}
+		}
 		return nombrePersonnages;
 	}
 
 	public int getNombreJoueurs() {
+		for (int i = 0; i < this.listeJoueurs.length; i++) {
+			if (this.listeJoueurs[i] != null) {
+				nombreJoueurs++;
+			}
+		}
 		return nombreJoueurs;
 	}
 	public Personnage getPersonnage(int i) {
@@ -39,7 +49,6 @@ public class PlateauDeJeu {
 		int index=listeJoueurs.length-1;
 		if(i<0 || i >index) {
 			return null;
-			
 		}else {
 			return listeJoueurs[i];
 		}
@@ -49,10 +58,10 @@ public class PlateauDeJeu {
 		for(int i = 0; i < this.listePersonnage.length; i++){
 		    if(this.listePersonnage[i] == null){
 		        vide = true;
-		        //test tout les parametres du joueur différent de null sauf le plateau car on doit l'affecter à ce moment là
-		        if(nouveau.getNom()!=null && nouveau.getCaracteristiques()!=null && nouveau.getAssassine()!=null && nouveau.getVole()!=null && nouveau.getClass()!=null && nouveau.getJoueur()!=null ) {
-			        this.listePersonnage[i]=nouveau;
+		        if(nouveau.getNom()!=null && nouveau.getCaracteristiques()!=null && nouveau.getAssassine()!=null && nouveau.getVole()!=null) {
+				    this.listePersonnage[i]=nouveau;
 			        nouveau.setPlateau(this);
+			        break;
 		        }
 		    }
 		}
@@ -65,9 +74,10 @@ public class PlateauDeJeu {
 		for(int i = 0; i < this.listeJoueurs.length; i++){
 		    if(this.listeJoueurs[i] == null){
 		        vide = true;
-		        if(nouveau.nbQuartierDansMain !=null && nouveau.nbPieces()!=null && nouveau.getNom()!=null && nouveau.getCite()!=null && nouveau.getMain()!=null && nouveau.getPossedeCouronne()!=null ) {
+		        if(nouveau.getNom()!=null && nouveau.getCite()!=null && nouveau.getMain()!=null ) {
+
 			        this.listeJoueurs[i]=nouveau;
-			      
+			        break;
 		        }
 		    }
 		}
