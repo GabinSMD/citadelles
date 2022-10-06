@@ -13,6 +13,7 @@ public class Joueur {
 	private int nbQuartiers;
 	private ArrayList<Quartier> main;
 	private boolean possedeCouronne;
+	protected Personnage monPersonnage;
 
 	public Joueur(String name) {
 		this.nom = name;
@@ -21,6 +22,11 @@ public class Joueur {
 		this.possedeCouronne = false;
 		this.cite = new Quartier[8];
 		this.main = new ArrayList<Quartier>();
+		this.monPersonnage = null;
+	}
+	
+	public Personnage getPersonnage() {
+		return this.monPersonnage;
 	}
 
 	public String getNom() {
