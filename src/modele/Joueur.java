@@ -43,6 +43,7 @@ public class Joueur {
 			if (this.cite[i] != null) {
 				count++;
 			}
+			nbQuartiers=count;
 		}
 		return count;
 	}
@@ -113,13 +114,15 @@ public class Joueur {
 			if (this.cite[i] != null) {
 				if (this.cite[i].getNom() == nom) {
 					removeQuartier = this.cite[i];
-					this.cite[i] = null;
+					for(int j = i; j < this.cite.length-1; j++){
+						this.cite[j] = this.cite[j + 1];
+				      }
 					return removeQuartier;
 				}
+
 			}
 		}
 		return null;
-
 	}
 
 	public void ajouterQuartierDansMain(Quartier quartier) {
