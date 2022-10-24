@@ -7,8 +7,8 @@ public class Marchande extends Personnage {
 	}
 	
 	public void utiliserPouvoir() {
-		if(this.joueur!=null) {
-			this.joueur.ajouterPieces(1);
+		if(this.getJoueur()!=null) {
+			this.getJoueur().ajouterPieces(1);
 		}
 	}
 
@@ -16,13 +16,13 @@ public class Marchande extends Personnage {
 		int nbQuartierCommercant=0;
 		
 		super.percevoirRessourcesSpecifiques();
-		if(this.joueur!=null) {
+		if(this.getJoueur()!=null) {
 			
-			Quartier[] Cite = new Quartier[this.joueur.nbQuartiersDansCite()];
+			Quartier[] Cite = new Quartier[this.getJoueur().nbQuartiersDansCite()];
 			
 			for(int i =0;i<Cite.length;i++) {
-				for(int j=0;j<this.joueur.getCite().length;j++) {
-					Cite[i]=this.joueur.getCite()[i];
+				for(int j=0;j<this.getJoueur().getCite().length;j++) {
+					Cite[i]=this.getJoueur().getCite()[i];
 				}
 			}
 			for(int k =0;k<Cite.length;k++) {
@@ -30,9 +30,8 @@ public class Marchande extends Personnage {
 					nbQuartierCommercant++;
 				}
 			}
-			this.joueur.ajouterPieces(nbQuartierCommercant);
+			this.getJoueur().ajouterPieces(nbQuartierCommercant);
 			System.out.println("["+nbQuartierCommercant+"]"+"pieces en plus dans votre trésor");
 		}
 	}
-
 }
