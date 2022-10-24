@@ -25,5 +25,4 @@ public class Eveque extends Personnage {
 			this.getJoueur().ajouterPieces(nbQuartierReligieux);
 		}
 	}
-
 }
