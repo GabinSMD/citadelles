@@ -52,7 +52,7 @@ public class Joueur {
 		return this.cite;
 	}
 
-	public List<Quartier> getMain() {
+	public ArrayList<Quartier> getMain() {
 		return this.main;
 	}
 
