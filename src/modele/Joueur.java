@@ -24,7 +24,7 @@ public class Joueur {
 		this.main = new ArrayList<Quartier>();
 		this.monPersonnage = null;
 	}
-	
+
 	public Personnage getPersonnage() {
 		return this.monPersonnage;
 	}
@@ -43,6 +43,7 @@ public class Joueur {
 			if (this.cite[i] != null) {
 				count++;
 			}
+			nbQuartiers = count;
 		}
 		return count;
 	}
@@ -110,16 +111,16 @@ public class Joueur {
 	public Quartier retirerQuartierDansCite(String nom) {
 		Quartier removeQuartier;
 		for (int i = 0; i < this.cite.length; i++) {
-			if (this.cite[i] != null) {
-				if (this.cite[i].getNom() == nom) {
-					removeQuartier = this.cite[i];
-					this.cite[i] = null;
-					return removeQuartier;
+			if (this.cite[i] != null && this.cite[i].getNom() == nom) {
+				removeQuartier = this.cite[i];
+				for (int j = i; j < this.cite.length - 1; j++) {
+					this.cite[j] = this.cite[j + 1];
 				}
+				return removeQuartier;
+
 			}
 		}
 		return null;
-
 	}
 
 	public void ajouterQuartierDansMain(Quartier quartier) {
