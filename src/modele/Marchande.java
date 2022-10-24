@@ -34,5 +34,4 @@ public class Marchande extends Personnage {
 			System.out.println("["+nbQuartierCommercant+"]"+"pieces en plus dans votre trésor");
 		}
 	}
-
 }
