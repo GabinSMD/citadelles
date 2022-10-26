@@ -10,8 +10,8 @@ import modele.Roi;
 public class TestAssassin {
 	public static void main(String[] args) {
 		TestAssassin test = new TestAssassin();
-		//test.test1();
-		//test.test2();
+		test.test1();
+		test.test2();
 		test.test3();
 	}
 	
@@ -41,7 +41,7 @@ public class TestAssassin {
 		// on utilise le pouvoir de l'assassin
 		// NB: seul le roi peut �tre assassin� dans cette situation
 		assassin.utiliserPouvoir();
-		Test.test(roi.getAssassine()||condottiere.getAssassine(),"condotiere"+condottiere.getAssassine());
+		Test.test(roi.getAssassine()||condottiere.getAssassine(),"condotiere:"+condottiere.getAssassine()+ " roi:"+roi.getAssassine());
 	}
 	public void test3() {
 		System.out.println("TEST DE L'ASSASSINAT ALEATOIRE");
