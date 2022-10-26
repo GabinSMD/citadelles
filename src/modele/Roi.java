@@ -14,6 +14,13 @@ public class Roi extends Personnage {
 			System.out.println("Je prend la couronne");
 		}
 	}
+	public void utiliserPouvoirAvatar() {
+		if(this.getJoueur().getNom() !=null) {
+			
+			this.getJoueur().setPossedeCouronne(true);
+			System.out.println("Je prend la couronne");
+		}
+	}
 
 	@Override
 	public void percevoirRessourcesSpecifiques() {
