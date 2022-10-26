@@ -13,15 +13,17 @@ public class Assassin extends Personnage {
 	public void utiliserPouvoir() {
 		System.out.println("Quel personnage voulez-vous assassiner ?");
 		int max = 0;
+		Personnage[] selection = new Personnage[9];
 		for(int i=0; i<9; i++) {
 			if(this.getPlateau().getPersonnage(i)!= null && this.getPlateau(). getPersonnage(i).getNom() != this.getNom()) {
-				System.out.println(i+"."+ this.getPlateau().getPersonnage(i).getNom());
+				selection[max]=this.getPlateau().getPersonnage(i);
+				System.out.println(max+"."+ selection[max].getNom());
 				max++;
 			}
 		}
 		System.out.println("Votre choix :");
-		int choix =Interaction.lireUnEntier(0,max+1);
-		this.getPlateau().getPersonnage(choix).setAssassine();
+		int choix =Interaction.lireUnEntier(0,max);
+		selection[choix].setAssassine();
 		return;
 	}
 	
@@ -31,9 +33,7 @@ public class Assassin extends Personnage {
 		Personnage[] selection = new Personnage[9];
 		for(int i=0; i<9; i++) {
 			if(this.getPlateau().getPersonnage(i)!= null && this.getPlateau().getPersonnage(i).getNom() != this.getNom()) {
-				
 				selection[max]=this.getPlateau().getPersonnage(i);
-				
 				max++;
 			}
 		}
@@ -43,7 +43,6 @@ public class Assassin extends Personnage {
 				System.out.println("selection index: "+i+" "+selection[i]);
 			}
 		}*/
-
 		int choix =r.nextInt(max);
 		selection[choix].setAssassine();
 		System.out.println("Le/La "+selection[choix].getNom()+" a été assassiné.e");
