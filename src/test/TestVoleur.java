@@ -5,13 +5,15 @@ import modele.Roi;
 import modele.Voleur;
 
 import modele.Joueur;
+import modele.Marchande;
 import modele.PlateauDeJeu;
 
 public class TestVoleur {
 	public static void main(String[] args) {
 		TestVoleur test = new TestVoleur();
 		test.test1();
-		test.test2();	
+		test.test2();
+		test.test3();
 	}
 	
 	public void test1() {
@@ -25,7 +27,7 @@ public class TestVoleur {
 		plateau.ajouterPersonnage(voleur);		
 		Test.test(plateau.getNombrePersonnages()== 3,"nombre de joueurs");
 		Test.test(plateau.getPersonnage(2)==voleur,
-				"r�cup�ration du personnage du voleur");
+				"r cup ration du personnage du voleur");
 		Test.test(plateau.getPersonnage(2).getRang()==2,
 				"rang du voleur");
 		
@@ -33,7 +35,7 @@ public class TestVoleur {
 	public void test2() {
 		System.out.println("TEST DU VOL DU ROI");
 		PlateauDeJeu plateau = new PlateauDeJeu();
-		// cr�ation de trois personnages
+		// cr ation de trois personnages
 		Roi roi = new Roi();
 		plateau.ajouterPersonnage(roi);
 		Assassin assassin = new Assassin();
@@ -41,7 +43,7 @@ public class TestVoleur {
 		Voleur voleur = new Voleur();
 		plateau.ajouterPersonnage(voleur);		
 			
-		// cr�ation de trois joueurs
+		// cr ation de trois joueurs
 		Joueur joueur1 = new Joueur("Milou");
 		plateau.ajouterJoueur(joueur1);
 		Joueur joueur2 = new Joueur("Billy");
@@ -55,15 +57,36 @@ public class TestVoleur {
 		voleur.setJoueur(joueur3);
 		
 		// on utilise le pouvoir du voleur
-		// NB: seul le roi peut �tre vol� dans cette situation
+		// NB: seul le roi peut  tre vol  dans cette situation
 
 		roi.ajouterPieces();
 		voleur.utiliserPouvoir();
 		
 		// tests:
-		Test.test(roi.getVole(),"le roi est bien vol�");
-		Test.test(roi.getJoueur().nbPieces()==0, "le tr�sor du roi est vide");
-		Test.test(voleur.getJoueur().nbPieces()==2, "le tr�sor du voleur contient deux spi�ces");
+		Test.test(roi.getVole(),"le roi est bien vol ");
+		Test.test(roi.getJoueur().nbPieces()==0, "le tr sor du roi est vide");
+		Test.test(voleur.getJoueur().nbPieces()==2, "le tr sor du voleur contient deux spi ces");
 	}
-	
+	public void test3() {
+		System.out.println("TEST DU VOL ALEATOIRE");
+		PlateauDeJeu plateau = new PlateauDeJeu();
+		// cr ation de trois personnages
+		Roi roi = new Roi();
+		plateau.ajouterPersonnage(roi);
+		Assassin assassin = new Assassin();
+		plateau.ajouterPersonnage(assassin);
+		Voleur voleur = new Voleur();
+		plateau.ajouterPersonnage(voleur);	
+		Marchande marchande = new Marchande();
+		plateau.ajouterPersonnage(marchande);	
+		
+		
+		// on utilise le pouvoir aléatoire du voleur
+		voleur.utiliserPouvoirAvatar();
+		
+		// tests:
+		Test.test(roi.getVole()||marchande.getVole(),"Roi : "+roi.getVole() + ", Marchande : "+ marchande.getVole());
+		Test.test(!voleur.getVole(), "Le voleur n'a pas été volé");
+		Test.test(!assassin.getVole(), "Le assassin n'a pas été volé");
+	}
 }
