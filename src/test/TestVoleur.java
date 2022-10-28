@@ -1,10 +1,13 @@
 package test;
 
 import modele.Assassin;
+import modele.Condottiere;
+import modele.Eveque;
 import modele.Roi;
 import modele.Voleur;
 
 import modele.Joueur;
+import modele.Marchande;
 import modele.PlateauDeJeu;
 
 public class TestVoleur {
@@ -64,6 +67,64 @@ public class TestVoleur {
 		Test.test(roi.getVole(),"le roi est bien vol�");
 		Test.test(roi.getJoueur().nbPieces()==0, "le tr�sor du roi est vide");
 		Test.test(voleur.getJoueur().nbPieces()==2, "le tr�sor du voleur contient deux spi�ces");
+	}
+	
+	public void test3() {
+		System.out.println("TEST DU VOL DU ROI");
+		PlateauDeJeu plateau = new PlateauDeJeu();
+		// cr�ation de trois personnages
+		Roi roi = new Roi();
+		plateau.ajouterPersonnage(roi);
+		Assassin assassin = new Assassin();
+		plateau.ajouterPersonnage(assassin);
+		Voleur voleur = new Voleur();
+		plateau.ajouterPersonnage(voleur);		
+			
+		// cr�ation de trois joueurs
+		Joueur joueur1 = new Joueur("Milou");
+		plateau.ajouterJoueur(joueur1);
+		Joueur joueur2 = new Joueur("Billy");
+		plateau.ajouterJoueur(joueur2);
+		Joueur joueur3 = new Joueur("Rantanplan");
+		plateau.ajouterJoueur(joueur3);
+		
+		// on associe les personnages aux joueurs
+		roi.setJoueur(joueur1);
+		assassin.setJoueur(joueur2);
+		voleur.setJoueur(joueur3);
+		
+		// on utilise le pouvoir du voleur
+		// NB: seul le roi peut �tre vol� dans cette situation
+
+		roi.ajouterPieces();
+		voleur.utiliserPouvoir();
+		
+		// tests:
+		Test.test(roi.getVole(),"le roi est bien vol�");
+		Test.test(roi.getJoueur().nbPieces()==0, "le tr�sor du roi est vide");
+		Test.test(voleur.getJoueur().nbPieces()==2, "le tr�sor du voleur contient deux spi�ces");
+	}
+	
+	/*
+	public void test3() {
+		System.out.println("TEST DE L'ASSASSINAT ALEATOIRE");
+		PlateauDeJeu plateau = new PlateauDeJeu();
+		Roi roi = new Roi();
+		plateau.ajouterPersonnage(roi);
+		Assassin assassin = new Assassin();
+		plateau.ajouterPersonnage(assassin);
+		Condottiere condottiere = new Condottiere();
+		plateau.ajouterPersonnage(condottiere);
+		Eveque eveque = new Eveque();
+		plateau.ajouterPersonnage(eveque);
+		Marchande marchande = new Marchande();
+		plateau.ajouterPersonnage(marchande);
+		
+		// on utilise le pouvoir de l'assassin aléatoire
+		// NB: seul le roi peut �tre assassin� dans cette situation
+		assassin.utiliserPouvoirAvatar();
+		Test.test(roi.getAssassine() || marchande.getAssassine() || eveque.getAssassine() || condottiere.getAssassine(),"roi:"+roi.getAssassine()+" marchande:"+marchande.getAssassine()+" condottiere:"+condottiere.getAssassine()+" eveque:"+eveque.getAssassine());
+		*/
 	}
 	
 }
