@@ -15,7 +15,8 @@ public class Condottiere extends Personnage {
 			boolean choixPouvoir = Interaction.lireOuiOuNon();
 			if (choixPouvoir == true) {
 				System.out.println("Voici la liste des joueurs et le contenu de leur cité :");
-				for (int i = 0; i < this.getPlateau().getNombreJoueurs(); i++) {
+				int nombreJoueurs=this.getPlateau().getNombreJoueurs();
+				for (int i = 0; i < nombreJoueurs; i++) {
 					max++;
 					if (getPlateau().getJoueur(i) != null) {
 						System.out.print(i + 1 + " " + getPlateau().getJoueur(i).getNom() + ": ");
