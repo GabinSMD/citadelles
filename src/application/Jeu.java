@@ -101,9 +101,6 @@ public class Jeu {
 	private void reinitialisationPersonnages() {
 		for (int i = 0; i < nombrePersonnages; i++) {
 			if (PlateauDeJeu.getPersonnage(i).getJoueur() != null) {
-				System.out.println("Réinitialisation du personnage : " + PlateauDeJeu.getPersonnage(i).getNom()
-						+ " (joueur : " + PlateauDeJeu.getPersonnage(i).getJoueur().getNom() + ")");
-
 				PlateauDeJeu.getPersonnage(i).reinitialiser();
 			}
 		}
@@ -145,24 +142,6 @@ public class Jeu {
 			if ((personnageActuel.getAssassine() == false) && (joueurActuel != null)) {
 				System.out.println("");
 				System.out.println(personnageActuel.getNom() + ", c'est à ton tour !");
-				//if (joueurActuel.getNom() == "Kilian") {
-					Quartier quartier1 = new Quartier("Temple", Quartier.TYPE_QUARTIERS[0], 1);
-					Quartier quartier2 = new Quartier("Caserne", Quartier.TYPE_QUARTIERS[1], 1);
-					Quartier quartier3 = new Quartier("Prison", Quartier.TYPE_QUARTIERS[1], 1);
-					Quartier quartier4 = new Quartier("Palais", Quartier.TYPE_QUARTIERS[2], 1);
-					Quartier quartier5 = new Quartier("Port", Quartier.TYPE_QUARTIERS[3], 1);
-					Quartier quartier6 = new Quartier("Taverne", Quartier.TYPE_QUARTIERS[3], 1);
-					Quartier quartier7 = new Quartier("Basilique", Quartier.TYPE_QUARTIERS[4], 1);
-					Quartier quartier8 = new Quartier("Manoir", Quartier.TYPE_QUARTIERS[0], 1);
-					joueurActuel.ajouterQuartierDansCite(quartier1);
-					joueurActuel.ajouterQuartierDansCite(quartier2);
-					joueurActuel.ajouterQuartierDansCite(quartier3);
-					joueurActuel.ajouterQuartierDansCite(quartier4);
-					joueurActuel.ajouterQuartierDansCite(quartier5);
-					joueurActuel.ajouterQuartierDansCite(quartier6);
-					joueurActuel.ajouterQuartierDansCite(quartier7);
-					joueurActuel.ajouterQuartierDansCite(quartier8);
-				//}
 				if (personnageActuel.getVole() == true) {
 					System.out.println(
 							"Vous avez été volé ! Vous donnez " + joueurActuel.nbPieces() + " pièces d'or au Voleur");
