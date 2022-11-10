@@ -63,11 +63,12 @@ public class Jeu {
 
 	private void jouerPartie() {
 		initialisation();
-		choixPersonnages();
-		tourDeJeu();
-		gestionCouronne();
-		reinitialisationPersonnages();
-		partieFinie();
+		do {
+			choixPersonnages();
+			tourDeJeu();
+			gestionCouronne();
+			reinitialisationPersonnages();
+		} while (!partieFinie());
 		calculDesPoints();
 	}
 
@@ -99,34 +100,37 @@ public class Jeu {
 
 	private void reinitialisationPersonnages() {
 		for (int i = 0; i < nombrePersonnages; i++) {
-			PlateauDeJeu.getPersonnage(i).reinitialiser();
+			if (PlateauDeJeu.getPersonnage(i).getJoueur() != null) {
+				System.out.println("Réinitialisation du personnage : " + PlateauDeJeu.getPersonnage(i).getNom()
+						+ " (joueur : " + PlateauDeJeu.getPersonnage(i).getJoueur().getNom() + ")");
+
+				PlateauDeJeu.getPersonnage(i).reinitialiser();
+			}
 		}
 	}
 
 	private boolean partieFinie() {
 		boolean varReturn = false;
-		for (int i = 0; i < nombreJoueurs; i++) {
-			switch (nombreJoueurs) {
-			case 4, 5, 6, 7:
+
+		switch (nombreJoueurs) {
+		case 4, 5, 6, 7:
+			for (int i = 0; i < nombreJoueurs; i++) {
 				if (PlateauDeJeu.getJoueur(i).nbQuartiersDansCite() == 7) {
 					varReturn = true;
 					break;
 				} else {
 					varReturn = false;
 				}
+			}
 
-			case 2, 3, 8:
-				if (PlateauDeJeu.getJoueur(i).nbQuartiersDansCite() == 7) {
+		case 2, 3, 8:
+			for (int i = 0; i < nombreJoueurs; i++) {
+				if (PlateauDeJeu.getJoueur(i).nbQuartiersDansCite() == 8) {
 					varReturn = true;
 					break;
 				} else {
 					varReturn = false;
 				}
-
-			default:
-				System.out.println("Nombre de joueurs pas normal : " + nombreJoueurs);
-				varReturn = true;
-				break;
 			}
 		}
 		return varReturn;
@@ -141,6 +145,24 @@ public class Jeu {
 			if ((personnageActuel.getAssassine() == false) && (joueurActuel != null)) {
 				System.out.println("");
 				System.out.println(personnageActuel.getNom() + ", c'est à ton tour !");
+				//if (joueurActuel.getNom() == "Kilian") {
+					Quartier quartier1 = new Quartier("Temple", Quartier.TYPE_QUARTIERS[0], 1);
+					Quartier quartier2 = new Quartier("Caserne", Quartier.TYPE_QUARTIERS[1], 1);
+					Quartier quartier3 = new Quartier("Prison", Quartier.TYPE_QUARTIERS[1], 1);
+					Quartier quartier4 = new Quartier("Palais", Quartier.TYPE_QUARTIERS[2], 1);
+					Quartier quartier5 = new Quartier("Port", Quartier.TYPE_QUARTIERS[3], 1);
+					Quartier quartier6 = new Quartier("Taverne", Quartier.TYPE_QUARTIERS[3], 1);
+					Quartier quartier7 = new Quartier("Basilique", Quartier.TYPE_QUARTIERS[4], 1);
+					Quartier quartier8 = new Quartier("Manoir", Quartier.TYPE_QUARTIERS[0], 1);
+					joueurActuel.ajouterQuartierDansCite(quartier1);
+					joueurActuel.ajouterQuartierDansCite(quartier2);
+					joueurActuel.ajouterQuartierDansCite(quartier3);
+					joueurActuel.ajouterQuartierDansCite(quartier4);
+					joueurActuel.ajouterQuartierDansCite(quartier5);
+					joueurActuel.ajouterQuartierDansCite(quartier6);
+					joueurActuel.ajouterQuartierDansCite(quartier7);
+					joueurActuel.ajouterQuartierDansCite(quartier8);
+				//}
 				if (personnageActuel.getVole() == true) {
 					System.out.println(
 							"Vous avez été volé ! Vous donnez " + joueurActuel.nbPieces() + " pièces d'or au Voleur");
@@ -150,8 +172,8 @@ public class Jeu {
 						}
 					}
 					joueurActuel.retirerPieces(joueurActuel.nbPieces());
-
 				}
+
 				percevoirRessource(joueurActuel);
 
 				personnageActuel.percevoirRessourcesSpecifiques();
@@ -254,7 +276,7 @@ public class Jeu {
 				} while (listePersonnage[choixPersonnage] == null);
 				listePersonnage[choixPersonnage].setJoueur(PlateauDeJeu.getJoueur(j));
 				System.out.println(
-						"Vous avez choisi le personnage : " + PlateauDeJeu.getPersonnage(choixPersonnage).getNom());
+						"Le personnage " + PlateauDeJeu.getPersonnage(choixPersonnage).getNom() + " à été choisi !");
 				listePersonnage[choixPersonnage] = null;
 			}
 		}
@@ -317,28 +339,64 @@ public class Jeu {
 	}
 
 	private void calculDesPoints() {
+		int gagnant=0;
+		String gagnantNom="";
+		boolean premierJoueur = true;
 		for (int i = 0; i < nombreJoueurs; i++) {
 			int pointsCoutConstruction = 0;
 			int pointsNombreType = 0;
-			String[] listeTypePresent = null;
-			int nombreTypeDifferent  = 0;
-			
+			String typeQuartier;
+			int[] quartierParType = {0,0,0,0,0};
+			boolean typeDifferent = true;
+			int pointsCiteTermine = 0;
+
 			for (int j = 0; j < PlateauDeJeu.getJoueur(i).nbQuartiersDansCite(); j++) {
 				pointsCoutConstruction += PlateauDeJeu.getJoueur(i).getCite()[j].getCout();
-				listeTypePresent[j] = PlateauDeJeu.getJoueur(i).getCite()[j].getType();
+				typeQuartier = PlateauDeJeu.getJoueur(i).getCite()[j].getType();
+				if (typeQuartier == "RELIGIEUX") {
+					quartierParType[0] += 1;
+				} else if (typeQuartier == "MILITAIRE") {
+					quartierParType[1] += 1;
+				} else if (typeQuartier == "NOBLE") {
+					quartierParType[2] += 1;
+				} else if (typeQuartier == "COMMERCANT") {
+					quartierParType[3] += 1;
+				} else if (typeQuartier == "MERVEILLE") {
+					quartierParType[4] += 1;
+				}
 			}
-			for(String listeModel : Quartier.TYPE_QUARTIERS){
-			   for(String listeJoueur: listeTypePresent){
-			       if(listeModel.equals(listeJoueur)){
-			    	   nombreTypeDifferent++;
-			       }
-			    }
+
+			for (int j = 0; j < quartierParType.length; j++) {
+				if (quartierParType[j] == 0) {
+					typeDifferent = false;
+				}
 			}
-			if (nombreTypeDifferent==5) {
-				pointsNombreType=3;
+			if (typeDifferent) {
+				pointsNombreType = 3;
 			}
 			
+			if (PlateauDeJeu.getJoueur(i).nbQuartiersDansCite() == 8) {
+				if (premierJoueur) {
+					pointsCiteTermine = 4;
+					premierJoueur=false;
+				} else {
+					pointsCiteTermine = 2;
+				}
+				
+			}
+			
+			int nombrePoints = pointsCoutConstruction + pointsNombreType + pointsCiteTermine;
+			System.out.println(PlateauDeJeu.getJoueur(i).getNom() + " à obtenu " + nombrePoints + " points !");
+			
+			if (gagnant<nombrePoints) {
+				gagnant=nombrePoints;
+				gagnantNom = PlateauDeJeu.getJoueur(i).getNom();
+			}
 		}
+		System.out.println(gagnantNom+" rempore la partie avec " + gagnant + " points !");
+		Interaction.lireOuiOuNon();
+
 	}
+
 
 }
