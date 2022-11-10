@@ -121,5 +121,6 @@ public class Personnage {
 		this.joueur=null;
 		this.vole=false;
 		this.assassine=false;
+		
 	}
 }
