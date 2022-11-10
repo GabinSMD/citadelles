@@ -117,9 +117,9 @@ public class Personnage {
 		
 	}
 	public void reinitialiser() {
+		this.joueur.monPersonnage = null;
 		this.joueur=null;
 		this.vole=false;
 		this.assassine=false;
-		this.joueur.monPersonnage = null;
 	}
 }
