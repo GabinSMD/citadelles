@@ -195,10 +195,11 @@ public class Jeu {
 							joueurActuel.retirerPieces(verifCoutQuartier);
 							joueurActuel.ajouterQuartierDansCite(nomQuartier);
 							ArrayList<Quartier> copieTableau = new ArrayList<Quartier>(joueurActuel.getMain());
+							int tailleMain = joueurActuel.getMain().size();
 							PlateauDeJeu.getPioche().ajouter(copieTableau.get(choixQuartier));
 							copieTableau.remove(choixQuartier);
 							
-							for(i=0; i<=joueurActuel.getMain().size()+1; i++) {
+							for(i=0; i<tailleMain; i++) {
 								joueurActuel.retirerQuartierDansMain();
 							}
 							for(i=0; i<copieTableau.size(); i++) {
