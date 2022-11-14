@@ -299,20 +299,28 @@ public class Jeu {
 		if (choixRessource == 1) {
 			joueurActuel.ajouterPieces(2);
 		} else {
-			System.out.println("Quel quartier choississez vous ? ");
-			Quartier choixQuartier1 = pioche.piocher();
-			System.out.println(
-					"1 - Premier quartier : " + choixQuartier1.getNom() + " (coût " + choixQuartier1.getCout() + ")");
-			Quartier choixQuartier2 = pioche.piocher();
-			System.out.println(
-					"2 - Deuxième quartier : " + choixQuartier2.getNom() + " (coût " + choixQuartier2.getCout() + ")");
-			int choixQuartier = Interaction.lireUnEntier(1, 3);
-			if (choixQuartier == 1) {
-				joueurActuel.ajouterQuartierDansMain(choixQuartier1);
-				pioche.ajouter(choixQuartier2);
-			} else {
-				joueurActuel.ajouterQuartierDansMain(choixQuartier2);
-				pioche.ajouter(choixQuartier1);
+			if(joueurActuel.quartierPresentDansCite("Bibliothèque")) {
+				for(int i=0;i<2;i++) {
+					Quartier choixQuartier = pioche.piocher();
+					System.out.println(
+							i+" - " + choixQuartier.getNom() + " (coût " + choixQuartier.getCout() + ")");
+				}
+			}else {
+				System.out.println("Quel quartier choississez vous ? ");
+				Quartier choixQuartier1 = pioche.piocher();
+				System.out.println(
+						"1 - Premier quartier : " + choixQuartier1.getNom() + " (coût " + choixQuartier1.getCout() + ")");
+				Quartier choixQuartier2 = pioche.piocher();
+				System.out.println(
+						"2 - Deuxième quartier : " + choixQuartier2.getNom() + " (coût " + choixQuartier2.getCout() + ")");
+				int choixQuartier = Interaction.lireUnEntier(1, 3);
+				if (choixQuartier == 1) {
+					joueurActuel.ajouterQuartierDansMain(choixQuartier1);
+					pioche.ajouter(choixQuartier2);
+				} else {
+					joueurActuel.ajouterQuartierDansMain(choixQuartier2);
+					pioche.ajouter(choixQuartier1);
+				}
 			}
 		}
 	}
