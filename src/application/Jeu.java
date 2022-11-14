@@ -197,7 +197,6 @@ public class Jeu {
 							}
 						} while (((check != true) && (personnageActuel.getNom() != Caracteristiques.ARCHITECTE))
 								|| nombreQuartiersConstruit == 3);
-
 					}
 					
 				} else {
