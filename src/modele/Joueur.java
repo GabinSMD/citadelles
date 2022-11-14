@@ -110,7 +110,7 @@ public class Joueur {
 
 	public Quartier retirerQuartierDansCite(String nom) {
 		Quartier removeQuartier;
-		for (int i = 0; i < this.cite.length+1; i++) {
+		for (int i = 0; i < this.cite.length; i++) {
 			if (this.cite[i] != null && this.cite[i].getNom() == nom) {
 				removeQuartier = this.cite[i];
 				for (int j = i; j < this.cite.length - 1; j++) {
