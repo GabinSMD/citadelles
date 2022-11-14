@@ -67,10 +67,14 @@ public class Condottiere extends Personnage {
 						check = false;
 					} else {
 						check = true;
-						this.getJoueur().retirerPieces(verifCoutQuartier - 1);
-						this.getPlateau().getJoueur(choixJoueur).retirerQuartierDansCite(nomQuartier);
-						System.out.println("=> On retire  " + nomQuartier + " à " + this.getPlateau().getJoueur(choixJoueur).getNom());
-						System.out.println("Pour information vous avez " + this.getJoueur().nbPieces() + " pièces d'or dans votre trésor");
+						if(nomQuartier != "Donjon") {
+							this.getJoueur().retirerPieces(verifCoutQuartier - 1);
+							this.getPlateau().getJoueur(choixJoueur).retirerQuartierDansCite(nomQuartier);
+							System.out.println("=> On retire  " + nomQuartier + " à " + this.getPlateau().getJoueur(choixJoueur).getNom());
+							System.out.println("Pour information vous avez " + this.getJoueur().nbPieces() + " pièces d'or dans votre trésor");
+						}else {
+							System.out.println("Vous ne pouvez pas détruire le Donjon");
+						}
 					}
 				} while (check == false);
 			}
