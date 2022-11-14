@@ -1,5 +1,6 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import controleur.Interaction;
@@ -193,7 +194,17 @@ public class Jeu {
 							check = true;
 							joueurActuel.retirerPieces(verifCoutQuartier);
 							joueurActuel.ajouterQuartierDansCite(nomQuartier);
-							// joueurActuel.retirerQuartierDansMain(nomQuartier);
+							ArrayList<Quartier> copieTableau = new ArrayList<Quartier>(joueurActuel.getMain());
+							PlateauDeJeu.getPioche().ajouter(copieTableau.get(choixQuartier));
+							copieTableau.remove(choixQuartier);
+							
+							for(i=0; i<=joueurActuel.getMain().size()+1; i++) {
+								joueurActuel.retirerQuartierDansMain();
+							}
+							for(i=0; i<copieTableau.size(); i++) {
+								joueurActuel.ajouterQuartierDansMain(copieTableau.get(i));
+							}
+							
 							System.out.println("Pour information il vous reste " + joueurActuel.nbPieces()
 									+ " pièces d'or dans votre trésorerie");
 							nombreQuartiersConstruit += 1;
