@@ -64,8 +64,11 @@ public class Jeu {
 	}
 
 	private void jouerPartie() {
+		int i=0;
 		initialisation();
 		do {
+			i++;
+			System.out.println("Tour n°"+i);
 			choixPersonnages();
 			tourDeJeu();
 			gestionCouronne();
@@ -141,7 +144,9 @@ public class Jeu {
 		for (int i = 0; i < nombrePersonnages; i++) {
 			personnageActuel = PlateauDeJeu.getPersonnage(i);
 			joueurActuel = personnageActuel.getJoueur();
+			System.out.println("Le personnage " + personnageActuel.getNom() + " est appelé !");
 			if ((personnageActuel.getAssassine() == false) && (joueurActuel != null)) {
+				System.out.println("Le joueur " + joueurActuel.getNom() + " commence son tour !");
 				if (Avatar) {
 					if (personnageActuel.getVole() == true) {
 						for (int j = 0; j < nombreJoueurs; j++) {
@@ -157,8 +162,9 @@ public class Jeu {
 						//personnageActuel.utiliserPouvoirAvatar();
 						System.out.println("Le pouvoir de l'Avatar " + joueurActuel.getNom() + " a été utilisé !");
 					}
-					if (generateur.nextInt(2)==1) {
+					if ((generateur.nextInt(2)==1 && (joueurActuel.nbQuartiersDansMain()!=0))) {
 						int nombreQuartiersConstruit = 0;
+						int out = 0;
 						boolean check = false;
 						do {
 							int choixQuartier = generateur.nextInt(joueurActuel.nbQuartiersDansMain());
@@ -166,6 +172,10 @@ public class Jeu {
 							int verifCoutQuartier = joueurActuel.getMain().get(choixQuartier).getCout();
 							if (verifCoutQuartier > joueurActuel.nbPieces()) {
 								check = false;
+								out++;
+								if (out>=10) {
+									check = true;
+								}
 							} else {
 								check = true;
 								joueurActuel.retirerPieces(verifCoutQuartier);
@@ -176,10 +186,10 @@ public class Jeu {
 								PlateauDeJeu.getPioche().ajouter(copieTableau.get(choixQuartier));
 								copieTableau.remove(choixQuartier);
 
-								for (i = 0; i < tailleMain; i++) {
+								for (int j = 0; j < tailleMain; j++) {
 									joueurActuel.retirerQuartierDansMain();
 								}
-								for (i = 0; i < copieTableau.size(); i++) {
+								for (int j = 0; j < copieTableau.size(); j++) {
 									joueurActuel.ajouterQuartierDansMain(copieTableau.get(i));
 								}
 								nombreQuartiersConstruit += 1;
@@ -256,10 +266,10 @@ public class Jeu {
 								PlateauDeJeu.getPioche().ajouter(copieTableau.get(choixQuartier));
 								copieTableau.remove(choixQuartier);
 
-								for (i = 0; i < tailleMain; i++) {
+								for (int j = 0; j < tailleMain; j++) {
 									joueurActuel.retirerQuartierDansMain();
 								}
-								for (i = 0; i < copieTableau.size(); i++) {
+								for (int j = 0; j < copieTableau.size(); j++) {
 									joueurActuel.ajouterQuartierDansMain(copieTableau.get(i));
 								}
 
@@ -282,7 +292,7 @@ public class Jeu {
 					}
 				}
 				System.out.println("Tour terminé !");
-
+				System.out.println("");
 			}
 		}
 	}
@@ -321,6 +331,7 @@ public class Jeu {
 					} while (listePersonnage[choixPersonnage] == null);
 					System.out.println(PlateauDeJeu.getJoueur(j).getNom() + " a choisi un personnage");
 					listePersonnage[choixPersonnage].setJoueur(PlateauDeJeu.getJoueur(j));
+					listePersonnage[choixPersonnage] = null;
 				} else {
 					for (int i = 0; i < nombrePersonnages; i++) {
 						if (i != randomVisible1 && i != randomVisible2 && i != randomCache
@@ -352,6 +363,7 @@ public class Jeu {
 					} while (listePersonnage[choixPersonnage] == null);
 					listePersonnage[choixPersonnage].setJoueur(PlateauDeJeu.getJoueur(j));
 					System.out.println(PlateauDeJeu.getJoueur(j).getNom() + " a choisi un personnage");
+					listePersonnage[choixPersonnage] = null;
 				} else {
 					for (int i = 0; i < nombrePersonnages; i++) {
 						if (i != randomVisible1 && i != randomVisible2 && i != randomCache
@@ -470,8 +482,7 @@ public class Jeu {
 			}
 		}
 		System.out.println(gagnantNom + " rempore la partie avec " + gagnant + " points !");
-		Interaction.lireOuiOuNon();
-
+		System.out.println("");
 	}
 
 }
