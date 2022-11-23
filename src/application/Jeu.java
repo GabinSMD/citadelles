@@ -1,5 +1,6 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import controleur.Interaction;
@@ -154,8 +155,49 @@ public class Jeu {
 				}
 
 				percevoirRessource(joueurActuel);
+				
+				if(joueurActuel.quartierPresentDansCite("Ecole de magie")) {
+					int nbType=0;
+					for(int j = 0; j < PlateauDeJeu.getJoueur(i).nbQuartiersDansCite(); j++) {
+						String nomQuartier = PlateauDeJeu.getJoueur(i).getCite()[j].getNom();
+						if(nomQuartier=="Ecole de magie") {
+
+							System.out.println("Comment considerez vous l'Ecole de magie ?");
+							for(int k=0; k<nbType-1;k++) {
+								System.out.println(k + " - " + Quartier.TYPE_QUARTIERS[k]);
+							}
+							int choix = Interaction.lireUnEntier(0, nbType);
+							switch(choix) {
+								case 0:
+									PlateauDeJeu.getJoueur(i).getCite()[j].setType(Quartier.TYPE_QUARTIERS[0]);
+									
+								case 1:
+									PlateauDeJeu.getJoueur(i).getCite()[j].setType(Quartier.TYPE_QUARTIERS[1]);
+									
+								case 2:
+									PlateauDeJeu.getJoueur(i).getCite()[j].setType(Quartier.TYPE_QUARTIERS[2]);
+									
+								case 3:
+									PlateauDeJeu.getJoueur(i).getCite()[j].setType(Quartier.TYPE_QUARTIERS[3]);
+							}
+							
+						}
+					}
+				}
 
 				personnageActuel.percevoirRessourcesSpecifiques();
+				
+				if(joueurActuel.quartierPresentDansCite("Forge")) {
+					System.out.println("Vous avez " + joueurActuel.nbPieces() + " pièces dans votre trésorerie.");
+					System.out.println("Voulez vous payez 2 pieces d’or pour piocher 3 cartes ?");
+					System.out.println("Veuillez rentrer \"oui\", \"o\", \"non\" ou \"n\" :");
+					if (Interaction.lireOuiOuNon()) {
+						joueurActuel.retirerPieces(2);
+						for(int l=0; l<3; l++) {
+							joueurActuel.ajouterQuartierDansMain(pioche.piocher());
+						}
+					}
+				}
 
 				System.out.println("Voulez vous utilisez votre pouvoir ? ");
 				System.out.println("Veuillez rentrer \"oui\", \"o\", \"non\" ou \"n\" :");
@@ -210,6 +252,25 @@ public class Jeu {
 					} while (((check != true) && (personnageActuel.getNom() != Caracteristiques.ARCHITECTE))
 							|| nombreQuartiersConstruit == 3);
 
+				}
+				if(joueurActuel.quartierPresentDansCite("Laboratoire")) {
+					int nbCartePossedez = joueurActuel.getMain().size();
+					ArrayList<Quartier>  copieTableau = new ArrayList<Quartier>(joueurActuel.getMain());
+					System.out.println("Quelle carte voulez vous supprimer ?");
+					for (i = 0; i < nbCartePossedez; i++) {
+						System.out.println(i + ". " + copieTableau.get(i).getNom());
+					} 
+					int choice = Interaction.lireUnEntier(0,nbCartePossedez);
+					pioche.ajouter(copieTableau.get(choice));
+					copieTableau.remove(choice);
+					joueurActuel.ajouterPieces(2);
+	
+					for(i=0; i<=joueurActuel.getMain().size(); i++) {
+						joueurActuel.retirerQuartierDansMain();
+					}
+					for(i=0; i<copieTableau.size(); i++) {
+						joueurActuel.ajouterQuartierDansMain(copieTableau.get(i));
+					}
 				}
 			}
 		}
@@ -299,20 +360,28 @@ public class Jeu {
 		if (choixRessource == 1) {
 			joueurActuel.ajouterPieces(2);
 		} else {
-			System.out.println("Quel quartier choississez vous ? ");
-			Quartier choixQuartier1 = pioche.piocher();
-			System.out.println(
-					"1 - Premier quartier : " + choixQuartier1.getNom() + " (coût " + choixQuartier1.getCout() + ")");
-			Quartier choixQuartier2 = pioche.piocher();
-			System.out.println(
-					"2 - Deuxième quartier : " + choixQuartier2.getNom() + " (coût " + choixQuartier2.getCout() + ")");
-			int choixQuartier = Interaction.lireUnEntier(1, 3);
-			if (choixQuartier == 1) {
-				joueurActuel.ajouterQuartierDansMain(choixQuartier1);
-				pioche.ajouter(choixQuartier2);
-			} else {
-				joueurActuel.ajouterQuartierDansMain(choixQuartier2);
-				pioche.ajouter(choixQuartier1);
+			if(joueurActuel.quartierPresentDansCite("Bibliothèque")) {
+				for(int i=0;i<2;i++) {
+					Quartier choixQuartier = pioche.piocher();
+					System.out.println(
+							i+" - " + choixQuartier.getNom() + " (coût " + choixQuartier.getCout() + ")");
+				}
+			}else {
+				System.out.println("Quel quartier choississez vous ? ");
+				Quartier choixQuartier1 = pioche.piocher();
+				System.out.println(
+						"1 - Premier quartier : " + choixQuartier1.getNom() + " (coût " + choixQuartier1.getCout() + ")");
+				Quartier choixQuartier2 = pioche.piocher();
+				System.out.println(
+						"2 - Deuxième quartier : " + choixQuartier2.getNom() + " (coût " + choixQuartier2.getCout() + ")");
+				int choixQuartier = Interaction.lireUnEntier(1, 3);
+				if (choixQuartier == 1) {
+					joueurActuel.ajouterQuartierDansMain(choixQuartier1);
+					pioche.ajouter(choixQuartier2);
+				} else {
+					joueurActuel.ajouterQuartierDansMain(choixQuartier2);
+					pioche.ajouter(choixQuartier1);
+				}
 			}
 		}
 	}
@@ -327,11 +396,18 @@ public class Jeu {
 			String typeQuartier;
 			int[] quartierParType = {0,0,0,0,0};
 			boolean typeDifferent = true;
+			boolean possedeFontaine = false;
 			int pointsCiteTermine = 0;
+			int pointsMerveille = 0;
+			int nbType = Quartier.TYPE_QUARTIERS.length;
 
 			for (int j = 0; j < PlateauDeJeu.getJoueur(i).nbQuartiersDansCite(); j++) {
 				pointsCoutConstruction += PlateauDeJeu.getJoueur(i).getCite()[j].getCout();
 				typeQuartier = PlateauDeJeu.getJoueur(i).getCite()[j].getType();
+				if(PlateauDeJeu.getJoueur(i).getCite()[j].getNom()=="Ecole de magie") {
+					quartierParType[4] +=1;
+				}
+				
 				if (typeQuartier == "RELIGIEUX") {
 					quartierParType[0] += 1;
 				} else if (typeQuartier == "MILITAIRE") {
@@ -341,6 +417,27 @@ public class Jeu {
 				} else if (typeQuartier == "COMMERCANT") {
 					quartierParType[3] += 1;
 				} else if (typeQuartier == "MERVEILLE") {
+					if(PlateauDeJeu.getJoueur(i).getCite()[j].getNom()== "Cours des miracles") {
+						System.out.println("Comment considerez vous la Cours des miracles ?");
+						for(int k=0; k<nbType-1;k++) {
+							System.out.println(k + " - " + Quartier.TYPE_QUARTIERS[k]);
+						}
+						int choix = Interaction.lireUnEntier(0, nbType);
+						switch(choix) {
+							case 0:
+								quartierParType[0] += 1;
+							case 1:
+								quartierParType[1] += 1;
+							case 2:
+								quartierParType[2] += 1;
+							case 3:
+								quartierParType[3] += 1;
+						}
+					}
+
+					if(PlateauDeJeu.getJoueur(i).getCite()[j].getNom()=="Fontaine aux souhaits") {
+						possedeFontaine = true;
+					}
 					quartierParType[4] += 1;
 				}
 			}
@@ -363,8 +460,14 @@ public class Jeu {
 				}
 				
 			}
+			if(PlateauDeJeu.getJoueur(i).quartierPresentDansCite("Dracoport")) {
+				pointsMerveille+=2;
+			}
+			if(possedeFontaine) {
+				pointsMerveille+=quartierParType[4];
+			}
 			
-			int nombrePoints = pointsCoutConstruction + pointsNombreType + pointsCiteTermine;
+			int nombrePoints = pointsCoutConstruction + pointsNombreType + pointsCiteTermine+pointsMerveille;
 			System.out.println(PlateauDeJeu.getJoueur(i).getNom() + " à obtenu " + nombrePoints + " points !");
 			
 			if (gagnant<nombrePoints) {
