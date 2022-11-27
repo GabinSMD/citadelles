@@ -86,11 +86,12 @@ public class Personnage {
 			
 			
 	}
+	
 	public void ajouterQuartier(Quartier nouveau) {
 		if (this.joueur==null){
-			System.out.println("Joueur nécessaire pour créer un quartier");
+			System.out.println("Joueur nécessaire pour ajouter un quartier");
 		}else if (this.assassine==true){
-			System.out.println("Impossible de créer un quartier si le personnage est mort");
+			System.out.println("Impossible d'ajouter un quartier si le personnage est assissiné");
 		} else {
 			this.joueur.ajouterQuartierDansMain(nouveau);
 		}
@@ -99,7 +100,7 @@ public class Personnage {
 		if (this.joueur==null){
 			System.out.println("Joueur nécessaire pour construire un quartier");
 		}else if (this.assassine==true){
-			System.out.println("Impossible de construire un quartier si le personnage est mort");
+			System.out.println("Impossible de construire un quartier si le personnage est assissiné");
 		} else {
 			this.joueur.ajouterQuartierDansCite(nouveau);
 		}
