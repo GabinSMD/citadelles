@@ -21,7 +21,7 @@ public class Personnage {
 
 
 	public Joueur getJoueur() {
-		return joueur;
+		return this.joueur;
 	}
 
 
@@ -32,7 +32,7 @@ public class Personnage {
 
 
 	public Boolean getAssassine() {
-		return assassine;
+		return this.assassine;
 	}
 
 
@@ -42,7 +42,7 @@ public class Personnage {
 
 
 	public Boolean getVole() {
-		return vole;
+		return this.vole;
 	}
 
 
@@ -52,21 +52,21 @@ public class Personnage {
 
 
 	public String getNom() {
-		return nom;
+		return this.nom;
 	}
 
 
 	public int getRang() {
-		return rang;
+		return this.rang;
 	}
 
 
 	public String getCaracteristiques() {
-		return caracteristiques;
+		return this.caracteristiques;
 	}
 
 	public PlateauDeJeu getPlateau() {
-		return plateau;
+		return this.plateau;
 	}
 
 
