@@ -64,6 +64,7 @@ public class TestVoleur {
 		
 		// tests:
 		Test.test(roi.getVole(),"le roi est bien volé ");
+		Test.test(!voleur.getVole(),"le voleur n'est pas volé ");
 		Test.test(roi.getJoueur().nbPieces()==0, "le trésor du roi est vide");
 		Test.test(voleur.getJoueur().nbPieces()==2, "le trésor du voleur contient deux pièces");
 	}
