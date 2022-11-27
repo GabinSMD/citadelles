@@ -19,8 +19,8 @@ public class Voleur extends Personnage {
 		//Affichage de la liste des personnages selectionnables
 		for(int i=0; i<9; i++) {
 			if(this.getPlateau().getPersonnage(i)!= null) {
-				selection[max]=this.getPlateau().getPersonnage(i);
-				System.out.println(max+1+"."+ selection[max].getNom());
+				selection[i]=this.getPlateau().getPersonnage(i);
+				System.out.println(i+1+"."+ selection[i].getNom());
 				max++;
 			}
 		}
@@ -48,7 +48,7 @@ public class Voleur extends Personnage {
 		//Affichage de la liste des personnages selectionnables
 		for(int i=0; i<9; i++) {
 			if(this.getPlateau().getPersonnage(i)!= null) {
-				selection[max]=this.getPlateau().getPersonnage(i);
+				selection[i]=this.getPlateau().getPersonnage(i);
 				max++;
 			}
 		}
