@@ -4,6 +4,9 @@ import java.util.Random;
 import controleur.Interaction;
 
 public class Assassin extends Personnage {
+	int max = 0;
+	int choix=0;
+	Personnage[] selection = new Personnage[9];
 
 	public Assassin() {
 		super("Assassin", 1, Caracteristiques.ASSASSIN);
@@ -12,38 +15,48 @@ public class Assassin extends Personnage {
 
 	public void utiliserPouvoir() {
 		System.out.println("Quel personnage voulez-vous assassiner ?");
-		int max = 0;
-		Personnage[] selection = new Personnage[9];
+		
+		//Affichage de la liste des personnages selectionnables
 		for(int i=0; i<9; i++) {
-			if(this.getPlateau().getPersonnage(i)!= null && this.getPlateau(). getPersonnage(i).getNom() != this.getNom()) {
+			if(this.getPlateau().getPersonnage(i)!= null) {
 				selection[max]=this.getPlateau().getPersonnage(i);
-				System.out.println(max+"."+ selection[max].getNom());
+				System.out.println(max+1+"."+ selection[max].getNom());
 				max++;
 			}
 		}
-		System.out.println("Votre choix :");
-		int choix =Interaction.lireUnEntier(0,max);
-		selection[choix].setAssassine();
+		//Choix du personnage que l'on souhaite assassiner
+		//NB: L'assassin ne pourra pas être assassiné, le joueur en sera avertis et devra choisir une nouvelle cible
+		System.out.println("Choix de la cible :");
+		do {
+			choix =Interaction.lireUnEntier(1,max+1);
+			if(selection[choix-1].getNom()=="Assassin") {
+				System.out.println("L'assassin ne peut pas être selectionné");
+			}
+		}while(selection[choix-1].getNom()=="Assassin");
+		//Assassinat de la cible choisie
+		selection[choix-1].setAssassine();
+		System.out.println("Le/La "+selection[choix-1].getNom()+" a été assassiné.e");
 		return;
 	}
 	
 	public void utiliserPouvoirAvatar() {
-		int max = 0;
 		Random r = new Random();
-		Personnage[] selection = new Personnage[9];
+		//Affichage de la liste des personnages selectionnables 
 		for(int i=0; i<9; i++) {
-			if(this.getPlateau().getPersonnage(i)!= null && this.getPlateau().getPersonnage(i).getNom() != this.getNom()) {
+			if(this.getPlateau().getPersonnage(i)!= null ) {
 				selection[max]=this.getPlateau().getPersonnage(i);
 				max++;
 			}
 		}
-		/* test contenu tableau de selection
-		 * for(int i=0; i<max; i++) {
-			if(selection[0]!=null) {
-				System.out.println("selection index: "+i+" "+selection[i]);
+		//Choix du personnage à assassiner par l'avatar
+		//NB: L'assassin ne pourra pas être assassiné, le choix s'effectuera jusqu'à ce qu'un autre personnage soit sélectionné
+		do {
+			choix =r.nextInt(max);
+			if(selection[choix].getNom()=="Assassin") {
+				System.out.println("L'assassin ne peut pas être selectionné");
 			}
-		}*/
-		int choix =r.nextInt(max);
+		}while(selection[choix].getNom()=="Assassin");
+		//Assassinat de la cible choisie
 		selection[choix].setAssassine();
 		System.out.println("Le/La "+selection[choix].getNom()+" a été assassiné.e");
 		return;
