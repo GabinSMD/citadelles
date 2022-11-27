@@ -17,50 +17,65 @@ public class TestAssassin {
 	
 	public void test1() {
 		System.out.println("TEST DU CONSTRUCTEUR");
-		PlateauDeJeu plateau = new PlateauDeJeu();
+		
+		//Initialisation des personnages et du Plateau de Jeu
 		Roi roi = new Roi();
-		plateau.ajouterPersonnage(roi);
 		Assassin assassin = new Assassin();
+		PlateauDeJeu plateau = new PlateauDeJeu();
+		
+		//Ajout des personnages au Plateau de Jeu
+		plateau.ajouterPersonnage(roi);
 		plateau.ajouterPersonnage(assassin);
+		
+		//Tests
 		Test.test(plateau.getNombrePersonnages()== 2,"nombre de joueurs");
-		Test.test(plateau.getPersonnage(1)==assassin,
-				"r�cup�ration du personnage de l'assassin");
-		Test.test(plateau.getPersonnage(1).getRang()==1,
-				"r�cup�ration du rang");		
+		Test.test(plateau.getPersonnage(1)==assassin,"récupération du personnage de l'assassin");
+		Test.test(plateau.getPersonnage(1).getRang()==1,"récupération du rang");		
 	}
 	public void test2() {
 		System.out.println("TEST DE L'ASSASSINAT DU ROI");
-		PlateauDeJeu plateau = new PlateauDeJeu();
+		
+		//Initialisation des personnages et du Plateau de Jeu
 		Roi roi = new Roi();
-		plateau.ajouterPersonnage(roi);
 		Assassin assassin = new Assassin();
-		plateau.ajouterPersonnage(assassin);
 		Condottiere condottiere = new Condottiere();
-		plateau.ajouterPersonnage(condottiere);
+		PlateauDeJeu plateau = new PlateauDeJeu();
+		
+		//Ajout des personnages au Plateau de Jeu
+		plateau.ajouterPersonnage(roi);
+		plateau.ajouterPersonnage(assassin);
 		
 		// on utilise le pouvoir de l'assassin
 		// NB: seul le roi peut �tre assassin� dans cette situation
 		assassin.utiliserPouvoir();
-		Test.test(roi.getAssassine()||condottiere.getAssassine(),"condotiere:"+condottiere.getAssassine()+ " roi:"+roi.getAssassine());
+		
+		//Test
+		Test.test(roi.getAssassine(), " roi:"+roi.getAssassine());
 	}
 	public void test3() {
-		System.out.println("TEST DE L'ASSASSINAT ALEATOIRE");
+		System.out.println("TEST DE L'ASSASSINAT (AVATAR)");
+		
+		//Initialisation des personnages et du Plateau de Jeu
 		PlateauDeJeu plateau = new PlateauDeJeu();
 		Roi roi = new Roi();
-		plateau.ajouterPersonnage(roi);
 		Assassin assassin = new Assassin();
-		plateau.ajouterPersonnage(assassin);
 		Condottiere condottiere = new Condottiere();
-		plateau.ajouterPersonnage(condottiere);
 		Eveque eveque = new Eveque();
-		plateau.ajouterPersonnage(eveque);
 		Marchande marchande = new Marchande();
+		
+		//Ajout des personnages au Plateau de Jeu
+		plateau.ajouterPersonnage(roi);
+		plateau.ajouterPersonnage(assassin);
+		plateau.ajouterPersonnage(condottiere);
+		plateau.ajouterPersonnage(eveque);
 		plateau.ajouterPersonnage(marchande);
 		
-		// on utilise le pouvoir de l'assassin aléatoire
-		// NB: seul le roi peut �tre assassin� dans cette situation
+		// on utilise le pouvoir de l'assassin aléatoirement
+		// NB: N'importe quel personnage peut être assassiné hormis l'assassin
 		assassin.utiliserPouvoirAvatar();
-		Test.test(roi.getAssassine() || marchande.getAssassine() || eveque.getAssassine() || condottiere.getAssassine(),"roi:"+roi.getAssassine()+" marchande:"+marchande.getAssassine()+" condottiere:"+condottiere.getAssassine()+" eveque:"+eveque.getAssassine());
+		
+		//Test
+		Test.test(roi.getAssassine() || marchande.getAssassine() || eveque.getAssassine() || condottiere.getAssassine() && !assassin.getAssassine(),"Un personnage est mort mais pas l'assassin ");
 		
 	}
 }
