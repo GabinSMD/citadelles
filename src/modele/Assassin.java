@@ -4,8 +4,8 @@ import java.util.Random;
 import controleur.Interaction;
 
 public class Assassin extends Personnage {
-	int max = 0;
-	int choix=0;
+	private int max = 0;
+	private int choix=0;
 	Personnage[] selection = new Personnage[9];
 
 	public Assassin() {
@@ -19,8 +19,8 @@ public class Assassin extends Personnage {
 		//Affichage de la liste des personnages selectionnables
 		for(int i=0; i<9; i++) {
 			if(this.getPlateau().getPersonnage(i)!= null) {
-				selection[max]=this.getPlateau().getPersonnage(i);
-				System.out.println(max+1+"."+ selection[max].getNom());
+				selection[i]=this.getPlateau().getPersonnage(i);
+				System.out.println(i+1+"."+ selection[i].getNom());
 				max++;
 			}
 		}
@@ -41,10 +41,10 @@ public class Assassin extends Personnage {
 	
 	public void utiliserPouvoirAvatar() {
 		Random r = new Random();
-		//Affichage de la liste des personnages selectionnables 
+		//Rempli la liste des personnages selectionnables 
 		for(int i=0; i<9; i++) {
 			if(this.getPlateau().getPersonnage(i)!= null ) {
-				selection[max]=this.getPlateau().getPersonnage(i);
+				selection[i]=this.getPlateau().getPersonnage(i);
 				max++;
 			}
 		}
