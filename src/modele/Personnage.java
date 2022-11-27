@@ -21,7 +21,7 @@ public class Personnage {
 
 
 	public Joueur getJoueur() {
-		return joueur;
+		return this.joueur;
 	}
 
 
@@ -32,7 +32,7 @@ public class Personnage {
 
 
 	public Boolean getAssassine() {
-		return assassine;
+		return this.assassine;
 	}
 
 
@@ -42,7 +42,7 @@ public class Personnage {
 
 
 	public Boolean getVole() {
-		return vole;
+		return this.vole;
 	}
 
 
@@ -52,21 +52,21 @@ public class Personnage {
 
 
 	public String getNom() {
-		return nom;
+		return this.nom;
 	}
 
 
 	public int getRang() {
-		return rang;
+		return this.rang;
 	}
 
 
 	public String getCaracteristiques() {
-		return caracteristiques;
+		return this.caracteristiques;
 	}
 
 	public PlateauDeJeu getPlateau() {
-		return plateau;
+		return this.plateau;
 	}
 
 
@@ -86,11 +86,12 @@ public class Personnage {
 			
 			
 	}
+	
 	public void ajouterQuartier(Quartier nouveau) {
 		if (this.joueur==null){
-			System.out.println("Joueur nécessaire pour créer un quartier");
+			System.out.println("Joueur nécessaire pour ajouter un quartier");
 		}else if (this.assassine==true){
-			System.out.println("Impossible de créer un quartier si le personnage est mort");
+			System.out.println("Impossible d'ajouter un quartier si le personnage est assissiné");
 		} else {
 			this.joueur.ajouterQuartierDansMain(nouveau);
 		}
@@ -99,7 +100,7 @@ public class Personnage {
 		if (this.joueur==null){
 			System.out.println("Joueur nécessaire pour construire un quartier");
 		}else if (this.assassine==true){
-			System.out.println("Impossible de construire un quartier si le personnage est mort");
+			System.out.println("Impossible de construire un quartier si le personnage est assissiné");
 		} else {
 			this.joueur.ajouterQuartierDansCite(nouveau);
 		}
