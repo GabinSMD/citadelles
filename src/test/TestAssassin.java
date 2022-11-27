@@ -51,6 +51,7 @@ public class TestAssassin {
 		
 		//Test
 		Test.test(roi.getAssassine(), " roi:"+roi.getAssassine());
+		Test.test(!assassin.getAssassine(), " assassin:"+assassin.getAssassine());
 	}
 	public void test3() {
 		System.out.println("TEST DE L'ASSASSINAT (AVATAR)");
@@ -75,7 +76,7 @@ public class TestAssassin {
 		assassin.utiliserPouvoirAvatar();
 		
 		//Test
-		Test.test(roi.getAssassine() || marchande.getAssassine() || eveque.getAssassine() || condottiere.getAssassine() && !assassin.getAssassine(),"Un personnage est mort mais pas l'assassin ");
-		
+		Test.test(roi.getAssassine() || marchande.getAssassine() || eveque.getAssassine() || condottiere.getAssassine(),"Un personnage est mort ");
+		Test.test(!assassin.getAssassine(),"L'assassin n'est pas mort ");
 	}
 }
