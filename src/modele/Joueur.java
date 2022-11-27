@@ -13,6 +13,7 @@ public class Joueur {
 	private int nbQuartiers;
 	private ArrayList<Quartier> main;
 	private boolean possedeCouronne;
+	private boolean avatar;
 	protected Personnage monPersonnage;
 
 	public Joueur(String name) {
@@ -20,9 +21,18 @@ public class Joueur {
 		this.tresor = 0;
 		this.nbQuartiers = 0;
 		this.possedeCouronne = false;
+		this.avatar = false;
 		this.cite = new Quartier[8];
 		this.main = new ArrayList<Quartier>();
 		this.monPersonnage = null;
+	}
+	
+	public Boolean getAvatar() {
+		return this.avatar;
+	}
+	
+	public void setAvatar(Boolean beAvatar) {
+		this.avatar = beAvatar;
 	}
 
 	public Personnage getPersonnage() {
@@ -122,6 +132,7 @@ public class Joueur {
 		}
 		return null;
 	}
+	
 
 	public void ajouterQuartierDansMain(Quartier quartier) {
 		this.main.add(quartier);
