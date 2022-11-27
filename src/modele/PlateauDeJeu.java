@@ -16,41 +16,38 @@ public class PlateauDeJeu {
 	}
 
 	public Pioche getPioche() {
-		return pioche;
+		return this.pioche;
 	}
 
 	public int getNombrePersonnages() {
 		for (int i = 0; i < this.listePersonnage.length; i++) {
 			if (this.listePersonnage[i] != null) {
-				nombrePersonnages++;
+				this.nombrePersonnages++;
 			}
 		}
-		return nombrePersonnages;
+		return this.nombrePersonnages;
 	}
 
 	public int getNombreJoueurs() {
 		for (int i = 0; i < this.listeJoueurs.length; i++) {
 			if (this.listeJoueurs[i] != null) {
-				nombreJoueurs++;
+				this.nombreJoueurs++;
 			}
 		}
-		return nombreJoueurs;
+		return this.nombreJoueurs;
 	}
 	public Personnage getPersonnage(int i) {
-		int index=listePersonnage.length-1;
-		if(i<0 || i >index) {
+		if(i<0 || i >this.listePersonnage.length-1) {
 			return null;
-			
 		}else {
-			return listePersonnage[i];
+			return this.listePersonnage[i];
 		}
 	}
 	public Joueur getJoueur(int i) {
-		int index=listeJoueurs.length-1;
-		if(i<0 || i >index) {
+		if(i<0 || i >this.listeJoueurs.length-1) {
 			return null;
 		}else {
-			return listeJoueurs[i];
+			return this.listeJoueurs[i];
 		}
 	}
 	public void ajouterPersonnage(Personnage nouveau) {
