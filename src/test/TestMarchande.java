@@ -35,7 +35,7 @@ public class TestMarchande {
 		Quartier quartier2 = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2);
 		Quartier quartier3 = new Quartier("échoppe",Quartier.TYPE_QUARTIERS[3],2);
 		marchande.setJoueur(joueur);
-		Test.test(marchande.getJoueur().nbPieces() == 0, "test du nombre de piéces d'or avant perception des ressources spécifiques");
+		Test.test(marchande.getJoueur().nbPieces() == 0, "test du nombre de pièces d'or avant perception des ressources spécifiques");
 		marchande.construire(quartier1);
 		marchande.construire(quartier2);
 		marchande.construire(quartier3);		
@@ -59,7 +59,7 @@ public class TestMarchande {
 		Joueur joueur = new Joueur("Billy");
 		Marchande marchande = new Marchande();
 		marchande.setJoueur(joueur);
-		Test.test(marchande.getJoueur().nbPieces() == 0, "test du nombre de piéces d'or avant l'utilisation du pouvoir");
+		Test.test(marchande.getJoueur().nbPieces() == 0, "test du nombre de pièces d'or avant l'utilisation du pouvoir");
 		marchande.utiliserPouvoirAvatar();
 		Test.test(marchande.getJoueur().nbPieces() == 1, "test du nombre de pièces d'or après l'utilisation du pouvoir");
 			
