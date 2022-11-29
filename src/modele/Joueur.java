@@ -1,9 +1,6 @@
 package modele;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 public class Joueur {
@@ -21,18 +18,19 @@ public class Joueur {
 		this.tresor = 0;
 		this.nbQuartiers = 0;
 		this.possedeCouronne = false;
-		this.avatar = false;
 		this.cite = new Quartier[8];
 		this.main = new ArrayList<Quartier>();
 		this.monPersonnage = null;
+		this.avatar=false;
+		
 	}
 	
-	public Boolean getAvatar() {
+	public boolean getAvatar() {
 		return this.avatar;
 	}
 	
-	public void setAvatar(Boolean beAvatar) {
-		this.avatar = beAvatar;
+	public void setAvatar(Boolean a) {
+		this.avatar = a;
 	}
 
 	public Personnage getPersonnage() {
@@ -48,14 +46,13 @@ public class Joueur {
 	}
 
 	public int nbQuartiersDansCite() {
-		int count = 0;
-		for (int i = 0; i < this.cite.length; i++) {
-			if (this.cite[i] != null) {
-				count++;
+		this.nbQuartiers=0;
+		for (Quartier q: this.cite) {
+			if (q != null) {
+				this.nbQuartiers++;
 			}
-			nbQuartiers = count;
 		}
-		return count;
+		return this.nbQuartiers;
 	}
 
 	public Quartier[] getCite() {
@@ -74,46 +71,47 @@ public class Joueur {
 		return this.possedeCouronne;
 	}
 
-	public void setPossedeCouronne(boolean possedeCouronne) {
-		this.possedeCouronne = possedeCouronne;
+	public void setPossedeCouronne(boolean b) {
+		this.possedeCouronne = b;
 	}
 
 	public int ajouterPieces(int nbPieces) {
 		if (nbPieces >= 0) {
 			this.tresor += nbPieces;
+		}else {
+			System.out.println("Le nombre de pièce doit être positif");
 		}
 		return this.tresor;
 	}
 
 	public int retirerPieces(int nbPieces) {
-		if (nbPieces >= 0) {
-			if (nbPieces <= this.tresor) {
+		if (nbPieces >= 0 && nbPieces <= this.tresor) {
 				this.tresor -= nbPieces;
-			} else if (this.tresor - nbPieces < 0) {
-				return this.tresor;
-			}
+		}else {
+			System.out.println("Impossible de retirer " + nbPieces + "pièces");
 		}
 		return this.tresor;
 	}
 
 	public Quartier[] ajouterQuartierDansCite(Quartier quartier) {
-		for (int i = 0; i < this.cite.length; i++) {
-			if (this.cite[i] == null) {
-				this.cite[i] = quartier;
-				break;
+		if(quartier!=null) {
+			for (int i = 0; i < this.cite.length; i++) {
+				if (this.cite[i] == null) {
+					this.cite[i] = quartier;
+					break;
+				}else {
+					System.out.println("Impossible d'ajouter le quartier (La liste est pleine)");
+				}
 			}
 		}
 		return this.cite;
 	}
 
 	public boolean quartierPresentDansCite(String nom) {
-		for (int i = 0; i < this.cite.length; i++) {
-			if (this.cite[i] != null) {
-				if (this.cite[i].getNom() == nom) {
-					return true;
-				}
+		for (Quartier q: this.cite) {
+			if (q != null && q.getNom()== nom) {
+				return true;
 			}
-
 		}
 		return false;
 	}
@@ -127,12 +125,12 @@ public class Joueur {
 					this.cite[j] = this.cite[j + 1];
 				}
 				return removeQuartier;
-
+			}else {
+				System.out.println("Impossible de retirer le/la "+nom);
 			}
 		}
 		return null;
 	}
-	
 
 	public void ajouterQuartierDansMain(Quartier quartier) {
 		this.main.add(quartier);
@@ -142,13 +140,13 @@ public class Joueur {
 		Quartier removeQuartier;
 		Random generateur = new Random();
 		int numeroHasard = generateur.nextInt(this.nbQuartiersDansMain());
-		if (this.main == null) {
-			return null;
-		} else {
+		if (this.main != null) {
 			removeQuartier = this.main.get(numeroHasard);
 			this.main.remove(numeroHasard);
 			return removeQuartier;
-
+		} else {
+			System.out.println("Impossible de retirer le quartier de la main");
+			return null;
 		}
 	}
 
