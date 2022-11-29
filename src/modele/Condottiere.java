@@ -52,7 +52,7 @@ public class Condottiere extends Personnage {
 						}else if((this.getPlateau().getJoueur(choixJoueur-1).getCite()[choixQuartier-1].getCout() - 1) > this.getJoueur().nbPieces()) {
 							System.out.println("Pas assez d'argent pour détruire ce quartier");
 						}
-					}while(this.getPlateau().getJoueur(choixJoueur-1).getCite()[choixQuartier-1] == null); //tourne tant que le quartier n'est pas achetable
+					}while(this.getPlateau().getJoueur(choixJoueur-1).getCite()[choixQuartier-1] == null || (this.getPlateau().getJoueur(choixJoueur-1).getCite()[choixQuartier-1].getCout() - 1) > this.getJoueur().nbPieces()); //tourne tant que le quartier n'est pas achetable
 					if(choixQuartier==0) {//porte de sortie au cas ou il sort avant d'avoir choisie un quartier
 						System.out.println("Vous n'utilisez pas votre pouvoir de destruction");
 						break;
