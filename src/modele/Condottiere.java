@@ -41,7 +41,7 @@ public class Condottiere extends Personnage {
 				if(choixJoueur==0) {
 					System.out.println("Vous n'utilisez pas votre pouvoir de destruction");
 					break;
-				}else if(this.getPlateau().getJoueur(choixJoueur-1).getPersonnage().getNom() == "Eveque" && this.getPlateau().getJoueur(choixJoueur).getPersonnage().getAssassine()==false){
+				}else if(this.getPlateau().getJoueur(choixJoueur-1).getPersonnage().getNom() == "Eveque" && this.getPlateau().getJoueur(choixJoueur-1).getPersonnage().getAssassine()==false){
 					System.out.println("L'évêque est vivant c'est impossible");
 				}else {
 					do {
@@ -62,7 +62,9 @@ public class Condottiere extends Personnage {
 					this.getPlateau().getJoueur(choixJoueur-1).retirerQuartierDansCite(nomQuartier);
 					System.out.println(this.getPlateau().getJoueur(choixJoueur-1).getNom()+" votre quartier : " + nomQuartier + " à  été détruit par le Condottiere");
 				}
-			}while(this.getPlateau().getJoueur(choixJoueur-1).retirerQuartierDansCite(nomQuartier) != null);
+				
+				
+			}while(this.getPlateau().getJoueur(choixJoueur-1).retirerQuartierDansCite(nomQuartier) != null || this.getPlateau().getJoueur(choixJoueur-1).getPersonnage().getNom() == "Eveque" && this.getPlateau().getJoueur(choixJoueur-1).getPersonnage().getAssassine()==false);
 			
 				}else {System.out.println("Vous n'utilisez pas votre pouvoir de destruction");}
 			}
