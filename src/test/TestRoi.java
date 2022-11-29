@@ -19,6 +19,7 @@ public class TestRoi {
 		testRoi.test8();
 		testRoi.test9();
 		testRoi.test10();
+		testRoi.test11();
 	}
 	
 	public void test1(){
@@ -27,7 +28,7 @@ public class TestRoi {
 		Test.test(roi.getNom().equals("Roi"),"test du nom du personnage Roi");
 		Test.test(roi.getRang()== 4,"test du rang du personnage Roi");
 		Test.test(roi.getCaracteristiques().equals(Caracteristiques.ROI),
-				"test des caract�ristiques du personnage Roi");
+				"test des caractéristiques du personnage Roi");
 		Test.test(roi.getJoueur()==null, "test de l'initialisation de la variable \"joueur\"");
 		Test.test(roi.getAssassine()==false, "test de l'initialisation de la variable \"assassine\"");
 		Test.test(roi.getVole()==false, "test de l'initialisation de la variable \"vole\"");
@@ -38,7 +39,7 @@ public class TestRoi {
 		Roi roi = new Roi();
 		roi.setJoueur(joueur);
 		Test.test(roi.getJoueur() == joueur,"test de l'attribution de la variable \"joueur\"");
-		Test.test(roi.getJoueur().getNom().equals("Billy"),"test du nom de joueur attribu�");
+		Test.test(roi.getJoueur().getNom().equals("Billy"),"test du nom de joueur attribué");
 	}
 	public void test3(){
 		System.out.println("TEST DE L'ASSASSINAT DU PERSONNAGE");
@@ -57,10 +58,10 @@ public class TestRoi {
 		Joueur joueur = new Joueur("Billy");
 		Roi roi = new Roi();
 		roi.ajouterPieces();
-		Test.test(roi.getJoueur() == null,"test alors que le joueur n'est pas attribu�");
+		Test.test(roi.getJoueur() == null,"test alors que le joueur n'est pas attribué");
 		roi.setJoueur(joueur);
 		roi.ajouterPieces();
-		Test.test(roi.getJoueur().nbPieces() == 2,"v�&rification du nombre de pi�ces d'or");
+		Test.test(roi.getJoueur().nbPieces() == 2,"vérification du nombre de pièces d'or");
 	}
 	public void test6(){
 		System.out.println("TEST DE L'AJOUT DE QUARTIER DANS LA MAIN DU JOUEUR");
@@ -70,12 +71,12 @@ public class TestRoi {
 		Joueur joueur = new Joueur("Billy");
 		Roi roi = new Roi();
 		roi.ajouterQuartier(quartier1);
-		Test.test(roi.getJoueur() == null,"test alors que le joueur n'est pas attribu�");
+		Test.test(roi.getJoueur() == null,"test alors que le joueur n'est pas attribué");
 		roi.setJoueur(joueur);
 		roi.ajouterQuartier(quartier1);
 		roi.ajouterQuartier(quartier2);
 		roi.ajouterQuartier(quartier3);
-		Test.test(roi.getJoueur().nbQuartiersDansMain() == 3,"test du nombre de quartiers apr�s ajout");
+		Test.test(roi.getJoueur().nbQuartiersDansMain() == 3,"test du nombre de quartiers après ajout");
 	}
 	public void test7(){
 		System.out.println("TEST DE LA CONSTRUCTION D'UN QUARTIER DANS LA CITE DU JOUEUR");
@@ -86,15 +87,15 @@ public class TestRoi {
 		Roi roi = new Roi();
 		roi.construire(quartier1);
 		Test.test(roi.getJoueur() == null,
-				"test alors que le joueur n'est pas attribu�");
+				"test alors que le joueur n'est pas attribué");
 		roi.setJoueur(joueur);
 		roi.construire(quartier1);
 		roi.construire(quartier2);
 		roi.construire(quartier3);
 		Test.test(roi.getJoueur().nbQuartiersDansCite() == 3,
-				"test du nombre de quartiers apr�s construction");
+				"test du nombre de quartiers aprés construction");
 		Test.test(roi.getJoueur().quartierPresentDansCite("prison"),
-				"test de la pr�sence de la prison dans la cit�");
+				"test de la présence de la prison dans la cité");
 	}
 	public void test8(){
 		System.out.println("TEST DE LA PERCEPTION DE RESSOURCES SPECIFIQUES");
@@ -104,12 +105,11 @@ public class TestRoi {
 		Quartier quartier2 = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2);
 		Quartier quartier3 = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5);
 		roi.percevoirRessourcesSpecifiques();
-		Test.test(roi.getJoueur() == null,
-			"test alors que le joueur n'est pas attribu�");
+		Test.test(roi.getJoueur() == null,	"test alors que le joueur n'est pas attribué");
 		roi.setJoueur(joueur);
 		roi.ajouterPieces();
 		Test.test(roi.getJoueur().nbPieces() == 2,
-			"test du nombre de pi�ces d'or avant perception");
+			"test du nombre de pièces d'or avant perception");
 		roi.percevoirRessourcesSpecifiques();
 		Test.test(roi.getJoueur().nbPieces() == 2,
 			"test alors qu'il n'y a pas de quartiers nobles");
@@ -118,19 +118,18 @@ public class TestRoi {
 		roi.construire(quartier3);		
 		roi.percevoirRessourcesSpecifiques();
 		Test.test(roi.getJoueur().nbPieces() == 3,
-			"test du nombre de pi�ces d'or apr�s perception de ressources sp�cifiques avec 1 quartier noble");
+			"test du nombre de pièces d'or après perception de ressources spécifiques avec 1 quartier noble");
 	}
 	public void test9(){
 		System.out.println("TEST DE L'UTILISATION DU POUVOIR DU ROI");
 		Joueur joueur = new Joueur("Billy");
 		Roi roi = new Roi();
 		roi.utiliserPouvoir();
-		Test.test(roi.getJoueur() == null,
-				"test alors que le joueur n'est pas attribu�");
+		Test.test(roi.getJoueur() == null,	"test alors que le joueur n'est pas attribué");
 		roi.setJoueur(joueur);
 		Test.test(roi.getJoueur().getPossedeCouronne() == false, "test avant utilisation");
 		roi.utiliserPouvoir();
-		Test.test(roi.getJoueur().getPossedeCouronne() == true, "test apr�s utilisation");
+		Test.test(roi.getJoueur().getPossedeCouronne() == true, "test après utilisation");
 	}
 	public void test10(){
 		System.out.println("TEST DE LA REINITIALISATION");
@@ -140,8 +139,20 @@ public class TestRoi {
 		roi.setAssassine();
 		roi.setVole();
 		roi.reinitialiser();
-		Test.test(roi.getJoueur() == null, "test du joueur non attribu�");
+		Test.test(roi.getJoueur() == null, "test du joueur non attribué");
 		Test.test(roi.getAssassine() == false, "test de l'assassinat du personnage");
 		Test.test(roi.getVole() == false, "test du vol du personnage");
+	}
+	
+	public void test11(){
+		System.out.println("TEST DE L'UTILISATION DU POUVOIR DU ROI (AVATAR)");
+		Joueur joueur = new Joueur("Billy");
+		Roi roi = new Roi();
+		roi.utiliserPouvoirAvatar();
+		Test.test(roi.getJoueur() == null,	"test alors que le joueur n'est pas attribué");
+		roi.setJoueur(joueur);
+		Test.test(roi.getJoueur().getPossedeCouronne() == false, "test avant utilisation");
+		roi.utiliserPouvoirAvatar();
+		Test.test(roi.getJoueur().getPossedeCouronne() == true, "test après utilisation");
 	}
 }
