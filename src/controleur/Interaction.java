@@ -5,31 +5,31 @@ import java.util.Scanner;
 
 public class Interaction {
 	private static Scanner sc = new Scanner(System.in);
-
+	
 	public static int lireUnEntier() {
 		int i = 0;
 		boolean continu = true;
 		do {
 			try {
+				System.out.print("Veuillez entrer un chiffre : \n");
 				i = sc.nextInt();
 				continu = false;
 			} catch (InputMismatchException e) {
-				System.out.print("Veuillez rentrer un chiffre : ");
 				sc.next(); // passe l'entier pour �viter de boucler
 			}
 		} while(continu);
 		return i;
 	}
-
+	
 	// renvoie un entier lu au clavier compris dans l'intervalle
 	//     [borneMin, borneMax[
 	public static int lireUnEntier(int borneMin, int borneMax) {
 		int i = 0;
 		do {
 			try {
+				System.out.print("Veuillez entrer un chiffre dans l'intervalle ["+borneMin+","+borneMax+"[: \n");
 				i = sc.nextInt();
 			} catch (InputMismatchException e) {
-				System.out.print("Veuillez rentrer un chiffre dans l'intervalle ["+borneMin+","+borneMax+"[: ");
 				sc.next(); // passe l'entier pour �viter de boucler
 			}
 		} while(i < borneMin || i >= borneMax);
@@ -43,6 +43,7 @@ public class Interaction {
 		String val="";
 		do {
 			try {
+				System.out.print("Veuillez entrer \"oui\", \"o\", \"non\" ou \"n\" : ");
 				val = sc.nextLine();
 				switch(val)
 			    {
@@ -64,7 +65,6 @@ public class Interaction {
 			            break;
 			    }
 			} catch (InputMismatchException e) {
-				System.out.print("Veuillez rentrer \"oui\", \"o\", \"non\" ou \"n\" : ");
 				sc.next(); // passe l'entier pour �viter de boucler
 			}
 		} while(!check);
@@ -73,16 +73,9 @@ public class Interaction {
 
 	// renvoie une cha�ne de caract�re lue au clavier:
 	public static String lireUneChaine() {
+		System.out.print("Veuillez entrer un mot :");
 		String retour = "";
-		try {
-			retour = sc.nextLine();
-		} catch (InputMismatchException e) {
-			System.out.print("Veuillez rentrer \"oui\", \"o\", \"non\" ou \"n\" : ");
-			sc.next();
-		}
+		retour = sc.nextLine();
 		return retour;
 	}
-
-
-	
 }
