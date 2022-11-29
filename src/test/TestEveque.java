@@ -24,22 +24,22 @@ public class TestEveque {
 		Test.test(eveque.getAssassine()==false, "test de l'initialisation de la variable \"assassine\"");
 		Test.test(eveque.getVole()==false, "test de l'initialisation de la variable \"vole\"");
 	}
+	
 	public void test2(){
 		System.out.println("TEST DE LA PERCEPTION DE RESSOURCES SPECIFIQUES");
 		Joueur joueur = new Joueur("Billy");
 		Eveque eveque = new Eveque();
 		Quartier quartier1 = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1);
 		Quartier quartier2 = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2);
-		Quartier quartier3 = new Quartier("�glise",Quartier.TYPE_QUARTIERS[0],2);
+		Quartier quartier3 = new Quartier("église",Quartier.TYPE_QUARTIERS[0],2);
 		eveque.setJoueur(joueur);
 		eveque.ajouterPieces();
-		Test.test(eveque.getJoueur().nbPieces() == 2,
-			"test du nombre de pi�ces d'or avant perception");
+		Test.test(eveque.getJoueur().nbPieces() == 2, "test du nombre de pièces d'or avant perception");
 		eveque.construire(quartier1);
 		eveque.construire(quartier2);
 		eveque.construire(quartier3);		
 		eveque.percevoirRessourcesSpecifiques();
-		Test.test(eveque.getJoueur().nbPieces() == 4,
-			"test du nombre de pi�ces d'or apr�s perception de ressources sp�cifiques avec 2 quartiers religieux");
+		Test.test(eveque.getJoueur().nbPieces() == 4, "test du nombre de pièces d'or après perception de ressources spécifiques avec 2 quartiers religieux");
 	}
+	
 }

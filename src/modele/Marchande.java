@@ -11,6 +11,12 @@ public class Marchande extends Personnage {
 			this.getJoueur().ajouterPieces(1);
 		}
 	}
+	//Pas de possibilité de mettre de l'aléatoire
+	public void utiliserPouvoirAvatar() {
+		if(this.getJoueur()!=null) {
+			this.getJoueur().ajouterPieces(1);
+		}
+	}
 
 	public void percevoirRessourcesSpecifiques() {
 		int nbQuartierCommercant=0;

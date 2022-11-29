@@ -1,88 +1,88 @@
 package modele;
 
 public class PlateauDeJeu {
-	Personnage[] listePersonnage;
-	Joueur[] listeJoueurs;
-	Pioche pioche;
-	int nombrePersonnages;
-	int nombreJoueurs;
+	
+	//Déclaration des variables
+	private Personnage[] listePersonnages;
+	private Joueur[] listeJoueurs;
+	private Pioche pioche;
+	private int nombrePersonnages;
+	private int nombreJoueurs;
 
+	//Constructeur
 	public PlateauDeJeu(){
 		this.nombrePersonnages=0;
 		this.nombreJoueurs=0;
 		this.pioche= new Pioche();
 		this.listeJoueurs= new Joueur[9];
-		this.listePersonnage= new Personnage[9];
+		this.listePersonnages= new Personnage[9];
 	}
 
+	//Méthodes
 	public Pioche getPioche() {
-		return pioche;
+		return this.pioche;
 	}
 
 	public int getNombrePersonnages() {
-		for (int i = 0; i < this.listePersonnage.length; i++) {
-			if (this.listePersonnage[i] != null) {
-				nombrePersonnages++;
+		this.nombrePersonnages=0;
+		for (Personnage perso: this.listePersonnages) {
+			if (perso != null) {
+				this.nombrePersonnages++;
 			}
 		}
-		return nombrePersonnages;
+		return this.nombrePersonnages;
 	}
 
 	public int getNombreJoueurs() {
-		for (int i = 0; i < this.listeJoueurs.length; i++) {
-			if (this.listeJoueurs[i] != null) {
-				nombreJoueurs++;
+		this.nombreJoueurs=0;
+		for (Joueur joueur: this.listeJoueurs) {
+			if (joueur != null) {
+				this.nombreJoueurs++;
 			}
 		}
-		return nombreJoueurs;
+		return this.nombreJoueurs;
 	}
+	
 	public Personnage getPersonnage(int i) {
-		int index=listePersonnage.length-1;
-		if(i<0 || i >index) {
-			return null;
-			
+		if(i>=0 && i<=(this.listePersonnages.length-1)){
+			return this.listePersonnages[i];
 		}else {
-			return listePersonnage[i];
+			return null;	
 		}
 	}
+	
 	public Joueur getJoueur(int i) {
-		int index=listeJoueurs.length-1;
-		if(i<0 || i >index) {
-			return null;
+		if(i>=0 && i<=(this.listeJoueurs.length-1)){
+			return this.listeJoueurs[i];
 		}else {
-			return listeJoueurs[i];
-		}
+			return null;	
+		} 
 	}
+	
 	public void ajouterPersonnage(Personnage nouveau) {
-		boolean vide = false;
-		for(int i = 0; i < this.listePersonnage.length; i++){
-		    if(this.listePersonnage[i] == null){
-		        vide = true;
-		        if(nouveau.getNom()!=null && nouveau.getCaracteristiques()!=null && nouveau.getAssassine()!=null && nouveau.getVole()!=null) {
-				    this.listePersonnage[i]=nouveau;
+		if(nouveau!=null && nouveau.getNom()!=null && nouveau.getCaracteristiques()!=null && nouveau.getAssassine()!=null && nouveau.getVole()!=null) {
+			for(int i=0; i<this.listePersonnages.length; i++){
+			    if(this.listePersonnages[i] == null){
+			    	this.listePersonnages[i]=nouveau;
 			        nouveau.setPlateau(this);
 			        break;
-		        }
-		    }
-		}
-		if(vide == false){
-		    System.out.println("Impossible d'ajouter un nouveau Personnage (Liste pleine)");
+			    }else {
+			    	System.out.println("Impossible d'ajouter un nouveau Personnage (Liste pleine)");
+			    }
+			}
 		}
 	}
+	
 	public void ajouterJoueur(Joueur nouveau) {
-		boolean vide = false;
-		for(int i = 0; i < this.listeJoueurs.length; i++){
-		    if(this.listeJoueurs[i] == null){
-		        vide = true;
-		        if(nouveau.getNom()!=null && nouveau.getCite()!=null && nouveau.getMain()!=null ) {
-
-			        this.listeJoueurs[i]=nouveau;
+		if(nouveau!=null && nouveau.getNom()!=null && nouveau.getCite()!=null && nouveau.getMain()!=null ) {
+			for(int i=0; i<this.listeJoueurs.length; i++){
+			    if(this.listeJoueurs[i] == null){
+			    	this.listeJoueurs[i]=nouveau;
 			        break;
-		        }
-		    }
-		}
-		if(vide == false){
-		    System.out.println("Impossible d'ajouter un nouveau Personnage (Liste pleine)");
+			    }else {
+			    	System.out.println("Impossible d'ajouter un nouveau Joueur (Liste pleine)");
+			    }
+			}
 		}
 	}
 }
