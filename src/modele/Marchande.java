@@ -26,16 +26,10 @@ public class Marchande extends Personnage {
 		int nbQuartierCommercant=0;
 		
 		if(this.getJoueur()!=null) {
-			Quartier[] Cite = new Quartier[this.getJoueur().nbQuartiersDansCite()];
-			for(int i =0;i<Cite.length;i++) {
-				for(int j=0;j<this.getJoueur().getCite().length;j++) {
-					Cite[i]=this.getJoueur().getCite()[i];
-				}
-			}
-			for(int i =0;i<Cite.length;i++) {
-				if(Cite[i].getType()=="COMMERCANT") {
-					nbQuartierCommercant++;
-				}
+			for(Quartier q: this.getJoueur().getCite()) {
+			     if(q!=null&&q.getType()=="COMMERCANT") {
+ 					  nbQuartierCommercant++;
+ 	                     }
 			}
 			this.getJoueur().ajouterPieces(nbQuartierCommercant);
 			System.out.println("["+nbQuartierCommercant+"]"+"pieces en plus dans votre trésor");
