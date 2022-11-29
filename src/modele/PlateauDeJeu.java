@@ -80,7 +80,7 @@ public class PlateauDeJeu {
 			    	this.listeJoueurs[i]=nouveau;
 			        break;
 			    }else {
-			    	System.out.println("Impossible d'ajouter un nouveau Personnage (Liste pleine)");
+			    	System.out.println("Impossible d'ajouter un nouveau Joueur (Liste pleine)");
 			    }
 			}
 		}
