@@ -93,7 +93,7 @@ public class JeuPublic {
 		//Affichage des cartes ecartés et définition de la liste de personnage disponible
 		for (int i = 0; i < this.nombrePersonnages; i++) {
 			if (i == randomVisible1 || i == randomVisible2) {
-				System.out.println("Le personnage " + this.plateauDeJeu.getPersonnage(i) + " est écarté face visible");
+				System.out.println("Le personnage " + this.plateauDeJeu.getPersonnage(i).getNom() + " est écarté face visible");
 			} else if (i == randomCache) {
 				System.out.println("Un personnage est écarté face cachée");
 			}
@@ -109,23 +109,24 @@ public class JeuPublic {
 			if (this.plateauDeJeu.getJoueur(i).getPossedeCouronne()) {
 				System.out.println(this.plateauDeJeu.getJoueur(i).getNom()+ " a la couronne ! Il est le premier à choisir son personnage.");
 				//Affiche des personnages
+				index=0;
 				for(Personnage perso : listePersonnageDisponible) {
 					System.out.println(index+ ". "+ perso.getNom());
 					index++;
 				}
 				//Cas avatar
 				if (this.plateauDeJeu.getJoueur(i).getAvatar()) {
-					this.choix = this.generateur.nextInt(listePersonnageDisponible.size()+1);
+					this.choix = this.generateur.nextInt(listePersonnageDisponible.size());
 				} 
 				//Cas joueur
 				else {
 					System.out.println("Quel personnage choisissez-vous ? ");
-					this.choix = Interaction.lireUnEntier(0, listePersonnageDisponible.size()+1);
+					this.choix = Interaction.lireUnEntier(0, listePersonnageDisponible.size());
 				}
 				//Attribution du joueur au personnage
 				this.plateauDeJeu.getPersonnage(this.choix).setJoueur(this.plateauDeJeu.getJoueur(i));
 				//Affichage du personnage choisi
-				System.out.println(this.plateauDeJeu.getJoueur(i).getNom() + " a choisi le personnage : "+ listePersonnageDisponible.get(this.choix));
+				System.out.println(this.plateauDeJeu.getJoueur(i).getNom() + " a choisi le personnage : "+ listePersonnageDisponible.get(this.choix).getNom());
 				//Retrait du personnage de la liste de personnage disponible
 				listePersonnageDisponible.remove(this.choix);
 			}
@@ -136,23 +137,24 @@ public class JeuPublic {
 			if (!this.plateauDeJeu.getJoueur(i).getPossedeCouronne()) {
 				System.out.println(this.plateauDeJeu.getJoueur(i).getNom() + " choisit son personnage.");
 				//Affiche des personnages
+				index=0;
 				for(Personnage perso : listePersonnageDisponible) {
 					System.out.println(index+ ". "+ perso.getNom());
 					index++;
 				}
 				//Cas avatar
 				if (this.plateauDeJeu.getJoueur(i).getAvatar()) {
-					this.choix = this.generateur.nextInt(listePersonnageDisponible.size()+1);
+					this.choix = this.generateur.nextInt(listePersonnageDisponible.size());
 				}
 				//Cas joueur
 				else {
 					System.out.println("Quel personnage choisissez-vous ? ");
-					this.choix = Interaction.lireUnEntier(0, listePersonnageDisponible.size()+1);
+					this.choix = Interaction.lireUnEntier(0, listePersonnageDisponible.size());
 				}
 				//Attribution du joueur au personnage
 				this.plateauDeJeu.getPersonnage(this.choix).setJoueur(this.plateauDeJeu.getJoueur(i));
 				//Affichage du personnage choisi
-				System.out.println(this.plateauDeJeu.getJoueur(i).getNom() + " a choisi le personnage : "+ listePersonnageDisponible.get(this.choix));
+				System.out.println(this.plateauDeJeu.getJoueur(i).getNom() + " a choisi le personnage : "+ listePersonnageDisponible.get(this.choix).getNom());
 				//Retrait du personnage de la liste de personnage disponible
 				listePersonnageDisponible.remove(this.choix);
 				
