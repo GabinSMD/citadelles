@@ -10,7 +10,7 @@ public class Personnage {
 	private PlateauDeJeu plateau;
 	
 	
-	Personnage(String nom,int rang,String caracteristiques){
+	public Personnage(String nom,int rang,String caracteristiques){
 		this.nom=nom;
 		this.rang=rang;
 		this.caracteristiques=caracteristiques;
@@ -24,9 +24,8 @@ public class Personnage {
 		return this.joueur;
 	}
 
-
-	public void setJoueur(Joueur joueur) {
-		this.joueur = joueur;
+	public void setJoueur(Joueur j) {
+		this.joueur = j;
 		this.joueur.monPersonnage = this;
 	}
 
@@ -70,55 +69,51 @@ public class Personnage {
 	}
 
 
-	public void setPlateau(PlateauDeJeu plateau) {
-		this.plateau = plateau;
+	public void setPlateau(PlateauDeJeu nouveau) {
+		this.plateau = nouveau;
 	}
 
 
 	public void ajouterPieces() {
-		if (this.joueur==null){
-			System.out.println("Joueur nécessaire pour ajouter des pièces");
-		}else if (this.assassine==true){
-			System.out.println("Impossible d'ajouter des pièces si le personnage est mort");
+		if (this.joueur==null || this.assassine==true){
+			System.out.println("Impossible d'ajouter des pièces");
 		} else {
 			this.joueur.ajouterPieces(2);
 		}
 			
 			
 	}
-	
 	public void ajouterQuartier(Quartier nouveau) {
-		if (this.joueur==null){
-			System.out.println("Joueur nécessaire pour ajouter un quartier");
-		}else if (this.assassine==true){
-			System.out.println("Impossible d'ajouter un quartier si le personnage est assissiné");
+		if (this.joueur==null || this.assassine==true){
+			System.out.println("Impossible d'ajouter un quartier");
 		} else {
 			this.joueur.ajouterQuartierDansMain(nouveau);
 		}
 	}
 	public void construire(Quartier nouveau) {
-		if (this.joueur==null){
-			System.out.println("Joueur nécessaire pour construire un quartier");
-		}else if (this.assassine==true){
-			System.out.println("Impossible de construire un quartier si le personnage est assissiné");
+		if (this.joueur==null || this.assassine==true){
+			System.out.println("Impossible de construire le quartier");
 		} else {
 			this.joueur.ajouterQuartierDansCite(nouveau);
 		}
 	}
 	public void percevoirRessourcesSpecifiques() {
-		if (this.joueur==null){
-			System.out.println("Joueur nécessaire pour percevoir des ressources");
-		}else if (this.assassine==true){
-			System.out.println("Impossible de percevoir des ressources si le personnage est mort");
+		if (this.joueur==null || this.assassine==true){
+			System.out.println("Impossible de percevoir les ressources spécifiques");
 		} else {
-			System.out.println("Aucune ressources spécifiques");
+			System.out.println("Aucune ressource spécifique");
 		}
 	}
 	public void utiliserPouvoir() {
-		
 	}
+	
+	public void utiliserPouvoirAvatar() {
+	}
+	
 	public void reinitialiser() {
-		this.joueur.monPersonnage = null;
+		if(this.joueur!=null) {
+			this.joueur.monPersonnage = null;
+		}
 		this.joueur=null;
 		this.vole=false;
 		this.assassine=false;
