@@ -13,7 +13,7 @@ public class TestMerveille extends JeuPublic {
 	public static void main(String[] args) {
 		TestMerveille test = new TestMerveille();
 		//test.test1(); //Bibliothèque OK
-		test.test2(); //Carrière
+		//test.test2(); //Carrière
 		//test.test3(); //Cours des miracles OK
 		//test.test4(); //Donjon OK
 		//test.test5(); //Dracoport OK
@@ -55,16 +55,13 @@ public class TestMerveille extends JeuPublic {
 		JeuPublic jeu = new JeuPublic();
 		jeu.initialisation();
 		
+		int nbPrison=0;
 		int indexJoueurAleatoire = jeu.generateur.nextInt(4);
 		int indexPersonnageAleatoire = jeu.generateur.nextInt(8);
 		Joueur joueurAleatoire = jeu.plateauDeJeu.getJoueur(indexJoueurAleatoire);
 		Personnage personnageAleatoire = jeu.plateauDeJeu.getPersonnage(indexPersonnageAleatoire);
 		personnageAleatoire.setJoueur(joueurAleatoire);
 		joueurAleatoire.ajouterPieces(10);
-		Quartier prison1 = new Quartier("Prison", Quartier.TYPE_QUARTIERS[1], 2);
-		Quartier prison2 = new Quartier("Prison", Quartier.TYPE_QUARTIERS[1], 2);
-		boolean presencePrison1 = false;
-		boolean presencePrison2 = false;
 		
 		int nbCartePossedez = personnageAleatoire.getJoueur().nbQuartiersDansMain();
 		for(int i=0; i<nbCartePossedez; i++) {
@@ -81,19 +78,12 @@ public class TestMerveille extends JeuPublic {
 
 
 		for (int i = 0; i < personnageAleatoire.getJoueur().nbQuartiersDansCite(); i++) {
-			if (personnageAleatoire.getJoueur().getCite()[i]==prison1) {
-				presencePrison1=true;
-			}
-			if (personnageAleatoire.getJoueur().getCite()[i]==prison2) {
-				presencePrison2=true;
+			if (personnageAleatoire.getJoueur().getCite()[i].getNom()=="Prison") {
+				nbPrison++;
 			}
 		}
-		Test.test(presencePrison1 == true && presencePrison2 == true, "Les prisons sont construites");
 		
-		//if (joueurAleatoire.quartierPresentDansCite("Carrière")) {
-		//	joueurAleatoire.ajouterQuartierDansCite(new Quartier("Caserne", Quartier.TYPE_QUARTIERS[1], 3));
-		//	Test.test(joueurAleatoire.getCite()[1].getNom() == "Caserne" && joueurAleatoire.getCite()[2].getNom() == "Caserne", "Nombre de cartes en main adéquat");
-		//}
+		Test.test(nbPrison == 2, "Les prisons sont construites");
 	}
 
 	public void test3() { // Cours des miracles
@@ -453,58 +443,4 @@ public class TestMerveille extends JeuPublic {
 		
 		
 	}
-		/*
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Bibliothèque", Quartier.TYPE_QUARTIERS[4], 6,
-		 * Caracteristiques.BIBLIOTHEQUE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Carrière", Quartier.TYPE_QUARTIERS[4], 5,
-		 * Caracteristiques.CARRIERE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Cours des miracles",Quartier.TYPE_QUARTIERS[4], 2,
-		 * Caracteristiques.COURS));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Donjon",Quartier.TYPE_QUARTIERS[4], 3, Caracteristiques.DONJON));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Dracoport",Quartier.TYPE_QUARTIERS[4], 6,
-		 * Caracteristiques.DRACOPORT));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Ecole de magie",Quartier.TYPE_QUARTIERS[4], 6,
-		 * Caracteristiques.MAGIE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Fontaine aux souhaits",Quartier.TYPE_QUARTIERS[4], 5,
-		 * Caracteristiques.FONTAINE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Forge",Quartier.TYPE_QUARTIERS[4], 5, Caracteristiques.FORGE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Laboratoire",Quartier.TYPE_QUARTIERS[4], 5,
-		 * Caracteristiques.LABORATOIRE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Manufacture",Quartier.TYPE_QUARTIERS[4], 5,
-		 * Caracteristiques.MANUFACTURE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Salle des cartes",Quartier.TYPE_QUARTIERS[4], 5,
-		 * Caracteristiques.CARTE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Statue equestre",Quartier.TYPE_QUARTIERS[4], 3,
-		 * Caracteristiques.STATUE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Trésor Imperial",Quartier.TYPE_QUARTIERS[4], 5,
-		 * Caracteristiques.TRESOR));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Tripot",Quartier.TYPE_QUARTIERS[4], 6, Caracteristiques.TRIPOT));
-		 */
 }
