@@ -56,24 +56,6 @@ public class Condottiere extends Personnage {
 					if(choixQuartier==0) {//porte de sortie au cas ou il sort avant d'avoir choisie un quartier
 						System.out.println("Vous n'utilisez pas votre pouvoir de destruction");
 						break;
-					} 
-					choixQuartier -= 1;
-					String nomQuartier = this.getPlateau().getJoueur(choixJoueur).getCite()[choixQuartier].getNom();
-					int verifCoutQuartier = this.getPlateau().getJoueur(choixJoueur).getCite()[choixQuartier].getCout();
-					if (verifCoutQuartier - 1 > this.getJoueur().nbPieces()) {
-						System.out.println("Votre trésor n'est pas suffisant");
-						System.out.println("Votre choix ? (0 pour annuler)");
-						check = false;
-					} else {
-						check = true;
-						if(nomQuartier != "Donjon") {
-							this.getJoueur().retirerPieces(verifCoutQuartier - 1);
-							this.getPlateau().getJoueur(choixJoueur).retirerQuartierDansCite(nomQuartier);
-							System.out.println("=> On retire  " + nomQuartier + " à " + this.getPlateau().getJoueur(choixJoueur).getNom());
-							System.out.println("Pour information vous avez " + this.getJoueur().nbPieces() + " pièces d'or dans votre trésor");
-						}else {
-							System.out.println("Vous ne pouvez pas détruire le Donjon");
-						}
 					}
 					nomQuartier = this.getPlateau().getJoueur(choixJoueur-1).getCite()[choixQuartier-1].getNom();
 					this.getJoueur().retirerPieces(this.getPlateau().getJoueur(choixJoueur-1).getCite()[choixQuartier-1].getCout() - 1);
