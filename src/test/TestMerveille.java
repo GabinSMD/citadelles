@@ -55,16 +55,13 @@ public class TestMerveille extends JeuPublic {
 		JeuPublic jeu = new JeuPublic();
 		jeu.initialisation();
 		
+		int nbPrison=0;
 		int indexJoueurAleatoire = jeu.generateur.nextInt(4);
 		int indexPersonnageAleatoire = jeu.generateur.nextInt(8);
 		Joueur joueurAleatoire = jeu.plateauDeJeu.getJoueur(indexJoueurAleatoire);
 		Personnage personnageAleatoire = jeu.plateauDeJeu.getPersonnage(indexPersonnageAleatoire);
 		personnageAleatoire.setJoueur(joueurAleatoire);
 		joueurAleatoire.ajouterPieces(10);
-		Quartier prison1 = new Quartier("Prison", Quartier.TYPE_QUARTIERS[1], 2);
-		Quartier prison2 = new Quartier("Prison", Quartier.TYPE_QUARTIERS[1], 2);
-		boolean presencePrison1 = false;
-		boolean presencePrison2 = false;
 		
 		int nbCartePossedez = personnageAleatoire.getJoueur().nbQuartiersDansMain();
 		for(int i=0; i<nbCartePossedez; i++) {
@@ -81,19 +78,12 @@ public class TestMerveille extends JeuPublic {
 
 
 		for (int i = 0; i < personnageAleatoire.getJoueur().nbQuartiersDansCite(); i++) {
-			if (personnageAleatoire.getJoueur().getCite()[i]==prison1) {
-				presencePrison1=true;
-			}
-			if (personnageAleatoire.getJoueur().getCite()[i]==prison2) {
-				presencePrison2=true;
+			if (personnageAleatoire.getJoueur().getCite()[i].getNom()=="Prison") {
+				nbPrison++;
 			}
 		}
-		Test.test(presencePrison1 == true && presencePrison2 == true, "Les prisons sont construites");
 		
-		//if (joueurAleatoire.quartierPresentDansCite("Carrière")) {
-		//	joueurAleatoire.ajouterQuartierDansCite(new Quartier("Caserne", Quartier.TYPE_QUARTIERS[1], 3));
-		//	Test.test(joueurAleatoire.getCite()[1].getNom() == "Caserne" && joueurAleatoire.getCite()[2].getNom() == "Caserne", "Nombre de cartes en main adéquat");
-		//}
+		Test.test(nbPrison == 2, "Les prisons sont construites");
 	}
 
 	public void test3() { // Cours des miracles
