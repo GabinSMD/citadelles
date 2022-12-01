@@ -1,112 +1,122 @@
 package modele;
 
 public class Personnage {
-	String nom;
-	int rang;
-	String caracteristiques;
-	Joueur joueur;
-	Boolean assassiné;
-	Boolean volé;
+	private String nom;
+	private int rang;
+	private String caracteristiques;
+	private Joueur joueur;
+	private Boolean assassine;
+	private Boolean vole;
+	private PlateauDeJeu plateau;
 	
 	
-	Personnage(String nom,int rang,String caracteristiques){
+	public Personnage(String nom,int rang,String caracteristiques){
 		this.nom=nom;
 		this.rang=rang;
 		this.caracteristiques=caracteristiques;
 		this.joueur=null;
-		this.volé=false;
-		this.assassiné=false;
+		this.vole=false;
+		this.assassine=false;
 	}
 
 
 	public Joueur getJoueur() {
-		return joueur;
+		return this.joueur;
+	}
+
+	public void setJoueur(Joueur j) {
+		this.joueur = j;
+		this.joueur.monPersonnage = this;
 	}
 
 
-	public void setJoueur(Joueur joueur) {
-		this.joueur = joueur;
+	public Boolean getAssassine() {
+		return this.assassine;
 	}
 
 
-	public Boolean getAssassiné() {
-		return assassiné;
+	public void setAssassine() {
+		this.assassine = true;
 	}
 
 
-	public void setAssassiné() {
-		this.assassiné = true;
+	public Boolean getVole() {
+		return this.vole;
 	}
 
 
-	public Boolean getVolé() {
-		return volé;
-	}
-
-
-	public void setVolé() {
-		this.volé = true;
+	public void setVole() {
+		this.vole = true;
 	}
 
 
 	public String getNom() {
-		return nom;
+		return this.nom;
 	}
 
 
 	public int getRang() {
-		return rang;
+		return this.rang;
 	}
 
 
 	public String getCaracteristiques() {
-		return caracteristiques;
+		return this.caracteristiques;
 	}
 
+	public PlateauDeJeu getPlateau() {
+		return this.plateau;
+	}
+
+
+	public void setPlateau(PlateauDeJeu nouveau) {
+		this.plateau = nouveau;
+	}
+
+
 	public void ajouterPieces() {
-		if (this.joueur==null){
-			System.out.println("Joueur nécessaire pour ajouter des pièces");
-		}else if (this.assassiné==true){
-			System.out.println("Impossible d'ajouter des pièces si le personnage est mort");
+		if (this.joueur==null || this.assassine==true){
+			System.out.println("Impossible d'ajouter des pièces");
 		} else {
-			this.joueur.ajouterPiece(2);
+			this.joueur.ajouterPieces(2);
 		}
 			
 			
 	}
 	public void ajouterQuartier(Quartier nouveau) {
-		if (this.joueur==null){
-			System.out.println("Joueur nécessaire pour créer un quartier");
-		}else if (this.assassiné==true){
-			System.out.println("Impossible de créer un quartier si le personnage est mort");
+		if (this.joueur==null || this.assassine==true){
+			System.out.println("Impossible d'ajouter un quartier");
 		} else {
 			this.joueur.ajouterQuartierDansMain(nouveau);
 		}
 	}
 	public void construire(Quartier nouveau) {
-		if (this.joueur==null){
-			System.out.println("Joueur nécessaire pour construire un quartier");
-		}else if (this.assassiné==true){
-			System.out.println("Impossible de construire un quartier si le personnage est mort");
+		if (this.joueur==null || this.assassine==true){
+			System.out.println("Impossible de construire le quartier");
 		} else {
 			this.joueur.ajouterQuartierDansCite(nouveau);
 		}
 	}
 	public void percevoirRessourcesSpecifiques() {
-		if (this.joueur==null){
-			System.out.println("Joueur nécessaire pour percevoir des ressources");
-		}else if (this.assassiné==true){
-			System.out.println("Impossible de percevoir des ressources si le personnage est mort");
+		if (this.joueur==null || this.assassine==true){
+			System.out.println("Impossible de percevoir les ressources spécifiques");
 		} else {
-			System.out.println("Aucune ressources spécifiques");
+			System.out.println("Aucune ressource spécifique");
 		}
 	}
 	public void utiliserPouvoir() {
-		
 	}
+	
+	public void utiliserPouvoirAvatar() {
+	}
+	
 	public void reinitialiser() {
+		if(this.joueur!=null) {
+			this.joueur.monPersonnage = null;
+		}
 		this.joueur=null;
-		this.volé=false;
-		this.assassiné=false;
+		this.vole=false;
+		this.assassine=false;
+		
 	}
 }
