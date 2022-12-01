@@ -2,7 +2,6 @@ package modele;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.InputMismatchException;
 
 import controleur.Interaction;
 
@@ -78,7 +77,7 @@ public class Magicienne extends Personnage{
 					System.out.println(i + ". " + copieTableau.get(i).getNom());
 				} 
 				int choice = Interaction.lireUnEntier(0,max);
-				this.getPlateau().pioche.ajouter(copieTableau.get(choice));
+				this.getPlateau().getPioche().ajouter(copieTableau.get(choice));
 				copieTableau.remove(choice);
 				copieTableau.add(this.getPlateau().getPioche().piocher());
 			}
@@ -174,7 +173,7 @@ public class Magicienne extends Personnage{
 				Random r3 = new Random();
 				int choice = r3.nextInt(0,nbCartePossedez);
 				System.out.println("Choix des cartes à remplacer : "+choice);
-				this.getPlateau().pioche.ajouter(copieTableau.get(choice));
+				this.getPlateau().getPioche().ajouter(copieTableau.get(choice));
 				copieTableau.remove(choice);
 				copieTableau.add(this.getPlateau().getPioche().piocher());
 			}
