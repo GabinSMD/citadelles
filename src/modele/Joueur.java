@@ -1,9 +1,6 @@
 package modele;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 public class Joueur {
@@ -13,6 +10,8 @@ public class Joueur {
 	private int nbQuartiers;
 	private ArrayList<Quartier> main;
 	private boolean possedeCouronne;
+	private boolean avatar;
+	protected Personnage monPersonnage;
 
 	public Joueur(String name) {
 		this.nom = name;
@@ -21,6 +20,21 @@ public class Joueur {
 		this.possedeCouronne = false;
 		this.cite = new Quartier[8];
 		this.main = new ArrayList<Quartier>();
+		this.monPersonnage = null;
+		this.avatar=false;
+		
+	}
+	
+	public boolean getAvatar() {
+		return this.avatar;
+	}
+	
+	public void setAvatar(Boolean a) {
+		this.avatar = a;
+	}
+
+	public Personnage getPersonnage() {
+		return this.monPersonnage;
 	}
 
 	public String getNom() {
@@ -32,20 +46,20 @@ public class Joueur {
 	}
 
 	public int nbQuartiersDansCite() {
-		int count = 0;
-		for (int i = 0; i < this.cite.length; i++) {
-			if (this.cite[i] != null) {
-				count++;
+		this.nbQuartiers=0;
+		for (Quartier q: this.cite) {
+			if (q != null) {
+				this.nbQuartiers++;
 			}
 		}
-		return count;
+		return this.nbQuartiers;
 	}
 
 	public Quartier[] getCite() {
 		return this.cite;
 	}
 
-	public List<Quartier> getMain() {
+	public ArrayList<Quartier> getMain() {
 		return this.main;
 	}
 
@@ -57,46 +71,50 @@ public class Joueur {
 		return this.possedeCouronne;
 	}
 
-	public void setPossedeCouronne(boolean possedeCouronne) {
-		this.possedeCouronne = possedeCouronne;
+	public void setPossedeCouronne(boolean b) {
+		this.possedeCouronne = b;
 	}
 
 	public int ajouterPieces(int nbPieces) {
 		if (nbPieces >= 0) {
 			this.tresor += nbPieces;
+		}else {
+			System.out.println("Le nombre de pièce doit être positif");
 		}
 		return this.tresor;
 	}
 
 	public int retirerPieces(int nbPieces) {
-		if (nbPieces >= 0) {
-			if (nbPieces <= this.tresor) {
+		if (nbPieces >= 0 && nbPieces <= this.tresor) {
 				this.tresor -= nbPieces;
-			} else if (this.tresor - nbPieces < 0) {
-				return this.tresor;
-			}
+		}else {
+			System.out.println("Impossible de retirer " + nbPieces + "pièces");
 		}
 		return this.tresor;
 	}
 
 	public Quartier[] ajouterQuartierDansCite(Quartier quartier) {
-		for (int i = 0; i < this.cite.length; i++) {
-			if (this.cite[i] == null) {
-				this.cite[i] = quartier;
-				break;
+		boolean plein = false;
+		if(quartier!=null) {
+			for (int i = 0; i < this.cite.length; i++) {
+				if (this.cite[i] == null) {
+					this.cite[i] = quartier;
+					plein = true;
+					break;
+				}
+			    if(plein) {
+			    	System.out.println("Impossible d'ajouter le quartier (La liste est pleine)");
+			    }
 			}
 		}
 		return this.cite;
 	}
 
 	public boolean quartierPresentDansCite(String nom) {
-		for (int i = 0; i < this.cite.length; i++) {
-			if (this.cite[i] != null) {
-				if (this.cite[i].getNom() == nom) {
-					return true;
-				}
+		for (Quartier q: this.cite) {
+			if (q != null && q.getNom()== nom) {
+				return true;
 			}
-
 		}
 		return false;
 	}
@@ -104,16 +122,17 @@ public class Joueur {
 	public Quartier retirerQuartierDansCite(String nom) {
 		Quartier removeQuartier;
 		for (int i = 0; i < this.cite.length; i++) {
-			if (this.cite[i] != null) {
-				if (this.cite[i].getNom() == nom) {
-					removeQuartier = this.cite[i];
-					this.cite[i] = null;
-					return removeQuartier;
+			if (this.cite[i] != null && this.cite[i].getNom() == nom) {
+				removeQuartier = this.cite[i];
+				for (int j = i; j < this.cite.length - 1; j++) {
+					this.cite[j] = this.cite[j + 1];
 				}
+				return removeQuartier;
+			}else {
+				System.out.println("Impossible de retirer le/la "+nom);
 			}
 		}
 		return null;
-
 	}
 
 	public void ajouterQuartierDansMain(Quartier quartier) {
@@ -124,13 +143,13 @@ public class Joueur {
 		Quartier removeQuartier;
 		Random generateur = new Random();
 		int numeroHasard = generateur.nextInt(this.nbQuartiersDansMain());
-		if (this.main == null) {
-			return null;
-		} else {
+		if (this.main != null) {
 			removeQuartier = this.main.get(numeroHasard);
 			this.main.remove(numeroHasard);
 			return removeQuartier;
-
+		} else {
+			System.out.println("Impossible de retirer le quartier de la main");
+			return null;
 		}
 	}
 

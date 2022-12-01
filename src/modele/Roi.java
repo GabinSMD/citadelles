@@ -6,27 +6,30 @@ public class Roi extends Personnage {
 		super("Roi",4,Caracteristiques.ROI);
 		// TODO Auto-generated constructor stub
 	}
-	
+	//Utilisation du pouvoir par un joueur humain
 	public void utiliserPouvoir() {
-		if(this.joueur!=null) {
-	
-			this.joueur.setPossedeCouronne(true);
-			System.out.println("Je prend la couronne");
+		if(this.getJoueur()!=null) {
+			this.getJoueur().setPossedeCouronne(true);
+			System.out.println("Le "+this.getNom()+" prend la couronne");
+		}
+	}
+	//Utilisation du pouvoir par un avatar
+	public void utiliserPouvoirAvatar() {
+		if(this.getJoueur() !=null) {
+			this.getJoueur().setPossedeCouronne(true);
+			System.out.println("Le "+this.getNom()+" prend la couronne");
 		}
 	}
 
 	@Override
 	public void percevoirRessourcesSpecifiques() {
 		int nbQuartierNoble=0;
-		
 		super.percevoirRessourcesSpecifiques();
-		if(this.joueur!=null) {
-			
-			Quartier[] Cite = new Quartier[this.joueur.nbQuartiersDansCite()];
-			
+		if(this.getJoueur()!=null) {
+			Quartier[] Cite = new Quartier[this.getJoueur().nbQuartiersDansCite()];
 			for(int i =0;i<Cite.length;i++) {
-				for(int j=0;j<this.joueur.getCite().length;j++) {
-					Cite[i]=this.joueur.getCite()[i];
+				for(int j=0;j<this.getJoueur().getCite().length;j++) {
+					Cite[i]=this.getJoueur().getCite()[i];
 				}
 			}
 			for(int k =0;k<Cite.length;k++) {
@@ -34,7 +37,7 @@ public class Roi extends Personnage {
 					nbQuartierNoble++;
 				}
 			}
-			this.joueur.ajouterPieces(nbQuartierNoble);
+			this.getJoueur().ajouterPieces(nbQuartierNoble);
 			System.out.println("["+nbQuartierNoble+"]"+"pieces en plus dans votre trésor");
 		}
 	}
