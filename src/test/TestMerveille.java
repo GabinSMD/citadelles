@@ -13,7 +13,7 @@ public class TestMerveille extends JeuPublic {
 	public static void main(String[] args) {
 		TestMerveille test = new TestMerveille();
 		//test.test1(); //Bibliothèque OK
-		test.test2(); //Carrière
+		//test.test2(); //Carrière
 		//test.test3(); //Cours des miracles OK
 		//test.test4(); //Donjon OK
 		//test.test5(); //Dracoport OK
@@ -443,58 +443,4 @@ public class TestMerveille extends JeuPublic {
 		
 		
 	}
-		/*
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Bibliothèque", Quartier.TYPE_QUARTIERS[4], 6,
-		 * Caracteristiques.BIBLIOTHEQUE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Carrière", Quartier.TYPE_QUARTIERS[4], 5,
-		 * Caracteristiques.CARRIERE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Cours des miracles",Quartier.TYPE_QUARTIERS[4], 2,
-		 * Caracteristiques.COURS));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Donjon",Quartier.TYPE_QUARTIERS[4], 3, Caracteristiques.DONJON));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Dracoport",Quartier.TYPE_QUARTIERS[4], 6,
-		 * Caracteristiques.DRACOPORT));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Ecole de magie",Quartier.TYPE_QUARTIERS[4], 6,
-		 * Caracteristiques.MAGIE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Fontaine aux souhaits",Quartier.TYPE_QUARTIERS[4], 5,
-		 * Caracteristiques.FONTAINE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Forge",Quartier.TYPE_QUARTIERS[4], 5, Caracteristiques.FORGE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Laboratoire",Quartier.TYPE_QUARTIERS[4], 5,
-		 * Caracteristiques.LABORATOIRE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Manufacture",Quartier.TYPE_QUARTIERS[4], 5,
-		 * Caracteristiques.MANUFACTURE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Salle des cartes",Quartier.TYPE_QUARTIERS[4], 5,
-		 * Caracteristiques.CARTE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Statue equestre",Quartier.TYPE_QUARTIERS[4], 3,
-		 * Caracteristiques.STATUE));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Trésor Imperial",Quartier.TYPE_QUARTIERS[4], 5,
-		 * Caracteristiques.TRESOR));
-		 * 
-		 * jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new
-		 * Quartier("Tripot",Quartier.TYPE_QUARTIERS[4], 6, Caracteristiques.TRIPOT));
-		 */
 }
