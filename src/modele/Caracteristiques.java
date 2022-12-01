@@ -114,5 +114,22 @@ public class Caracteristiques {
 		"Si la Reine est à côté du joueur qui a choisi la carte " +
 		"du personnage de rang 4 (gemme jaune), elle reçoit 3 " +
 		"pièces d'or.";
+	
+	public static String BIBLIOTHEQUE="Si vous choisissez de piocher des cartes au debut du tour, concervez-les toutes.";
+	public static String CARRIERE="Vous pouvez batir des quartiers identiques a d’autres quartiers de votre cite. Le proprietaire de la carriere peut batir autant de quartiers identiques qu’il le souhaite, mais ne peut pas utiliser le pouvoir de l’Echevin, du Diplomate ou du Capitaine pour acqu ́erir des quartiers identiques.";
+	public static String COURS="Pour le calcul du score final, la Cour des Miracles est consideree comme un quartier de type (couleur) de votre choix. Dans la cas ou le proprietaire la considere comme un quartier noble, militaire, marchant ou religieux, la Cour des Miracles ne peut plus etre consideree comme une merveille.";
+	public static String DONJON="Le Donjon ne peut ˆetre affect ́e par les pouvoirs des personnages de rang 8.";
+	public static String DRACOPORT="Marquez 2 points suppl ́ementaires `a la fin de la partie.";
+	public static String MAGIE="Pour la perception des revenus des personnages, l’E ́cole de Magie est consid ́er ́ee comme un quartier du type (couleur) de votre choix.";
+	public static String FONTAINE="A` la fin de la partie, marquez 1 point supplm ́entaire par merveille dans votre cit ́e, y compris la Fontaine aux Souhaits.";
+	public static String FORGE="Une fois par tour, vous pouvez payez 2 pi`eces d’or pour piocher 3 cartes.";
+	public static String LABORATOIRE="Une fois par tour, vous pouvez d ́efausser 1 carte pour recevoir 2 pi`eces d’or.";
+	public static String MANUFACTURE="Payez 1 pi`ece d’or de moins lorsque vous bˆatissez une autre merveille.";
+	public static String CARTE="A` la fin de la partie, marquez 1 point suppl ́ementaire par carte dans votre main.";
+	public static String STATUE="Si vous d ́etenez le Couronne `a la fin de la partie, marquez 5 points suppl ́ementaires.";
+	public static String TRESOR="A` la fin de la partie, marquez 1 point suppl ́ementaire par pi`ece d’or dans votre tr ́esor.";
+	public static String TRIPOT="Vous pouvez payer tout ou partie du couˆt de construction du Tripot en cartes de votre main,\n"
+			+ "au prix de 1 carte pour 1 pi`ece d’or. Si le Tripot est confisqu ́e par l’E ́chevin, le joueur n’est rembours ́e que de l’or qu’il a d ́epens ́e, pas des cartes.";
+	
 
 }
