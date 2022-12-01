@@ -1,7 +1,7 @@
 package modele;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
+import java.util.Random;
 
 import controleur.Interaction;
 
@@ -27,6 +27,7 @@ public class Magicienne extends Personnage{
 				break;
 		}
 	}
+	
 	
 	private void echangeJoueur() {
 		ArrayList<Quartier> selectedTableau;
@@ -76,7 +77,7 @@ public class Magicienne extends Personnage{
 					System.out.println(i + ". " + copieTableau.get(i).getNom());
 				} 
 				int choice = Interaction.lireUnEntier(0,max);
-				this.getPlateau().pioche.ajouter(copieTableau.get(choice));
+				this.getPlateau().getPioche().ajouter(copieTableau.get(choice));
 				copieTableau.remove(choice);
 				copieTableau.add(this.getPlateau().getPioche().piocher());
 			}
@@ -105,5 +106,135 @@ public class Magicienne extends Personnage{
 		int val = Interaction.lireUnEntier(0, max);
 		return val;
 	}
-
+	
+	public void utiliserPouvoirAvatar() {
+		int val = menuPouvoirAvatar();
+		switch(val){
+			case 0: break;
+			case 1: 
+				echangeJoueurAvatar();
+				break;
+			case 2:
+				remplacePiocheAvatar();
+				break;
+		}
+	}
+	
+	private void echangeJoueurAvatar() {
+		ArrayList<Quartier> selectedTableau;
+		int max = 0;
+		System.out.println("Avec quel joueur voulez vous échanger :");
+		for(int i=0; i<9; i++) {
+			if(this.getPlateau().getJoueur(i)!= null && this.getPlateau().getJoueur(i).getNom() != this.getJoueur().getNom()) {
+				System.out.println(i+"."+ this.getPlateau().getJoueur(i).getNom() +": "+ this.getPlateau().getJoueur(i).getMain().size() + "carte(s)");
+				max++;
+			}
+		}
+		Random r = new Random();
+		int select = r.nextInt(0, max);
+		System.out.println("Choix du Personnage : "+select);
+		selectedTableau = new ArrayList<Quartier>(this.getPlateau().getJoueur(select).getMain());
+		copieTableau = new ArrayList<Quartier>(this.getJoueur().getMain());
+		for(int i=0; i<copieTableau.size(); i++) {
+			this.getJoueur().retirerQuartierDansMain();
+		}
+		for(int i=0; i<selectedTableau.size(); i++) {
+			this.getPlateau().getJoueur(select).retirerQuartierDansMain();
+		}
+		for(int i=0; i<selectedTableau.size(); i++) {
+			this.getJoueur().ajouterQuartierDansMain(selectedTableau.get(i));
+		}
+		for(int i=0; i<copieTableau.size(); i++) {
+			this.getPlateau().getJoueur(select).ajouterQuartierDansMain(copieTableau.get(i));
+		}
+	}
+	
+	private void remplacePiocheAvatar() {
+		int nbCartePossedez = this.getJoueur().getMain().size();
+		int max = nbCartePossedez+1;
+		System.out.println("Vous avez "+ nbCartePossedez +" carte(s)");
+		Random r2 = new Random();
+		int val = r2.nextInt(0,max);
+		System.out.println("Choix du nombre de cartes à remplacer : "+val);
+		if(val == max-1) {
+			copieTableau = new ArrayList<Quartier>(this.getJoueur().getMain());
+			for(int i=0; i<=copieTableau.size(); i++) {
+				this.getPlateau().getPioche().ajouter(this.getJoueur().retirerQuartierDansMain());
+				this.getJoueur().ajouterQuartierDansMain(this.getPlateau().getPioche().piocher());
+			}
+		}else if (val > 0) {
+			copieTableau = new ArrayList<Quartier>(this.getJoueur().getMain());
+			int i;
+			for (int j = val; j > 0; j--) {
+				System.out.println("Quelle carte voulez vous supprimer ? (" + j + " cartes restantes)");
+				for (i = 0; i < nbCartePossedez; i++) {
+					System.out.println(i + ". " + copieTableau.get(i).getNom());
+				} 
+				Random r3 = new Random();
+				int choice = r3.nextInt(0,nbCartePossedez);
+				System.out.println("Choix des cartes à remplacer : "+choice);
+				this.getPlateau().getPioche().ajouter(copieTableau.get(choice));
+				copieTableau.remove(choice);
+				copieTableau.add(this.getPlateau().getPioche().piocher());
+			}
+			for(i=0; i<=this.getJoueur().getMain().size(); i++) {
+				this.getJoueur().retirerQuartierDansMain();
+			}
+			for(i=0; i<copieTableau.size(); i++) {
+				this.getJoueur().ajouterQuartierDansMain(copieTableau.get(i));
+			}
+		}
+	}
+	
+	private int menuPouvoirAvatar() {
+		int max=1;
+		Random r4 = new Random();
+		int val = r4.nextInt(0,2);
+		switch (val) {
+		case 0:
+			System.out.println("La magicienne n'utilise pas son pouvoir");
+			max=0;
+			break;
+		case 1:
+			System.out.println("La magicienne utilise son pouvoir");
+			Random r5 = new Random();
+			int choix;
+			if(this.getJoueur().getMain().size()>0) {
+				choix = r5.nextInt(0,3);
+				System.out.println("Choix du pouvoir : "+choix);
+				switch (choix) {
+				case 0:
+					System.out.println("Finalement elle ne fait rien");
+					max=0;
+					break;
+				case 1:
+					System.out.println("Elle échange toutes ses cartes avec un adversaire");
+					max=1;
+					break;
+				case 2:
+					System.out.println("Elle remplace un nombre de carte");
+					max=2;
+					break;
+				}
+			}
+			else {
+				choix = r5.nextInt(0,2);
+				System.out.println("Choix du pouvoir : "+choix);
+				switch (choix) {
+				case 0:
+					System.out.println("Finalement elle ne fait rien");
+					max=0;
+					break;
+				case 1:
+					System.out.println("Elle échange toutes ses cartes avec un adversaire");
+					max=1;
+					break;
+				}
+				max=1;
+			}
+		}
+		System.out.println("Choix du menu : "+max);
+		return max;
+		
+	}
 }
