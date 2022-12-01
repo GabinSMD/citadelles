@@ -94,14 +94,17 @@ public class Joueur {
 	}
 
 	public Quartier[] ajouterQuartierDansCite(Quartier quartier) {
+		boolean plein = false;
 		if(quartier!=null) {
 			for (int i = 0; i < this.cite.length; i++) {
 				if (this.cite[i] == null) {
 					this.cite[i] = quartier;
+					plein = true;
 					break;
-				}else {
-					System.out.println("Impossible d'ajouter le quartier (La liste est pleine)");
 				}
+			    if(plein) {
+			    	System.out.println("Impossible d'ajouter le quartier (La liste est pleine)");
+			    }
 			}
 		}
 		return this.cite;
