@@ -5,7 +5,21 @@ public class Eveque extends Personnage {
 	public Eveque() {
 		super("Eveque", 5, Caracteristiques.EVEQUE);
 	}
-
+	
+	// Utilisation du pouvoir par un joueur humain
+	public void utiliserPouvoir() {
+		if(this.getJoueur().getNom() !=null) {
+			System.out.println("Je me dirige vers la Mecque");
+		}
+	}
+	
+	// Utilisation du pouvoir par un avatar
+	public void utiliserPouvoirAvatar() {
+		if(this.getJoueur().getNom() !=null) {
+			System.out.println("Je me dirige vers la Mecque");
+		}
+	}
+	// Perception des ressources spécifiques
 	public void percevoirRessourcesSpecifiques() {
 		int nbQuartierReligieux=0;
 
