@@ -27,7 +27,7 @@ public class TestVoleur {
 		plateau.ajouterPersonnage(voleur);		
 		Test.test(plateau.getNombrePersonnages()== 3,"nombre de joueurs");
 		Test.test(plateau.getPersonnage(2)==voleur,
-				"r cup ration du personnage du voleur");
+				"récupération du personnage du voleur");
 		Test.test(plateau.getPersonnage(2).getRang()==2,
 				"rang du voleur");
 		
@@ -63,14 +63,15 @@ public class TestVoleur {
 		voleur.utiliserPouvoir();
 		
 		// tests:
-		Test.test(roi.getVole(),"le roi est bien vol ");
-		Test.test(roi.getJoueur().nbPieces()==0, "le tr sor du roi est vide");
-		Test.test(voleur.getJoueur().nbPieces()==2, "le tr sor du voleur contient deux spi ces");
+		Test.test(roi.getVole(),"le roi est bien volé ");
+		Test.test(!voleur.getVole(),"le voleur n'est pas volé ");
+		Test.test(roi.getJoueur().nbPieces()==0, "le trésor du roi est vide");
+		Test.test(voleur.getJoueur().nbPieces()==2, "le trésor du voleur contient deux pièces");
 	}
 	public void test3() {
-		System.out.println("TEST DU VOL ALEATOIRE");
+		System.out.println("TEST DU VOL (AVATAR)");
 		PlateauDeJeu plateau = new PlateauDeJeu();
-		// cr ation de trois personnages
+		// création de trois personnages
 		Roi roi = new Roi();
 		plateau.ajouterPersonnage(roi);
 		Assassin assassin = new Assassin();
@@ -80,12 +81,17 @@ public class TestVoleur {
 		Marchande marchande = new Marchande();
 		plateau.ajouterPersonnage(marchande);	
 		
+		//Affichage de la liste des cibles visible par l'avatar
+		System.out.println("Liste des cibles du Voleur :");
+		for(int i=0; i<4; i++) {
+			System.out.println(plateau.getPersonnage(i).getNom());
+		}
 		
 		// on utilise le pouvoir aléatoire du voleur
 		voleur.utiliserPouvoirAvatar();
 		
 		// tests:
-		Test.test(roi.getVole()||marchande.getVole(),"Roi : "+roi.getVole() + ", Marchande : "+ marchande.getVole());
+		Test.test(roi.getVole()||marchande.getVole(),"Un personnage aléatoire ( Roi ou Marchande ) à été volé  ");
 		Test.test(!voleur.getVole(), "Le voleur n'a pas été volé");
 		Test.test(!assassin.getVole(), "Le assassin n'a pas été volé");
 	}
