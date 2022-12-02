@@ -177,7 +177,7 @@ public class TestVoleur {
 			if(!roi.getVole()) {
 				break;
 			}
-		}while(roi.getVole()==true);
+		}while(roi.getVole());
 		
 		// tests:
 		Test.test(!roi.getVole()," Le Joueur choisi de ne pas utiliser son pouvoir ");

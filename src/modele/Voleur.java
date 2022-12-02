@@ -90,6 +90,8 @@ public class Voleur extends Personnage {
 			this.selection[this.choix].setVole();
 			System.out.println("Le/La "+this.selection[this.choix].getNom()+" a été volé.e");
 			break;
+		default:
+			break;
 		}
 	}
 }
