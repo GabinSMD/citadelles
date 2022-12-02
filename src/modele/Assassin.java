@@ -17,7 +17,7 @@ public class Assassin extends Personnage {
 		if (this.getJoueur() != null) {
 			System.out.println("Voulez-vous utiliser votre pouvoir ?");
 			boolean choixPouvoir = Interaction.lireOuiOuNon();
-			if (choixPouvoir == true) {
+			if (choixPouvoir) {
 				System.out.println("Quel personnage voulez-vous assassiner ?");
 		
 				//Affichage de la liste des personnages selectionnables
@@ -60,8 +60,10 @@ public class Assassin extends Personnage {
 		switch(choix) {
 		case 0:
 			System.out.println("L'Assassin n'utilise pas son pouvoir");
+			break;
 		case 1:
 			System.out.println("L'Assassin utilise son pouvoir");
+			
 			//Choix du personnage à assassiner par l'avatar
 			//NB: L'assassin ne pourra pas être assassiné, le choix s'effectuera jusqu'à ce qu'un autre personnage soit sélectionné
 			do {
@@ -73,6 +75,9 @@ public class Assassin extends Personnage {
 			//Assassinat de la cible choisie
 			selection[choix].setAssassine();
 			System.out.println("Le/La "+selection[choix].getNom()+" a été assassiné.e");
+			break;
+		default:
+			break;
 		}
 	}
 }
