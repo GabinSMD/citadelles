@@ -56,12 +56,20 @@ public class JeuPublic {
 		for(int i=this.choix; i>0;i--) {
 			this.index=0;
 			for(Joueur robot: joueursRobot) {
-				System.out.println(this.index +". "+robot.getNom());
-				this.index++;
+				if(!robot.getAvatar()) {
+					System.out.println(this.index +". "+robot.getNom());
+					this.index++;
+				}
 			}
-			System.out.println("Quel joueur est un robot ? (" + (i + " robots à selectionner"));
-			this.choix = Interaction.lireUnEntier(0, joueursRobot.size());
-			this.plateauDeJeu.getJoueur(this.choix).setAvatar(true);
+			System.out.println("Quel joueur est un robot ? (" + (i + " robots à selectionner)"));
+			this.choix = Interaction.lireUnEntier(0, this.index);
+			joueursRobot.get(this.choix).setAvatar(true);
+			for(int j=0; j<this.nombreJoueurs;j++) {
+				if(joueursRobot.get(i).getAvatar() && this.plateauDeJeu.getJoueur(i).getNom()== joueursRobot.get(i).getNom()) {
+					this.plateauDeJeu.getJoueur(i).setAvatar(true);
+					break;
+				}
+			}
 			joueursRobot.remove(this.choix);
 		}
 		
