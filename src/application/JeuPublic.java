@@ -39,7 +39,7 @@ public class JeuPublic {
 	public void initialisation() {
 		ArrayList<Joueur> joueursRobot;
 		this.pioche = Configuration.nouvellePioche();
-		this.plateauDeJeu = Configuration.configurationDeBase(this.pioche);
+		this.plateauDeJeu = Configuration.configurationDeBase(pioche);
 		this.pioche.melanger();
 		
 		this.nombreJoueurs = this.plateauDeJeu.getNombreJoueurs();
@@ -51,6 +51,7 @@ public class JeuPublic {
 		
 		System.out.println("Choix des joueurs robot");
 		System.out.println("Combien de joueurs robot souhaitez-vous ?");
+
 		this.choix = Interaction.lireUnEntier(0, this.nombreJoueurs+1);
 		
 		for(int i=this.choix; i>0;i--) {
@@ -72,12 +73,12 @@ public class JeuPublic {
 			
 			//Ajout des cartes de départ (4 cartes)
 			for (int j = 0; j < 4; j++) {
-				this.plateauDeJeu.getJoueur(i).ajouterQuartierDansMain(this.pioche.piocher());
+				this.plateauDeJeu.getJoueur(i).ajouterQuartierDansMain(pioche.piocher());
 			}
 		}
 		
 		//Attribution aléatoire de la couronne à un joueur 
-		this.plateauDeJeu.getJoueur(this.generateur.nextInt(this.nombreJoueurs)).setPossedeCouronne(true);
+		this.plateauDeJeu.getJoueur(generateur.nextInt(nombreJoueurs)).setPossedeCouronne(true);
 	}
 	
 	public void choixPersonnages() {
@@ -90,14 +91,14 @@ public class JeuPublic {
 		//Génération des cartes écartés
 		
 		do{
-			randomVisible1 = this.generateur.nextInt(this.nombrePersonnages);
-			randomVisible2 = this.generateur.nextInt(this.nombrePersonnages);
-			randomCache = this.generateur.nextInt(this.nombrePersonnages);
+			randomVisible1 = generateur.nextInt(nombrePersonnages);
+			randomVisible2 = generateur.nextInt(nombrePersonnages);
+			randomCache = generateur.nextInt(nombrePersonnages);
 			
 		}while (randomVisible1 == randomVisible2 || randomVisible2 == randomCache || randomVisible1 == randomCache); 
 		
 		//Affichage des cartes ecartés et définition de la liste de personnage disponible
-		for (int i = 0; i < this.nombrePersonnages; i++) {
+		for (int i = 0; i < nombrePersonnages; i++) {
 			if (i == randomVisible1 || i == randomVisible2) {
 				System.out.println("Le personnage " + this.plateauDeJeu.getPersonnage(i).getNom() + " est écarté face visible");
 			} else if (i == randomCache) {
@@ -111,7 +112,7 @@ public class JeuPublic {
 		//Choix des personnages par les joueurs
 
 		//Le joueur qui a la couronne commence
-		for (int i = 0; i < this.nombreJoueurs; i++) {
+		for (int i = 0; i < nombreJoueurs; i++) {
 			if (this.plateauDeJeu.getJoueur(i).getPossedeCouronne()) {
 				System.out.println(this.plateauDeJeu.getJoueur(i).getNom()+ " a la couronne ! Il est le premier à choisir son personnage.");
 				//Affiche des personnages
@@ -121,47 +122,60 @@ public class JeuPublic {
 				}
 				//Cas avatar
 				if (this.plateauDeJeu.getJoueur(i).getAvatar()) {
+
 					this.choix = this.generateur.nextInt(listePersonnageDisponible.size());
 				} 
 				//Cas joueur
 				else {
 					System.out.println("Quel personnage choisissez-vous ? ");
+
 					this.choix = Interaction.lireUnEntier(0, listePersonnageDisponible.size());
+
 				}
 				//Attribution du joueur au personnage
-				this.plateauDeJeu.getPersonnage(this.choix).setJoueur(this.plateauDeJeu.getJoueur(i));
+				this.plateauDeJeu.getPersonnage(choix).setJoueur(this.plateauDeJeu.getJoueur(i));
 				//Affichage du personnage choisi
+
 				System.out.println(this.plateauDeJeu.getJoueur(i).getNom() + " a choisi le personnage : "+ listePersonnageDisponible.get(this.choix).getNom());
+
 				//Retrait du personnage de la liste de personnage disponible
-				listePersonnageDisponible.remove(this.choix);
+				listePersonnageDisponible.remove(choix);
 			}
 		}
 		
 		//Les autres joueurs
-		for (int i = 0; i < this.nombreJoueurs; i++) {
+		for (int i = 0; i < nombreJoueurs; i++) {
 			if (!this.plateauDeJeu.getJoueur(i).getPossedeCouronne()) {
 				System.out.println(this.plateauDeJeu.getJoueur(i).getNom() + " choisit son personnage.");
 				//Affiche des personnages
+
 				this.index=0;
+
 				for(Personnage perso : listePersonnageDisponible) {
 					System.out.println(this.index+ ". "+ perso.getNom());
 					this.index++;
 				}
 				//Cas avatar
 				if (this.plateauDeJeu.getJoueur(i).getAvatar()) {
+
 					this.choix = this.generateur.nextInt(listePersonnageDisponible.size());
+
 				}
 				//Cas joueur
 				else {
 					System.out.println("Quel personnage choisissez-vous ? ");
+
 					this.choix = Interaction.lireUnEntier(0, listePersonnageDisponible.size());
+
 				}
 				//Attribution du joueur au personnage
-				this.plateauDeJeu.getPersonnage(this.choix).setJoueur(this.plateauDeJeu.getJoueur(i));
+				this.plateauDeJeu.getPersonnage(choix).setJoueur(this.plateauDeJeu.getJoueur(i));
 				//Affichage du personnage choisi
+
 				System.out.println(this.plateauDeJeu.getJoueur(i).getNom() + " a choisi le personnage : "+ listePersonnageDisponible.get(this.choix).getNom());
+
 				//Retrait du personnage de la liste de personnage disponible
-				listePersonnageDisponible.remove(this.choix);
+				listePersonnageDisponible.remove(choix);
 				
 			}
 		}
@@ -169,6 +183,7 @@ public class JeuPublic {
 	}
 
 	public void percevoirRessource(Personnage personnageActuel) {
+
 		if(personnageActuel.getJoueur().getAvatar()) {
 			this.choix = this.generateur.nextInt(2);
 		}else {
@@ -248,6 +263,7 @@ public class JeuPublic {
 			this.choixBoolean=Interaction.lireOuiOuNon();
 		}
 		
+
 		if (this.choixBoolean) {
 			if(personnageActuel.getJoueur().getAvatar()) {
 				this.choix = this.generateur.nextInt(personnageActuel.getJoueur().nbQuartiersDansMain());
@@ -261,6 +277,7 @@ public class JeuPublic {
 				coutQuartier = personnageActuel.getJoueur().getMain().get(this.choix).getCout()-1;
 			}else {
 				coutQuartier = personnageActuel.getJoueur().getMain().get(this.choix).getCout();
+
 			}
 			System.out.println("La construction coute : " + coutQuartier + " pièces d'or");
 			
@@ -292,6 +309,7 @@ public class JeuPublic {
 							}
 						}
 						nbCartePossedez = copieTableau.size();
+
 						if(!personnageActuel.getJoueur().getAvatar()) {
 							System.out.println("Vous avez "+ nbCartePossedez +" carte(s)");
 							System.out.println("Combien de carte voulez vous utiliser :");
@@ -303,13 +321,14 @@ public class JeuPublic {
 								this.choix = Interaction.lireUnEntier(0,nbCartePossedez+1);
 							}
 							if(this.choix==nbCartePossedez) {
+
 								for(int i=0; i<nbCartePossedez; i++) {
 									coutQuartier -=1;
 									pioche.ajouter(personnageActuel.getJoueur().retirerQuartierDansMain());
 								}
 								personnageActuel.getJoueur().retirerQuartierDansMain();
-							} else if (this.choix+personnageActuel.getJoueur().nbPieces() >= coutQuartier && this.choix <= nbCartePossedez) {
-								for (int i = this.choix; i > 0; i--) {
+							} else if (choix+personnageActuel.getJoueur().nbPieces() >= coutQuartier && choix <= nbCartePossedez) {
+								for (int i = choix; i > 0; i--) {
 									nbCartePossedez=copieTableau.size();
 									
 									if(personnageActuel.getJoueur().getAvatar()) {
@@ -324,6 +343,7 @@ public class JeuPublic {
 									
 									pioche.ajouter(copieTableau.get(this.choix));
 									copieTableau.remove(this.choix);
+
 									coutQuartier -=1;
 								}
 								nbCartePossedez=personnageActuel.getJoueur().nbQuartiersDansMain();
@@ -339,6 +359,7 @@ public class JeuPublic {
 								System.out.println("Nombre de cartes insuffisant");
 							}
 						} while (this.choix+personnageActuel.getJoueur().nbPieces() < coutQuartier);
+
 						personnageActuel.getJoueur().retirerPieces(coutQuartier);
 						personnageActuel.construire(quartierAConstruire);
 					}
@@ -349,8 +370,10 @@ public class JeuPublic {
 				
 				ArrayList<Quartier> copieTableau = new ArrayList<Quartier>(personnageActuel.getJoueur().getMain());
 
+
 				this.plateauDeJeu.getPioche().ajouter(copieTableau.get(this.choix));
 				copieTableau.remove(this.choix);
+
 				nbCartePossedez=personnageActuel.getJoueur().nbQuartiersDansMain();
 				for (int i = 0; i < nbCartePossedez; i++) {
 					personnageActuel.getJoueur().retirerQuartierDansMain();
@@ -430,14 +453,14 @@ public class JeuPublic {
 		this.choixPersonnages();
 
 		//Liste local des persos triés par rang
-		for (int j = 0; j < this.nombrePersonnages; j++) {
+		for (int j = 0; j < nombrePersonnages; j++) {
 			personnages.add(this.plateauDeJeu.getPersonnage(j));
 		}
 		personnages.sort(Comparator.comparing(Personnage::getRang));
 		
 		
-		for(int i=0; i < this.nombrePersonnages; i++) {
-			for (int j = 0; j < this.nombrePersonnages; j++) {
+		for(int i=0; i < nombrePersonnages; i++) {
+			for (int j = 0; j < nombrePersonnages; j++) {
 				personnageActuel = this.plateauDeJeu.getPersonnage(j);
 				joueurActuel = personnageActuel.getJoueur();
 				if(personnageActuel.getNom()==personnages.get(i).getNom()){
@@ -449,7 +472,7 @@ public class JeuPublic {
 						//Transfert des fonds volés
 						if (personnageActuel.getVole()) {
 							System.out.println("Vous avez été volé ! Vous donnez " + joueurActuel.nbPieces() + " pièces d'or au Voleur");
-							for (int k = 0; k < this.nombreJoueurs; k++) {
+							for (int k = 0; k < nombreJoueurs; k++) {
 								if (this.plateauDeJeu.getJoueur(k).getPersonnage().getNom() == Caracteristiques.VOLEUR) {
 									this.plateauDeJeu.getJoueur(k).ajouterPieces(joueurActuel.nbPieces());
 									joueurActuel.retirerPieces(joueurActuel.nbPieces());
@@ -472,8 +495,10 @@ public class JeuPublic {
 									}
 									this.choix = Interaction.lireUnEntier(0, this.nbTypeQuartier);
 								}
+
 								
 								switch (this.choix) {
+
 								case 0:
 									joueurActuel.getCite()[k].setType(Quartier.TYPE_QUARTIERS[0]);
 									break;
@@ -515,7 +540,7 @@ public class JeuPublic {
 							
 							if (this.choixBoolean) {
 								for (int k = 0; k < 3; k++) {
-									joueurActuel.ajouterQuartierDansMain(this.pioche.piocher());
+									joueurActuel.ajouterQuartierDansMain(pioche.piocher());
 								}
 								joueurActuel.retirerPieces(2);
 							}
@@ -548,7 +573,9 @@ public class JeuPublic {
 									}
 									this.choix = Interaction.lireUnEntier(0, nbCartePossedee);
 								}
+
 								this.pioche.ajouter(copieTableau.get(choix));
+
 								copieTableau.remove(choix);
 								joueurActuel.ajouterPieces(2);
 								nbCartePossedee = joueurActuel.getMain().size();
@@ -584,14 +611,16 @@ public class JeuPublic {
 					}
 
 					if(this.partieFinie() && !first) {
+
 						this.first = true;
 						if (this.nombreJoueurs == 4 || this.nombreJoueurs == 5 || this.nombreJoueurs == 6 || this.nombreJoueurs == 7) {
+
 							if (joueurActuel.nbQuartiersDansCite() >= 7) {
-								this.winner = this.plateauDeJeu.getJoueur(i);
+								winner = this.plateauDeJeu.getJoueur(i);
 							}
 						} else {
 							if (joueurActuel.nbQuartiersDansCite() >= 8) {
-								this.winner = this.plateauDeJeu.getJoueur(i);
+								winner = this.plateauDeJeu.getJoueur(i);
 							}
 						}
 					}
@@ -602,8 +631,10 @@ public class JeuPublic {
 	}
 	
 	public void gestionCouronne() {
+
 		for (int i = 0; i < this.nombrePersonnages; i++) {
 			if (this.plateauDeJeu.getPersonnage(i).getNom() == "Roi" && this.plateauDeJeu.getPersonnage(i).getJoueur() != null) {
+
 				this.plateauDeJeu.getJoueur(i).setPossedeCouronne(true);
 			}
 		}
@@ -611,13 +642,16 @@ public class JeuPublic {
 	}
 	
 	public void reinitialisationPersonnages() {
+
 		for (int i = 0; i < this.nombrePersonnages; i++) {
+
 				this.plateauDeJeu.getPersonnage(i).reinitialiser();
 		}
 	}
 	
 	public boolean partieFinie() {
 		boolean end = false;
+
 
 		switch (this.nombreJoueurs) {
 			case 4, 5, 6, 7:
@@ -635,6 +669,7 @@ public class JeuPublic {
 						System.out.println("Partie Terminé !\n");
 						break;
 					}
+
 				}
 		}
 		return end;
@@ -650,7 +685,7 @@ public class JeuPublic {
 		int point = 0;
 		Joueur gameWinner = null;
 		
-		for (int i = 0; i < this.nombreJoueurs; i++) {
+		for (int i = 0; i < nombreJoueurs; i++) {
 			String typeQuartier = "";
 			int[] nbQuartierParType = {0, 0, 0, 0, 0};
 			this.pointsCoutConstruction.add(0);
@@ -663,7 +698,9 @@ public class JeuPublic {
 							
 				for (int j = 0; j < this.plateauDeJeu.getJoueur(i).nbQuartiersDansCite(); j++) {
 	
+
 					this.pointsCoutConstruction.set(i, this.pointsCoutConstruction.get(i)+this.plateauDeJeu.getJoueur(i).getCite()[j].getCout());
+
 					
 					
 					typeQuartier = this.plateauDeJeu.getJoueur(i).getCite()[j].getType();
@@ -674,12 +711,14 @@ public class JeuPublic {
 					
 	
 					if (this.plateauDeJeu.getJoueur(i).getCite()[j].getNom() == "Dracoport") {
+
 						this.pointsMerveille.set(i, this.pointsMerveille.get(i)+2);
+
 					}
 					
 					if (this.plateauDeJeu.getJoueur(i).getCite()[j].getNom() == "Cours des miracles") {
 						if(this.plateauDeJeu.getJoueur(i).getAvatar()) {
-							switch (this.generateur.nextInt(this.nbTypeQuartier)) {
+							switch (generateur.nextInt(nbTypeQuartier)) {
 							case 0:
 								this.plateauDeJeu.getJoueur(i).getCite()[j].setType(Quartier.TYPE_QUARTIERS[0]);
 								break;
@@ -698,10 +737,12 @@ public class JeuPublic {
 							}
 						} else {
 							System.out.println("Comment considerez-vous la Cours des miracles ?");
-							for (int k = 0; k < this.nbTypeQuartier; k++) {
+							for (int k = 0; k < nbTypeQuartier; k++) {
 								System.out.println(k + " - " + Quartier.TYPE_QUARTIERS[k]);
 							}
+
 							this.choix = Interaction.lireUnEntier(0, this.nbTypeQuartier);
+
 							switch (choix) {
 							case 0:
 								this.plateauDeJeu.getJoueur(i).getCite()[j].setType(Quartier.TYPE_QUARTIERS[0]);
@@ -756,10 +797,12 @@ public class JeuPublic {
 					this.pointsNombreType.set(i, this.pointsNombreType.get(i)+3);
 				}
 	
-				if (this.nombreJoueurs == 4 || this.nombreJoueurs == 5 || this.nombreJoueurs == 6 || this.nombreJoueurs == 7) {
+				if (nombreJoueurs == 4 || nombreJoueurs == 5 || nombreJoueurs == 6 || nombreJoueurs == 7) {
 					if (this.plateauDeJeu.getJoueur(i).nbQuartiersDansCite() >= 7) {
+
 						if (this.plateauDeJeu.getJoueur(i) == this.winner) {
 							this.pointsCiteTermine.set(i, this.pointsCiteTermine.get(i)+4);
+
 						} else {
 							this.pointsCiteTermine.set(i, this.pointsCiteTermine.get(i)+2);
 						}
@@ -767,7 +810,9 @@ public class JeuPublic {
 				} else {
 					if (this.plateauDeJeu.getJoueur(i).nbQuartiersDansCite() >= 8) {
 						if (this.plateauDeJeu.getJoueur(i) == winner) {
+
 							this.pointsCiteTermine.set(i, this.pointsCiteTermine.get(i)+4);
+
 						} else {
 							this.pointsCiteTermine.set(i, this.pointsCiteTermine.get(i)+2);
 						}
@@ -777,10 +822,12 @@ public class JeuPublic {
 				this.nombrePoints.set(i, this.nombrePoints.get(i)+ this.pointsCoutConstruction.get(i)+this.pointsNombreType.get(i)+this.pointsCiteTermine.get(i)+this.pointsMerveille.get(i));
 				System.out.println(this.plateauDeJeu.getJoueur(i).getNom() + " à obtenu " + this.nombrePoints.get(i) + " points !");
 	
+
 				if (this.nombrePoints.get(i)>point) {
 					point = this.nombrePoints.get(i);
 					gameWinner = this.plateauDeJeu.getJoueur(i);
 				}else if(point == this.nombrePoints.get(i)){
+
 					if(this.plateauDeJeu.getJoueur(i).getPersonnage().getRang()>gameWinner.getPersonnage().getRang()) {
 						gameWinner = this.plateauDeJeu.getJoueur(i);
 					}
