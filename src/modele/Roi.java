@@ -1,6 +1,12 @@
 package modele;
 
+import controleur.Interaction;
+import java.util.Random;
+
 public class Roi extends Personnage {
+
+	private boolean choixPouvoir;
+	private int choix;
 
 	public Roi() {
 		super("Roi",4,Caracteristiques.ROI);
@@ -9,15 +15,29 @@ public class Roi extends Personnage {
 	//Utilisation du pouvoir par un joueur humain
 	public void utiliserPouvoir() {
 		if(this.getJoueur()!=null) {
-			this.getJoueur().setPossedeCouronne(true);
-			System.out.println("Le "+this.getNom()+" prend la couronne");
+			System.out.println("Voulez-vous utiliser votre pouvoir ?");
+			this.choixPouvoir = Interaction.lireOuiOuNon();
+			if (this.choixPouvoir == true) {
+				this.getJoueur().setPossedeCouronne(true);
+				System.out.println("Le "+this.getNom()+" prend la couronne");
+			}
 		}
 	}
 	//Utilisation du pouvoir par un avatar
 	public void utiliserPouvoirAvatar() {
+		Random r = new Random();
 		if(this.getJoueur() !=null) {
-			this.getJoueur().setPossedeCouronne(true);
-			System.out.println("Le "+this.getNom()+" prend la couronne");
+			this.choix =r.nextInt(2);
+			switch(this.choix) {
+			case 0:
+				System.out.println("Le Voleur n'utilise pas son pouvoir");
+				break;
+			case 1:
+				this.getJoueur().setPossedeCouronne(true);
+				System.out.println("Le "+this.getNom()+" prend la couronne");
+			default:
+				break;
+			}
 		}
 	}
 
