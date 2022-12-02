@@ -63,10 +63,10 @@ public class TestVoleur {
 		//On force l'utilisation du pouvoir
 		do {
 			voleur.utiliserPouvoir();
-			if(roi.getVole()==true) {
+			if(roi.getVole()) {
 				break;
 			}
-		}while(roi.getVole()!=true);
+		}while(!roi.getVole());
 		
 		// tests:
 		Test.test(roi.getVole(),"le roi est bien volé ");
@@ -100,7 +100,7 @@ public class TestVoleur {
 			if(roi.getVole()||marchande.getVole()) {
 				break;
 			}
-		}while(roi.getVole()!=true||marchande.getVole()!=true);
+		}while(!roi.getVole()||!marchande.getVole());
 		
 		// tests:
 		Test.test(roi.getVole()||marchande.getVole(),"Un personnage aléatoire ( Roi ou Marchande ) à été volé  ");
@@ -137,10 +137,10 @@ public class TestVoleur {
 			roi.reinitialiser();
 			roi.setJoueur(joueur1);
 			voleur.utiliserPouvoirAvatar();
-			if(roi.getVole()!=true) {
+			if(!roi.getVole()) {
 				break;
 			}
-		}while(roi.getVole()==true);
+		}while(roi.getVole());
 		
 		// tests:
 		Test.test(!roi.getVole()," L'avatar choisi de ne pas utiliser son pouvoir ");
@@ -174,7 +174,7 @@ public class TestVoleur {
 			roi.reinitialiser();
 			roi.setJoueur(joueur1);
 			voleur.utiliserPouvoir();
-			if(roi.getVole()==false) {
+			if(!roi.getVole()) {
 				break;
 			}
 		}while(roi.getVole()==true);

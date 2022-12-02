@@ -22,7 +22,7 @@ public class Voleur extends Personnage {
 		if (this.getJoueur() != null) {
 			System.out.println("Voulez-vous utiliser votre pouvoir ?");
 			this.choixPouvoir = Interaction.lireOuiOuNon();
-			if (this.choixPouvoir == true) {
+			if (this.choixPouvoir) {
 				System.out.println("Quel personnage voulez-vous voler ?");
 				//Affichage de la liste des personnages selectionnables
 				for(int i=0; i<9; i++) {
