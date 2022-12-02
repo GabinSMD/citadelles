@@ -18,8 +18,7 @@ public class TestEveque {
 		Eveque eveque = new Eveque();
 		Test.test(eveque.getNom().equals("Eveque"),"test du nom du personnage");
 		Test.test(eveque.getRang()== 5,"test du rang du personnage");
-		Test.test(eveque.getCaracteristiques().equals(Caracteristiques.EVEQUE),
-				"test des caract�ristiques du personnage");
+		Test.test(eveque.getCaracteristiques().equals(Caracteristiques.EVEQUE), "test des caract�ristiques du personnage");
 		Test.test(eveque.getJoueur()==null, "test de l'initialisation de la variable \"joueur\"");
 		Test.test(eveque.getAssassine()==false, "test de l'initialisation de la variable \"assassine\"");
 		Test.test(eveque.getVole()==false, "test de l'initialisation de la variable \"vole\"");
