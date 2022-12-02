@@ -41,36 +41,38 @@ public class JeuPublic {
 		this.pioche = Configuration.nouvellePioche();
 		this.plateauDeJeu = Configuration.configurationDeBase(this.pioche);
 		this.pioche.melanger();
-		
 		this.nombreJoueurs = this.plateauDeJeu.getNombreJoueurs();
 		this.nombrePersonnages = this.plateauDeJeu.getNombrePersonnages();
 		joueursRobot= new ArrayList<Joueur>(this.nombreJoueurs);
 		for (int j = 0; j < this.nombreJoueurs; j++) {
 			joueursRobot.add(this.plateauDeJeu.getJoueur(j));
 		}
-		
 		System.out.println("Choix des joueurs robot");
 		System.out.println("Combien de joueurs robot souhaitez-vous ?");
 		this.choix = Interaction.lireUnEntier(0, this.nombreJoueurs+1);
-		
-		for(int i=this.choix; i>0;i--) {
-			this.index=0;
-			for(Joueur robot: joueursRobot) {
-				if(!robot.getAvatar()) {
-					System.out.println(this.index +". "+robot.getNom());
-					this.index++;
-				}
-			}
-			System.out.println("Quel joueur est un robot ? (" + (i + " robots à selectionner)"));
-			this.choix = Interaction.lireUnEntier(0, this.index);
-			joueursRobot.get(this.choix).setAvatar(true);
+		if(this.choix==this.nombreJoueurs) {
 			for(int j=0; j<this.nombreJoueurs;j++) {
-				if(joueursRobot.get(i).getAvatar() && this.plateauDeJeu.getJoueur(i).getNom()== joueursRobot.get(i).getNom()) {
-					this.plateauDeJeu.getJoueur(i).setAvatar(true);
-					break;
-				}
+				this.plateauDeJeu.getJoueur(j).setAvatar(true);
 			}
-			joueursRobot.remove(this.choix);
+		}else {
+			for(int i=this.choix; i>0;i--) {
+				this.index=0;
+				for(Joueur robot: joueursRobot) {
+					if(!robot.getAvatar()) {
+						System.out.println(joueursRobot.indexOf(robot)+". "+robot.getNom());
+						this.index++;
+					}
+				}
+				System.out.println("Quel joueur est un robot ? (" + (i + " robots à selectionner)"));
+				this.choix = Interaction.lireUnEntier(0, this.index);
+				
+				joueursRobot.get(this.choix).setAvatar(true);
+				joueursRobot.sort(Comparator.comparing(Joueur::getAvatar));
+			}
+			for(int i=0; i<this.nombreJoueurs;i++) {
+				if(joueursRobot.get(i).getAvatar() && this.plateauDeJeu.getJoueur(i).getNom()==joueursRobot.get(i).getNom())
+				this.plateauDeJeu.getJoueur(i).setAvatar(true);
+			}
 		}
 		
 		for (int i = 0; i < this.nombreJoueurs; i++) {
@@ -137,7 +139,11 @@ public class JeuPublic {
 					this.choix = Interaction.lireUnEntier(0, listePersonnageDisponible.size());
 				}
 				//Attribution du joueur au personnage
-				this.plateauDeJeu.getPersonnage(this.choix).setJoueur(this.plateauDeJeu.getJoueur(i));
+				for(int j=0;j<this.nombrePersonnages;j++) {
+					if(this.plateauDeJeu.getPersonnage(j).getNom()==listePersonnageDisponible.get(this.choix).getNom()) {
+						this.plateauDeJeu.getPersonnage(j).setJoueur(this.plateauDeJeu.getJoueur(i));
+					}
+				}
 				//Affichage du personnage choisi
 				System.out.println(this.plateauDeJeu.getJoueur(i).getNom() + " a choisi le personnage : "+ listePersonnageDisponible.get(this.choix).getNom());
 				//Retrait du personnage de la liste de personnage disponible
@@ -165,7 +171,12 @@ public class JeuPublic {
 					this.choix = Interaction.lireUnEntier(0, listePersonnageDisponible.size());
 				}
 				//Attribution du joueur au personnage
-				this.plateauDeJeu.getPersonnage(this.choix).setJoueur(this.plateauDeJeu.getJoueur(i));
+				for(int j=0;j<this.nombrePersonnages;j++) {
+					if(this.plateauDeJeu.getPersonnage(j).getNom()==listePersonnageDisponible.get(this.choix).getNom()) {
+						this.plateauDeJeu.getPersonnage(j).setJoueur(this.plateauDeJeu.getJoueur(i));
+					}
+				}
+				
 				//Affichage du personnage choisi
 				System.out.println(this.plateauDeJeu.getJoueur(i).getNom() + " a choisi le personnage : "+ listePersonnageDisponible.get(this.choix).getNom());
 				//Retrait du personnage de la liste de personnage disponible
