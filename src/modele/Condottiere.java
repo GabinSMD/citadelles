@@ -58,14 +58,12 @@ public class Condottiere extends Personnage {
 						break;
 					} 
 					choixQuartier -= 1;
-					String nomQuartier = this.getPlateau().getJoueur(choixJoueur).getCite()[choixQuartier].getNom();
+					nomQuartier = this.getPlateau().getJoueur(choixJoueur).getCite()[choixQuartier].getNom();
 					int verifCoutQuartier = this.getPlateau().getJoueur(choixJoueur).getCite()[choixQuartier].getCout();
 					if (verifCoutQuartier - 1 > this.getJoueur().nbPieces()) {
 						System.out.println("Votre trésor n'est pas suffisant");
 						System.out.println("Votre choix ? (0 pour annuler)");
-						check = false;
 					} else {
-						check = true;
 						if(nomQuartier != "Donjon") {
 							this.getJoueur().retirerPieces(verifCoutQuartier - 1);
 							this.getPlateau().getJoueur(choixJoueur).retirerQuartierDansCite(nomQuartier);
@@ -127,9 +125,11 @@ public class Condottiere extends Personnage {
 					this.getPlateau().getJoueur(choixJoueur).retirerQuartierDansCite(nomQuartier);
 					System.out.println(this.getPlateau().getJoueur(choixJoueur).getNom()+" votre quartier : " + nomQuartier + " à  été détruit par le Condottiere");
 				}
-				break;	
-			}
+				break;
+			default:
+				break;
 		}
+	}
 	// Perception des ressources spécifiques
 	public void percevoirRessourcesSpecifiques() {
 		int nbQuartierMilitaire = 0;
