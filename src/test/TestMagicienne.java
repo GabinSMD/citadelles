@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class TestMagicienne {
 	public static void main(String[] args) {
 		TestMagicienne test = new TestMagicienne();
-		//test.test1();
-		//test.test2();
+		test.test1();
+		test.test2();
 		test.test3();
 	}
 	
@@ -30,10 +30,8 @@ public class TestMagicienne {
 		Magicienne magicienne = new Magicienne();
 		plateau.ajouterPersonnage(magicienne);
 		Test.test(plateau.getNombrePersonnages()== 3,"nombre de personnages");
-		Test.test(plateau.getPersonnage(2)==magicienne,
-				"r�cup�ration du personnage de la magicienne");
-		Test.test(plateau.getPersonnage(2).getRang()==3,
-				"rang de la magicienne");
+		Test.test(plateau.getPersonnage(2)==magicienne, "récupération du personnage de la magicienne");
+		Test.test(plateau.getPersonnage(2).getRang()==3, "rang de la magicienne");
 		
 	}
 	public void test2() {
@@ -63,18 +61,27 @@ public class TestMagicienne {
 		
 		// création d'une pioche:
 		Pioche pioche = plateau.getPioche();
-		Quartier q = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1); pioche.ajouter(q);
-		q = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2); pioche.ajouter(q);
-		q = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5); pioche.ajouter(q);
-		q = new Quartier("taverne",Quartier.TYPE_QUARTIERS[3],1); pioche.ajouter(q);
-		q = new Quartier("échoppe",Quartier.TYPE_QUARTIERS[3],2); pioche.ajouter(q);
+		Quartier q = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1); 
+		pioche.ajouter(q);
+		q = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2); 
+		pioche.ajouter(q);
+		q = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5); 
+		pioche.ajouter(q);
+		q = new Quartier("taverne",Quartier.TYPE_QUARTIERS[3],1); 
+		pioche.ajouter(q);
+		q = new Quartier("échoppe",Quartier.TYPE_QUARTIERS[3],2); 
+		pioche.ajouter(q);
 		q = new Quartier("basilique",Quartier.TYPE_QUARTIERS[4],4,"A la fin de la partie, ..."); 
 		pioche.ajouter(q);
-		q = new Quartier("cathédrale",Quartier.TYPE_QUARTIERS[0],5); pioche.ajouter(q);
-		q = new Quartier("caserne",Quartier.TYPE_QUARTIERS[1],3); pioche.ajouter(q);
-		q = new Quartier("manoir",Quartier.TYPE_QUARTIERS[2],3); pioche.ajouter(q);
-		q = new Quartier("hôtel de ville",Quartier.TYPE_QUARTIERS[3],15); pioche.ajouter(q);
-		q = new Quartier("biblioth�que",Quartier.TYPE_QUARTIERS[4],6,"Si vous choisissez..."); 
+		q = new Quartier("cathédrale",Quartier.TYPE_QUARTIERS[0],5); 
+		pioche.ajouter(q);
+		q = new Quartier("caserne",Quartier.TYPE_QUARTIERS[1],3); 
+		pioche.ajouter(q);
+		q = new Quartier("manoir",Quartier.TYPE_QUARTIERS[2],3); 
+		pioche.ajouter(q);
+		q = new Quartier("hôtel de ville",Quartier.TYPE_QUARTIERS[3],15); 
+		pioche.ajouter(q);
+		q = new Quartier("bibliothèque",Quartier.TYPE_QUARTIERS[4],6,"Si vous choisissez..."); 
 		pioche.ajouter(q);
 		pioche.melanger();
 		
@@ -157,18 +164,27 @@ public class TestMagicienne {
 		
 		// création d'une pioche:
 		Pioche pioche = plateau.getPioche();
-		Quartier q = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1); pioche.ajouter(q);
-		q = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2); pioche.ajouter(q);
-		q = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5); pioche.ajouter(q);
-		q = new Quartier("taverne",Quartier.TYPE_QUARTIERS[3],1); pioche.ajouter(q);
-		q = new Quartier("échoppe",Quartier.TYPE_QUARTIERS[3],2); pioche.ajouter(q);
+		Quartier q = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1); 
+		pioche.ajouter(q);
+		q = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2); 
+		pioche.ajouter(q);
+		q = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5); 
+		pioche.ajouter(q);
+		q = new Quartier("taverne",Quartier.TYPE_QUARTIERS[3],1); 
+		pioche.ajouter(q);
+		q = new Quartier("échoppe",Quartier.TYPE_QUARTIERS[3],2); 
+		pioche.ajouter(q);
 		q = new Quartier("basilique",Quartier.TYPE_QUARTIERS[4],4,"A la fin de la partie, ..."); 
 		pioche.ajouter(q);
-		q = new Quartier("cathédrale",Quartier.TYPE_QUARTIERS[0],5); pioche.ajouter(q);
-		q = new Quartier("caserne",Quartier.TYPE_QUARTIERS[1],3); pioche.ajouter(q);
-		q = new Quartier("manoir",Quartier.TYPE_QUARTIERS[2],3); pioche.ajouter(q);
-		q = new Quartier("hôtel de ville",Quartier.TYPE_QUARTIERS[3],15); pioche.ajouter(q);
-		q = new Quartier("biblioth�que",Quartier.TYPE_QUARTIERS[4],6,"Si vous choisissez..."); 
+		q = new Quartier("cathédrale",Quartier.TYPE_QUARTIERS[0],5); 
+		pioche.ajouter(q);
+		q = new Quartier("caserne",Quartier.TYPE_QUARTIERS[1],3); 
+		pioche.ajouter(q);
+		q = new Quartier("manoir",Quartier.TYPE_QUARTIERS[2],3); 
+		pioche.ajouter(q);
+		q = new Quartier("hôtel de ville",Quartier.TYPE_QUARTIERS[3],15); 
+		pioche.ajouter(q);
+		q = new Quartier("bibliothèque",Quartier.TYPE_QUARTIERS[4],6,"Si vous choisissez..."); 
 		pioche.ajouter(q);
 		pioche.melanger();
 		
@@ -220,7 +236,6 @@ public class TestMagicienne {
 		System.out.println("");
 		
 		// on vérifie que la taille de la pioche n'a pas changé:
-		Test.test(taillePiocheAvantPouvoir==pioche.nombreElements(), 
-				"taille inchangée de la pioche");
+		Test.test(taillePiocheAvantPouvoir==pioche.nombreElements(), "taille inchangée de la pioche");
 	}
 }

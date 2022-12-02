@@ -9,6 +9,8 @@ public class Magicienne extends Personnage{
 	
 
 	private ArrayList<Quartier> copieTableau;
+	private boolean choixPouvoir;
+	private int choix;
 	
 
 	public Magicienne() {
@@ -16,15 +18,23 @@ public class Magicienne extends Personnage{
 	}
 	
 	public void utiliserPouvoir() {
-		int val = menuPouvoir();
-		switch(val){
-			case 0: break;
-			case 1: 
-				echangeJoueur();
-				break;
-			case 2:
-				remplacePioche();
-				break;
+		System.out.println("Voulez-vous utiliser votre pouvoir ?");
+		this.choixPouvoir = Interaction.lireOuiOuNon();
+		if (this.choixPouvoir) {
+			int val = menuPouvoir();
+			switch(val){
+				case 0: break;
+				case 1: 
+					echangeJoueur();
+					break;
+				case 2:
+					remplacePioche();
+					break;
+				default:
+					break;
+			}
+		}else{
+			System.out.println("La magicienne n'utilise pas son pouvoir");
 		}
 	}
 	
@@ -108,14 +118,24 @@ public class Magicienne extends Personnage{
 	}
 	
 	public void utiliserPouvoirAvatar() {
-		int val = menuPouvoirAvatar();
-		switch(val){
-			case 0: break;
-			case 1: 
-				echangeJoueurAvatar();
-				break;
-			case 2:
-				remplacePiocheAvatar();
+		Random r = new Random();
+		this.choix =r.nextInt(2);
+		switch(this.choix) {
+		case 0:
+			System.out.println("Le Voleur n'utilise pas son pouvoir");
+			break;
+		case 1:
+			int val = menuPouvoirAvatar();
+			switch(val){
+				case 0: break;
+				case 1: 
+					echangeJoueurAvatar();
+					break;
+				case 2:
+					remplacePiocheAvatar();
+					break;
+			}
+			default:
 				break;
 		}
 	}
