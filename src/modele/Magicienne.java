@@ -18,23 +18,27 @@ public class Magicienne extends Personnage{
 	
 	public void utiliserPouvoir() {
 		boolean choixPouvoir=true;
-		System.out.println("Voulez-vous utiliser votre pouvoir ?");
-		choixPouvoir = Interaction.lireOuiOuNon();
-		if (choixPouvoir) {
-			int val = menuPouvoir();
-			switch(val){
-				case 0: break;
-				case 1: 
-					echangeJoueur();
-					break;
-				case 2:
-					remplacePioche();
-					break;
-				default:
-					break;
+		if(this.getJoueur()!=null) {
+			System.out.println("Voulez-vous utiliser votre pouvoir ?");
+			choixPouvoir = Interaction.lireOuiOuNon();
+			if (choixPouvoir) {
+				int val = menuPouvoir();
+				switch(val){
+					case 0: break;
+					case 1: 
+						echangeJoueur();
+						break;
+					case 2:
+						remplacePioche();
+						break;
+					default:
+						break;
+				}
+			}else{
+				System.out.println("La magicienne n'utilise pas son pouvoir");
 			}
-		}else{
-			System.out.println("La magicienne n'utilise pas son pouvoir");
+		}else {
+			System.out.println("Un Joueur n'est pas attribué à ce personnage");
 		}
 	}
 	
