@@ -51,12 +51,7 @@ public class Assassin extends Personnage {
 		Random r = new Random();
 		int choix= r.nextInt(2);
 		//Rempli la liste des personnages selectionnables 
-		for(int i=0; i<9; i++) {
-			if(this.getPlateau().getPersonnage(i)!= null ) {
-				selection[i]=this.getPlateau().getPersonnage(i);
-				max++;
-			}
-		}
+		
 		switch(choix) {
 		case 0:
 			System.out.println("L'Assassin n'utilise pas son pouvoir");
@@ -67,14 +62,14 @@ public class Assassin extends Personnage {
 			//Choix du personnage à assassiner par l'avatar
 			//NB: L'assassin ne pourra pas être assassiné, le choix s'effectuera jusqu'à ce qu'un autre personnage soit sélectionné
 			do {
-				choix =r.nextInt(max);
-				if(selection[choix].getNom()=="Assassin") {
+				choix =r.nextInt(this.getPlateau().getNombreJoueurs());
+				if(this.getPlateau().getPersonnage(choix).getNom()=="Assassin") {
 					System.out.println("L'assassin ne peut pas être selectionné");
 				}
-			}while(selection[choix].getNom()=="Assassin");
+			}while(this.getPlateau().getPersonnage(choix).getNom()=="Assassin");
 			//Assassinat de la cible choisie
-			selection[choix].setAssassine();
-			System.out.println("Le/La "+selection[choix].getNom()+" a été assassiné.e");
+			this.getPlateau().getPersonnage(choix).setAssassine();
+			System.out.println("Le/La "+this.getPlateau().getPersonnage(choix).getNom()+" a été assassiné.e");
 			break;
 		default:
 			break;
