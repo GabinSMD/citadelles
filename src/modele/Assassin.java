@@ -10,7 +10,6 @@ public class Assassin extends Personnage {
 
 	public Assassin() {
 		super("Assassin", 1, Caracteristiques.ASSASSIN);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void utiliserPouvoir() {
