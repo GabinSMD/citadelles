@@ -30,15 +30,16 @@ public class Pioche {
 	}
 
 	public void melanger() {
-		Random generateur = new Random();
-		int i = generateur.nextInt(nombreElements());
-		int j = generateur.nextInt(nombreElements());
-		//Collections.swap(this.liste, i, j);
-		Quartier firstQuartier = this.liste.get(i);
-		Quartier secondQuartier = this.liste.get(j);
-		this.liste.set(i, secondQuartier);
-		this.liste.set(j, firstQuartier);
-
+		for(int i=0; i<this.liste.size(); i++) {
+			Random generateur = new Random();
+			int j = generateur.nextInt(nombreElements());
+			int k = generateur.nextInt(nombreElements());
+			//Collections.swap(this.liste, i, j);
+			Quartier firstQuartier = this.liste.get(j);
+			Quartier secondQuartier = this.liste.get(k);
+			this.liste.set(j, secondQuartier);
+			this.liste.set(k, firstQuartier);
+		}
 	}
 
 }
