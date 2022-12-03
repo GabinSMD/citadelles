@@ -53,8 +53,11 @@ public class TestAssassin {
 		assassin.setJoueur(joueur1);
 		
 		// on utilise le pouvoir de l'assassin
-		// NB: seul le roi peut être assassin� dans cette situation
-		assassin.utiliserPouvoir();
+		// NB: seul le roi peut être assassiné dans cette situation
+		do {
+			assassin.utiliserPouvoir();
+			System.out.println("# Si si tu veux utiliser ton pouvoir :) #");
+		}while(!roi.getAssassine());
 		
 		//Test
 		Test.test(roi.getAssassine(), " roi:"+roi.getAssassine());
@@ -78,9 +81,30 @@ public class TestAssassin {
 		plateau.ajouterPersonnage(eveque);
 		plateau.ajouterPersonnage(marchande);
 		
-		// on utilise le pouvoir de l'assassin aléatoirement
-		// NB: N'importe quel personnage peut être assassiné hormis l'assassin
-		assassin.utiliserPouvoirAvatar();
+
+		Joueur joueur1 = new Joueur("Milou");
+		Joueur joueur2 = new Joueur("Rantanplan");
+		Joueur joueur3 = new Joueur("Gabin");
+		Joueur joueur4 = new Joueur("Sofiane");
+		Joueur joueur5 = new Joueur("Kilian");
+		
+		plateau.ajouterJoueur(joueur1);
+		plateau.ajouterJoueur(joueur2);
+		plateau.ajouterJoueur(joueur3);
+		plateau.ajouterJoueur(joueur4);
+		plateau.ajouterJoueur(joueur5);
+		
+		roi.setJoueur(joueur1);
+		assassin.setJoueur(joueur2);
+		condottiere.setJoueur(joueur3);
+		eveque.setJoueur(joueur4);
+		marchande.setJoueur(joueur5);
+		
+		// On force l'utilisation du pouvoir par l'avatar pour vérifier le bon fontionnement
+		// NB: Choix arbitraire du roi pour finir la boucle mais marche avec n'imporque quel personnage
+		do {
+			assassin.utiliserPouvoirAvatar();			
+		}while(!roi.getAssassine());
 		
 		//Test
 		Test.test(roi.getAssassine() || marchande.getAssassine() || eveque.getAssassine() || condottiere.getAssassine(),"Un personnage est mort ");
@@ -109,6 +133,6 @@ public class TestAssassin {
 		assassin.setJoueur(joueur1);
 		
 		//Test
-		Test.test(roi.getAssassine(), "Le pouvoir n'a pas été utilisé ");
+		Test.test(!roi.getAssassine(), "Le pouvoir n'a pas été utilisé ");
 	}
 }
