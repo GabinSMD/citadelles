@@ -77,7 +77,8 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+This project was realized within the scope of our study at esaip. The objective was to make a digital version of the board game : Citadelles. For reasons of time allocated to the project, this version is playable with 4 players maximum and contains 8 characters and 14 wonders.
+This game is playable via a terminal, then a graphical interface will be proposed.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
