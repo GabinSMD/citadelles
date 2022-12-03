@@ -42,7 +42,7 @@
     ·
     <a href="https://github.com/GabinSMD/citadelles/issues/new?assignees=&labels=&template=bug_report.md&title=">Report Bug</a>
     ·
-    <a href="https://github.com/gabinsmd/citadelles/issues">Request Feature</a>
+    <a href="https://github.com/GabinSMD/citadelles/issues/new?assignees=&labels=&template=feature_request.md&title=">Request Feature</a>
   </p>
 </div>
 
