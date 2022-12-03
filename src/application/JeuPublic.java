@@ -710,9 +710,8 @@ public class JeuPublic {
 			this.pointsNombreType.add(0);
 			
 			if(this.plateauDeJeu.getJoueur(i).getPersonnage()!=null) {
-							
+				
 				for (int j = 0; j < this.plateauDeJeu.getJoueur(i).nbQuartiersDansCite(); j++) {
-	
 
 					this.pointsCoutConstruction.set(i, this.pointsCoutConstruction.get(i)+this.plateauDeJeu.getJoueur(i).getCite()[j].getCout());
 
@@ -731,32 +730,17 @@ public class JeuPublic {
 					
 					if (this.plateauDeJeu.getJoueur(i).getCite()[j].getNom() == "Cours des miracles") {
 						if(this.plateauDeJeu.getJoueur(i).getAvatar()) {
-							switch (generateur.nextInt(nbTypeQuartier)) {
-							case 0:
-								this.plateauDeJeu.getJoueur(i).getCite()[j].setType(Quartier.TYPE_QUARTIERS[0]);
-								break;
-							case 1:
-								this.plateauDeJeu.getJoueur(i).getCite()[j].setType(Quartier.TYPE_QUARTIERS[1]);
-								break;
-							case 2:
-								this.plateauDeJeu.getJoueur(i).getCite()[j].setType(Quartier.TYPE_QUARTIERS[2]);
-								break;
-							case 3:
-								this.plateauDeJeu.getJoueur(i).getCite()[j].setType(Quartier.TYPE_QUARTIERS[3]);
-								break;
-							case 4:
-								this.plateauDeJeu.getJoueur(i).getCite()[j].setType(Quartier.TYPE_QUARTIERS[4]);
-								break;
-							}
-						} else {
+							this.choix=this.generateur.nextInt(nbTypeQuartier);
+						}else {
 							System.out.println("Comment considerez-vous la Cours des miracles ?");
 							for (int k = 0; k < nbTypeQuartier; k++) {
 								System.out.println(k + " - " + Quartier.TYPE_QUARTIERS[k]);
 							}
 
 							this.choix = Interaction.lireUnEntier(0, this.nbTypeQuartier);
-
-							switch (choix) {
+						}
+									
+						switch (this.choix) {
 							case 0:
 								this.plateauDeJeu.getJoueur(i).getCite()[j].setType(Quartier.TYPE_QUARTIERS[0]);
 								break;
@@ -772,7 +756,6 @@ public class JeuPublic {
 							case 4:
 								this.plateauDeJeu.getJoueur(i).getCite()[j].setType(Quartier.TYPE_QUARTIERS[4]);
 								break;
-							}
 						}
 					}
 					
@@ -798,10 +781,6 @@ public class JeuPublic {
 						nbQuartierParType[3] += 1;
 					} else if (typeQuartier == "MERVEILLE") {
 						nbQuartierParType[4] += 1;
-					}
-	
-					if (this.plateauDeJeu.getJoueur(i).getCite()[j].getNom() == "Fontaine aux souhaits") {
-						this.pointsMerveille.set(i,(this.pointsMerveille.get(i)+nbQuartierParType[4]));
 					}
 					
 				}
@@ -832,20 +811,26 @@ public class JeuPublic {
 					}
 				}
 	
-				this.nombrePoints.set(i, this.nombrePoints.get(i)+ this.pointsCoutConstruction.get(i)+this.pointsNombreType.get(i)+this.pointsCiteTermine.get(i)+this.pointsMerveille.get(i));
-				System.out.println(this.plateauDeJeu.getJoueur(i).getNom() + " à obtenu " + this.nombrePoints.get(i) + " points !");
-	
+				
+			}
+			
+			if (this.plateauDeJeu.getJoueur(i).quartierPresentDansCite("Fontaine aux souhaits")) {
+				this.pointsMerveille.set(i,(this.pointsMerveille.get(i)+nbQuartierParType[4]));
+			}
+			
+			this.nombrePoints.set(i, this.nombrePoints.get(i)+ this.pointsCoutConstruction.get(i)+this.pointsNombreType.get(i)+this.pointsCiteTermine.get(i)+this.pointsMerveille.get(i));
+			System.out.println(this.plateauDeJeu.getJoueur(i).getNom() + " à obtenu " + this.nombrePoints.get(i) + " points !");
 
-				if (this.nombrePoints.get(i)>point) {
-					point = this.nombrePoints.get(i);
+			if (this.nombrePoints.get(i)>point) {
+				point = this.nombrePoints.get(i);
+				gameWinner = this.plateauDeJeu.getJoueur(i);
+			}else if(point == this.nombrePoints.get(i)){
+
+				if(this.plateauDeJeu.getJoueur(i).getPersonnage().getRang()>gameWinner.getPersonnage().getRang()) {
 					gameWinner = this.plateauDeJeu.getJoueur(i);
-				}else if(point == this.nombrePoints.get(i)){
-
-					if(this.plateauDeJeu.getJoueur(i).getPersonnage().getRang()>gameWinner.getPersonnage().getRang()) {
-						gameWinner = this.plateauDeJeu.getJoueur(i);
-					}
 				}
 			}
+			
 		}
 		System.out.println(gameWinner.getNom() + " remporte la partie avec " + point + " points !\n");
 		this.pointsCoutConstruction.clear();
