@@ -22,23 +22,21 @@ public class Assassin extends Personnage {
 				//Affichage de la liste des personnages selectionnables
 				for(int i=0; i<9; i++) {
 				if(this.getPlateau().getPersonnage(i)!= null) {
-					selection[i]=this.getPlateau().getPersonnage(i);
-					System.out.println(i+1+"."+ selection[i].getNom());
-					max++;
+					System.out.println(i+1+"."+ this.getPlateau().getPersonnage(i).getNom());
 				}
 				}
 				//Choix du personnage que l'on souhaite assassiner
 				//NB: L'assassin ne pourra pas être assassiné, le joueur en sera avertis et devra choisir une nouvelle cible
 				System.out.println("Choix de la cible :");
 				do {
-					choix =Interaction.lireUnEntier(1,max+1);
-					if(selection[choix-1].getNom()=="Assassin") {
+					choix =Interaction.lireUnEntier(1,this.getPlateau().getNombrePersonnages()+1);
+					if(this.getPlateau().getPersonnage(choix-1).getNom()=="Assassin") {
 						System.out.println("L'assassin ne peut pas être selectionné");
 					}
-				}while(selection[choix-1].getNom()=="Assassin");
+				}while(this.getPlateau().getPersonnage(choix-1).getNom()=="Assassin");
 				//Assassinat de la cible choisie
-				selection[choix-1].setAssassine();
-				System.out.println("Le/La "+selection[choix-1].getNom()+" a été assassiné.e");
+				this.getPlateau().getPersonnage(choix-1).setAssassine();
+				System.out.println("Le/La "+this.getPlateau().getPersonnage(choix-1).getNom()+" a été assassiné.e");
 			}
 		}
 		else {
@@ -62,9 +60,6 @@ public class Assassin extends Personnage {
 			//NB: L'assassin ne pourra pas être assassiné, le choix s'effectuera jusqu'à ce qu'un autre personnage soit sélectionné
 			do {
 				choix =r.nextInt(this.getPlateau().getNombreJoueurs());
-				if(this.getPlateau().getPersonnage(choix).getNom()=="Assassin") {
-					System.out.println("L'assassin ne peut pas être selectionné");
-				}
 			}while(this.getPlateau().getPersonnage(choix).getNom()=="Assassin");
 			//Assassinat de la cible choisie
 			this.getPlateau().getPersonnage(choix).setAssassine();
