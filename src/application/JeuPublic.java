@@ -714,8 +714,6 @@ public class JeuPublic {
 				for (int j = 0; j < this.plateauDeJeu.getJoueur(i).nbQuartiersDansCite(); j++) {
 
 					this.pointsCoutConstruction.set(i, this.pointsCoutConstruction.get(i)+this.plateauDeJeu.getJoueur(i).getCite()[j].getCout());
-
-					typeQuartier = this.plateauDeJeu.getJoueur(i).getCite()[j].getType();
 					
 					if (this.plateauDeJeu.getJoueur(i).getCite()[j].getNom() == "Ecole de magie") {
 						this.plateauDeJeu.getJoueur(i).getCite()[j].setType(Quartier.TYPE_QUARTIERS[4]);
@@ -770,6 +768,8 @@ public class JeuPublic {
 					if(this.plateauDeJeu.getJoueur(i).getCite()[j].getNom() == "Trésor Imperial") {
 						this.pointsMerveille.set(i, this.pointsMerveille.get(i)+this.plateauDeJeu.getJoueur(i).nbPieces());
 					}
+					
+					typeQuartier = this.plateauDeJeu.getJoueur(i).getCite()[j].getType();
 					
 					if (typeQuartier == "RELIGIEUX") {
 						nbQuartierParType[0] += 1;
