@@ -11,9 +11,9 @@ public class TestJeu {
 		TestJeu test = new TestJeu();
 		//test.test1();
 		//test.test2();
-		//test.test3();
+		test.test3();
 		//test.test4();
-		test.test5();
+		//test.test5();
 
 
 	}
@@ -77,9 +77,9 @@ public class TestJeu {
 		int indexJoueurAleatoire = jeu.generateur.nextInt(4);
 		int indexPersonnageAleatoire = jeu.generateur.nextInt(8);
 		Joueur joueurAleatoire = jeu.plateauDeJeu.getJoueur(indexJoueurAleatoire);
-		Personnage personnageAleatoire = jeu.plateauDeJeu.getPersonnage(indexPersonnageAleatoire);
+		Personnage personnageAleatoire = jeu.plateauDeJeu.getPersonnage(6);
 		personnageAleatoire.setJoueur(joueurAleatoire);
-		joueurAleatoire.ajouterPieces(3);
+		joueurAleatoire.ajouterPieces(5);
 
 		int nbCartePossedez = personnageAleatoire.getJoueur().nbQuartiersDansMain();
 		for (int i = 0; i < nbCartePossedez; i++) {
@@ -90,8 +90,10 @@ public class TestJeu {
 		joueurAleatoire.ajouterQuartierDansMain(new Quartier("Temple", Quartier.TYPE_QUARTIERS[0], 1));
 		joueurAleatoire.ajouterQuartierDansMain(new Quartier("Forteresse", Quartier.TYPE_QUARTIERS[1], 5));
 		
+		System.out.println(personnageAleatoire.getNom());
 		jeu.construire(personnageAleatoire);
-
+		jeu.architecte(personnageAleatoire);
+		
 		if (personnageAleatoire.getJoueur().nbQuartiersDansCite() == 1) {
 			for (int i = 0; i < personnageAleatoire.getJoueur().nbQuartiersDansCite(); i++) {
 				Test.test(
@@ -99,17 +101,13 @@ public class TestJeu {
 			}
 		} else if (personnageAleatoire.getJoueur().nbQuartiersDansCite() > 1) {
 			for (int i = 0; i < personnageAleatoire.getJoueur().nbQuartiersDansCite(); i++) {
-				if (personnageAleatoire.getJoueur().getCite()[i].getNom() == "Temple") {
-					nbTemple++;
-				}
-				Test.test(nbTemple == 2, "Les temples sont construites grâce...");
-				Test.test(personnageAleatoire.getNom() == Caracteristiques.ARCHITECTE, "... à l'architecte");
-
+				Test.test(personnageAleatoire.getNom() == Caracteristiques.ARCHITECTE, "Le joueur est un architecte");
 			}
 		} else {
 			Test.test(personnageAleatoire.getJoueur().nbQuartiersDansCite() == 0, "Le joueur à décider de ne pas construire");
 		}
 	}
+	
 
 	// Test d'un tour de jeu
 	public void test4() {
