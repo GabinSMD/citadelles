@@ -127,8 +127,7 @@ public class JeuPublic {
 				System.out.println(this.plateauDeJeu.getJoueur(i).getNom()+ " a la couronne ! Il est le premier à choisir son personnage.");
 				//Affiche des personnages
 				for(Personnage perso : listePersonnageDisponible) {
-					System.out.println(this.index+ ". "+ perso.getNom());
-					this.index++;
+					System.out.println(listePersonnageDisponible.indexOf(perso)+ ". "+ perso.getNom());
 				}
 				//Cas avatar
 				if (this.plateauDeJeu.getJoueur(i).getAvatar()) {
@@ -164,11 +163,8 @@ public class JeuPublic {
 				System.out.println(this.plateauDeJeu.getJoueur(i).getNom() + " choisit son personnage.");
 				//Affiche des personnages
 
-				this.index=0;
-
 				for(Personnage perso : listePersonnageDisponible) {
-					System.out.println(this.index+ ". "+ perso.getNom());
-					this.index++;
+					System.out.println(listePersonnageDisponible.indexOf(perso)+ ". "+ perso.getNom());
 				}
 				//Cas avatar
 				if (this.plateauDeJeu.getJoueur(i).getAvatar()) {
@@ -281,9 +277,8 @@ public class JeuPublic {
 			}
 			this.choixBoolean=Interaction.lireOuiOuNon();
 		}
-		
 
-		if (this.choixBoolean) {
+		if (this.choixBoolean && personnageActuel.getJoueur().nbQuartiersDansMain()!=0) {
 			if(personnageActuel.getJoueur().getAvatar()) {
 				this.choix = this.generateur.nextInt(personnageActuel.getJoueur().nbQuartiersDansMain());
 			}else {
@@ -293,10 +288,10 @@ public class JeuPublic {
 			quartierAConstruire = personnageActuel.getJoueur().getMain().get(this.choix);
 			
 			if(personnageActuel.getJoueur().quartierPresentDansCite("Manufacture") && quartierAConstruire.getType() == Quartier.TYPE_QUARTIERS[4]) {
-				coutQuartier = personnageActuel.getJoueur().getMain().get(this.choix).getCout()-1;
+				coutQuartier = quartierAConstruire.getCout()-1;
 			}else {
-				coutQuartier = personnageActuel.getJoueur().getMain().get(this.choix).getCout();
-
+				System.out.println(personnageActuel.getJoueur().getMain());
+				coutQuartier = quartierAConstruire.getCout();
 			}
 			System.out.println("La construction coute : " + coutQuartier + " pièces d'or");
 			
@@ -622,7 +617,11 @@ public class JeuPublic {
 							this.choixBoolean=Interaction.lireOuiOuNon();
 						}
 						if (this.choixBoolean) {
-							personnageActuel.utiliserPouvoir();
+							if(joueurActuel.getAvatar()) {
+								personnageActuel.utiliserPouvoirAvatar();
+							} else {
+								personnageActuel.utiliserPouvoir();
+							}
 						}
 						
 						//Appelle de la fonction construire
@@ -702,7 +701,7 @@ public class JeuPublic {
 	
 	public void calculDesPoints() {
 		int point = 0;
-		Joueur gameWinner = null;
+		Joueur gameWinner = this.plateauDeJeu.getJoueur(0);
 		
 		for (int i = 0; i < nombreJoueurs; i++) {
 			String typeQuartier = "";
@@ -720,8 +719,6 @@ public class JeuPublic {
 
 					this.pointsCoutConstruction.set(i, this.pointsCoutConstruction.get(i)+this.plateauDeJeu.getJoueur(i).getCite()[j].getCout());
 
-					
-					
 					typeQuartier = this.plateauDeJeu.getJoueur(i).getCite()[j].getType();
 					
 					if (this.plateauDeJeu.getJoueur(i).getCite()[j].getNom() == "Ecole de magie") {
@@ -854,6 +851,11 @@ public class JeuPublic {
 			}
 		}
 		System.out.println(gameWinner.getNom() + " remporte la partie avec " + point + " points !\n");
+		this.pointsCoutConstruction.clear();
+		this.pointsMerveille.clear();
+		this.pointsCiteTermine.clear();
+		this.nombrePoints.clear();
+		this.pointsNombreType.clear();
 	}
 	
 	public void jouerPartie() {
@@ -865,7 +867,9 @@ public class JeuPublic {
 			System.out.println("Tour n°" + i);
 			this.tourDeJeu();
 			this.gestionCouronne();
-			this.reinitialisationPersonnages();
+			if(!this.first) {
+				this.reinitialisationPersonnages();
+			}
 			i++;
 		} while (!partieFinie());
 		
