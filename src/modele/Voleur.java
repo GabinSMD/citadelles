@@ -12,7 +12,6 @@ public class Voleur extends Personnage {
 
 	public Voleur() {
 		super("Voleur", 2, Caracteristiques.VOLEUR);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void utiliserPouvoir() {
