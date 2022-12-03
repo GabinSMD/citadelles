@@ -3,6 +3,7 @@ package test;
 import modele.Assassin;
 import modele.Condottiere;
 import modele.Eveque;
+import modele.Joueur;
 import modele.Marchande;
 import modele.PlateauDeJeu;
 import modele.Roi;
@@ -13,6 +14,7 @@ public class TestAssassin {
 		test.test1();
 		test.test2();
 		test.test3();
+		test.test4();
 	}
 	
 	public void test1() {
@@ -26,7 +28,7 @@ public class TestAssassin {
 		//Ajout des personnages au Plateau de Jeu
 		plateau.ajouterPersonnage(roi);
 		plateau.ajouterPersonnage(assassin);
-		
+			
 		//Tests
 		Test.test(plateau.getNombrePersonnages()== 2,"nombre de joueurs");
 		Test.test(plateau.getPersonnage(1)==assassin,"récupération du personnage de l'assassin");
@@ -45,8 +47,13 @@ public class TestAssassin {
 		plateau.ajouterPersonnage(roi);
 		plateau.ajouterPersonnage(assassin);
 		
+		Joueur joueur1 = new Joueur("Milou");
+		
+		plateau.ajouterJoueur(joueur1);
+		assassin.setJoueur(joueur1);
+		
 		// on utilise le pouvoir de l'assassin
-		// NB: seul le roi peut �tre assassin� dans cette situation
+		// NB: seul le roi peut être assassin� dans cette situation
 		assassin.utiliserPouvoir();
 		
 		//Test
@@ -78,5 +85,30 @@ public class TestAssassin {
 		//Test
 		Test.test(roi.getAssassine() || marchande.getAssassine() || eveque.getAssassine() || condottiere.getAssassine(),"Un personnage est mort ");
 		Test.test(!assassin.getAssassine(),"L'assassin n'est pas mort ");
+	}
+	
+	public void test4() {
+		System.out.println("TEST DE L'ASSASSINAT DU ROI");
+		
+		//Initialisation des personnages et du Plateau de Jeu
+		Roi roi = new Roi();
+		Assassin assassin = new Assassin();
+		Condottiere condottiere = new Condottiere();
+		PlateauDeJeu plateau = new PlateauDeJeu();
+		
+		//Ajout des personnages au Plateau de Jeu
+		plateau.ajouterPersonnage(roi);
+		plateau.ajouterPersonnage(assassin);
+		
+		// on utilise le pouvoir de l'assassin avant l'attribution à un joueur
+		// NB: Le pouvoir ne sera donc pas utiliser
+		assassin.utiliserPouvoir();
+		
+		Joueur joueur1 = new Joueur("Milou");
+		plateau.ajouterJoueur(joueur1);
+		assassin.setJoueur(joueur1);
+		
+		//Test
+		Test.test(roi.getAssassine(), "Le pouvoir n'a pas été utilisé ");
 	}
 }

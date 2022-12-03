@@ -159,6 +159,7 @@ public class TestCondottiere {
 		
 		// création d'une pioche:
 		Pioche pioche = plateau.getPioche();
+
 		pioche.ajouter(new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1)); 
 		pioche.ajouter(new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2)); 
 		pioche.ajouter(new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2));
@@ -171,6 +172,7 @@ public class TestCondottiere {
 		pioche.ajouter(new Quartier("manoir",Quartier.TYPE_QUARTIERS[2],3)); 
 		pioche.ajouter(new Quartier("hôtel de ville",Quartier.TYPE_QUARTIERS[3],5)); 
 		pioche.ajouter(new Quartier("bibliothèque",Quartier.TYPE_QUARTIERS[4],6,"Si vous choisissez...")); 
+
 		pioche.melanger();
 		
 		// on distribue les cartes aux joueurs:

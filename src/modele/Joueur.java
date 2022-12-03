@@ -136,7 +136,9 @@ public class Joueur {
 	}
 
 	public void ajouterQuartierDansMain(Quartier quartier) {
-		this.main.add(quartier);
+		if (quartier!=null) {
+			this.main.add(quartier);
+		}
 	}
 
 	public Quartier retirerQuartierDansMain() {
