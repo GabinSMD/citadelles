@@ -130,23 +130,25 @@ public class Magicienne extends Personnage{
 	public void utiliserPouvoirAvatar() {
 		Random r = new Random();
 		int choix = r.nextInt(2);
-		switch(choix) {
-		case 0:
-			System.out.println("La Magicienne n'utilise pas son pouvoir");
-			break;
-		case 1:
-			int val = menuPouvoirAvatar();
-			switch(val){
-				case 0: break;
-				case 1: 
-					echangeJoueurAvatar();
-					break;
-				case 2:
-					remplacePiocheAvatar();
+		if(this.getJoueur()!=null) {
+			switch(choix) {
+			case 0:
+				System.out.println("La Magicienne n'utilise pas son pouvoir");
+				break;
+			case 1:
+				int val = menuPouvoirAvatar();
+				switch(val){
+					case 0: break;
+					case 1: 
+						echangeJoueurAvatar();
+						break;
+					case 2:
+						remplacePiocheAvatar();
+						break;
+				}
+				default:
 					break;
 			}
-			default:
-				break;
 		}
 	}
 	
