@@ -15,8 +15,8 @@ public class TestCondottiere {
 	public static void main(String[] args) {
 		TestCondottiere test = new TestCondottiere();
 		//test.test1();
-		test.test2();
-		//test.test3();
+		//test.test2();
+		test.test3();
 		//test.test4();
 	}
 	
@@ -159,28 +159,20 @@ public class TestCondottiere {
 		
 		// création d'une pioche:
 		Pioche pioche = plateau.getPioche();
-		Quartier q = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1); 
-		pioche.ajouter(q);
-		q = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2); 
-		pioche.ajouter(q);
-		q = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5); 
-		pioche.ajouter(q);
-		q = new Quartier("taverne",Quartier.TYPE_QUARTIERS[3],1); 
-		pioche.ajouter(q);
-		q = new Quartier("échoppe",Quartier.TYPE_QUARTIERS[3],2); 
-		pioche.ajouter(q);
-		q = new Quartier("basilique",Quartier.TYPE_QUARTIERS[4],4,"A la fin de la partie, ..."); 
-		pioche.ajouter(q);
-		q = new Quartier("cath�drale",Quartier.TYPE_QUARTIERS[0],5); 
-		pioche.ajouter(q);
-		q = new Quartier("caserne",Quartier.TYPE_QUARTIERS[1],3); 
-		pioche.ajouter(q);
-		q = new Quartier("manoir",Quartier.TYPE_QUARTIERS[2],3); 
-		pioche.ajouter(q);
-		q = new Quartier("hôtel de ville",Quartier.TYPE_QUARTIERS[3],5); 
-		pioche.ajouter(q);
-		q = new Quartier("bibliothèque",Quartier.TYPE_QUARTIERS[4],6,"Si vous choisissez..."); 
-		pioche.ajouter(q);
+
+		pioche.ajouter(new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1)); 
+		pioche.ajouter(new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2)); 
+		pioche.ajouter(new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2));
+		pioche.ajouter(new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5)); 
+		pioche.ajouter(new Quartier("taverne",Quartier.TYPE_QUARTIERS[3],1)); 
+		pioche.ajouter(new Quartier("échoppe",Quartier.TYPE_QUARTIERS[3],2)); 
+		pioche.ajouter(new Quartier("basilique",Quartier.TYPE_QUARTIERS[4],4,"A la fin de la partie, ...")); 
+		pioche.ajouter(new Quartier("cath�drale",Quartier.TYPE_QUARTIERS[0],5)); 
+		pioche.ajouter(new Quartier("caserne",Quartier.TYPE_QUARTIERS[1],3)); 
+		pioche.ajouter(new Quartier("manoir",Quartier.TYPE_QUARTIERS[2],3)); 
+		pioche.ajouter(new Quartier("hôtel de ville",Quartier.TYPE_QUARTIERS[3],5)); 
+		pioche.ajouter(new Quartier("bibliothèque",Quartier.TYPE_QUARTIERS[4],6,"Si vous choisissez...")); 
+
 		pioche.melanger();
 		
 		// on distribue les cartes aux joueurs:

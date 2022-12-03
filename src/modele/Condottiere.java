@@ -88,16 +88,10 @@ public class Condottiere extends Personnage {
 	// Utilisation du pouvoir par un avatar
 	public void utiliserPouvoirAvatar() {
 		Random r = new Random();
-		int choixJoueur;
+		int choixPersonnage;
 		int	choixQuartier;
 		String nomQuartier ="";
-		// Incrémentation de la liste des personnages selectionnables
-		for(int i=0; i<9; i++) {
-			if(this.getPlateau().getPersonnage(i)!= null) {
-				selection[i]=this.getPlateau().getPersonnage(i);
-				max++;
-			}
-		}
+
 		choix = r.nextInt(2);
 		switch (choix) {
 			case 0:
@@ -105,25 +99,28 @@ public class Condottiere extends Personnage {
 				break;
 			case 1:
 				System.out.println("Le condotiere utilise son pouvoir de destruction");
-				choixJoueur = r.nextInt(max+1);// L'index max+1 correspond à la liberté de ne pas continuer
-				if (choixJoueur == max+1) {
+				do {
+					choixPersonnage = r.nextInt(this.getPlateau().getNombrePersonnages()+1);// L'index max+1 correspond à la liberté de ne pas continuer
+				}while(this.getPlateau().getPersonnage(choixPersonnage)==null || this.getPlateau().getPersonnage(choixPersonnage).getJoueur()==null);
+				if (choixPersonnage == this.getPlateau().getNombrePersonnages()) {
 					System.out.println("Le pouvoir échoue");
 					break;
-				}else if(this.getPlateau().getJoueur(choixJoueur).getPersonnage().getNom() == "Eveque" && this.getPlateau().getJoueur(choixJoueur).getPersonnage().getAssassine()==false) {
+				}else if(this.getPlateau().getPersonnage(choixPersonnage).getNom() == "Eveque" && this.getPlateau().getPersonnage(choixPersonnage).getAssassine()==false) {
 					break;
-				}
-				else if(this.getPlateau().getJoueur(choixJoueur) != null){
+				}else if(this.getPlateau().getPersonnage(choixPersonnage) != null){
 					do {
-						choixQuartier = r.nextInt(getPlateau().getJoueur(choixJoueur).nbQuartiersDansCite()+1);
-						if(choixQuartier==getPlateau().getJoueur(choixJoueur).nbQuartiersDansCite()+1) { // L'index getPlateau().getJoueur(choixJoueur).nbQuartiersDansCite()+1 correspond à la liberté de ne pas continuer
+						choixQuartier = r.nextInt(this.getPlateau().getPersonnage(choixPersonnage).getJoueur().nbQuartiersDansCite()+1);
+						if(choixQuartier==this.getPlateau().getPersonnage(choixPersonnage).getJoueur().nbQuartiersDansCite()) { // L'index getPlateau().getJoueur(choixJoueur).nbQuartiersDansCite()+1 correspond à la liberté de ne pas continuer
 							System.out.println("Le pouvoir échoue");
 							break;
 						}
-					}while(this.getPlateau().getJoueur(choixJoueur).getCite()[choixQuartier] == null ||(this.getPlateau().getJoueur(choixJoueur).getCite()[choixQuartier].getCout() - 1) > this.getJoueur().nbPieces()); //tourne tant que le quartier n'est pas achetable
-					nomQuartier = this.getPlateau().getJoueur(choixJoueur).getCite()[choixQuartier].getNom();
-					this.getJoueur().retirerPieces(this.getPlateau().getJoueur(choixJoueur).getCite()[choixQuartier].getCout() - 1);
-					this.getPlateau().getJoueur(choixJoueur).retirerQuartierDansCite(nomQuartier);
-					System.out.println(this.getPlateau().getJoueur(choixJoueur).getNom()+" votre quartier : " + nomQuartier + " à  été détruit par le Condottiere");
+					}while(this.getPlateau().getPersonnage(choixPersonnage).getJoueur().getCite()[choixQuartier].getCout() - 1 > this.getJoueur().nbPieces()); //tourne tant que le quartier n'est pas achetable
+					if(choixQuartier!=this.getPlateau().getPersonnage(choixPersonnage).getJoueur().nbQuartiersDansCite()) {
+						nomQuartier = this.getPlateau().getPersonnage(choixPersonnage).getJoueur().getCite()[choixQuartier].getNom();
+						this.getJoueur().retirerPieces(this.getPlateau().getPersonnage(choixPersonnage).getJoueur().getCite()[choixQuartier].getCout() - 1);
+						this.getPlateau().getPersonnage(choixPersonnage).getJoueur().retirerQuartierDansCite(nomQuartier);
+						System.out.println(this.getPlateau().getPersonnage(choixPersonnage).getJoueur().getNom()+" votre quartier : " + nomQuartier + " à  été détruit par le Condottiere");
+					}
 				}
 				break;
 			default:
