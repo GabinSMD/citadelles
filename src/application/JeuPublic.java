@@ -426,7 +426,7 @@ public class JeuPublic {
 		
 			do {
 				if(personnageActuel.getJoueur().getAvatar()) {
-					this.choix = this.generateur.nextInt(0,personnageActuel.getJoueur().nbQuartiersDansMain());
+					this.choix = this.generateur.nextInt(0,personnageActuel.getJoueur().nbQuartiersDansMain()+1);
 				}else {
 					System.out.println("Quel quartier voulez-vous construire ?");
 					System.out.println("0. Pour sortir");
