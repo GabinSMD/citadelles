@@ -9,11 +9,11 @@ import modele.Quartier;
 public class TestJeu {
 	public static void main(String[] args) {
 		TestJeu test = new TestJeu();
-		test.test1();
+		//test.test1();
 		//test.test2();
 		//test.test3();
 		//test.test4();
-		//test.test5();
+		test.test5();
 
 
 	}
@@ -47,7 +47,7 @@ public class TestJeu {
 		}
 	}
 
-	public void test2() {
+	public void test2() { // AVATAR OK
 		int aucunProbleme = 0;
 		JeuPublic jeu = new JeuPublic();
 		System.out.println("TEST DU CHOIX DU PERSONNAGE");
@@ -67,142 +67,167 @@ public class TestJeu {
 			}
 		}
 	}
-	
-	// Test d'un tour de jeu
+
 	public void test3() {
-		/*int aucunProbleme = 0;
 		JeuPublic jeu = new JeuPublic();
-		System.out.println("TEST D'UN TOUR DE JEU ET DE LA FIN DE PARTIE");
-		jeu.jouer();
-		if (jeu.nombreJoueurs == 4 || jeu.nombreJoueurs == 5 || jeu.nombreJoueurs == 6 || jeu.nombreJoueurs == 7) {
-			for (int i = 0; i < jeu.nombreJoueurs; i++) {
-				if (jeu.plateauDeJeu.getJoueur(i).nbQuartiersDansCite() >= 7) {
-					Test.test(jeu.plateauDeJeu.getJoueur(i).nbQuartiersDansCite() >= 7,
-							"La partie s'est terminé car une cité est complète");
-					break;
-				} else {
-					aucunProbleme++;
-					if (aucunProbleme == 4) {
-						Test.test(jeu.plateauDeJeu.getJoueur(i).nbQuartiersDansCite() >= 7,
-								"La partie s'est terminé car une cité est complète");
-					}
+		System.out.println("TEST DE LA CONSTRUCTION");
+		jeu.initialisation();
+
+		int nbTemple = 0;
+		int indexJoueurAleatoire = jeu.generateur.nextInt(4);
+		int indexPersonnageAleatoire = jeu.generateur.nextInt(8);
+		Joueur joueurAleatoire = jeu.plateauDeJeu.getJoueur(indexJoueurAleatoire);
+		Personnage personnageAleatoire = jeu.plateauDeJeu.getPersonnage(indexPersonnageAleatoire);
+		personnageAleatoire.setJoueur(joueurAleatoire);
+		joueurAleatoire.ajouterPieces(3);
+
+		int nbCartePossedez = personnageAleatoire.getJoueur().nbQuartiersDansMain();
+		for (int i = 0; i < nbCartePossedez; i++) {
+			personnageAleatoire.getJoueur().retirerQuartierDansMain();
+		}
+
+		joueurAleatoire.ajouterQuartierDansMain(new Quartier("Temple", Quartier.TYPE_QUARTIERS[0], 1));
+		joueurAleatoire.ajouterQuartierDansMain(new Quartier("Temple", Quartier.TYPE_QUARTIERS[0], 1));
+		joueurAleatoire.ajouterQuartierDansMain(new Quartier("Forteresse", Quartier.TYPE_QUARTIERS[1], 5));
+		
+		jeu.construire(personnageAleatoire);
+
+		if (personnageAleatoire.getJoueur().nbQuartiersDansCite() == 1) {
+			for (int i = 0; i < personnageAleatoire.getJoueur().nbQuartiersDansCite(); i++) {
+				Test.test(
+						(joueurAleatoire.getCite()[i].getNom() == "Temple") || (joueurAleatoire.getCite()[i].getNom() == "Forteresse"), "Un quartier à été construit");
+			}
+		} else if (personnageAleatoire.getJoueur().nbQuartiersDansCite() > 1) {
+			for (int i = 0; i < personnageAleatoire.getJoueur().nbQuartiersDansCite(); i++) {
+				if (personnageAleatoire.getJoueur().getCite()[i].getNom() == "Temple") {
+					nbTemple++;
 				}
+				Test.test(nbTemple == 2, "Les temples sont construites grâce...");
+				Test.test(personnageAleatoire.getNom() == Caracteristiques.ARCHITECTE, "... à l'architecte");
+
 			}
 		} else {
-			for (int i = 0; i < jeu.nombreJoueurs; i++) {
-				if (jeu.plateauDeJeu.getJoueur(i).nbQuartiersDansCite() >= 8) {
-					Test.test(jeu.plateauDeJeu.getJoueur(i).nbQuartiersDansCite() >= 8,
-							"La partie s'est terminé car une cité est complète");
-					break;
-				} else {
-					aucunProbleme++;
-					if (aucunProbleme == 4) {
-						Test.test(jeu.plateauDeJeu.getJoueur(i).nbQuartiersDansCite() >= 8,
-								"La partie s'est terminé car une cité est complète");
-					}
-				}
-			}
-		}*/
+			Test.test(personnageAleatoire.getJoueur().nbQuartiersDansCite() == 0, "Le joueur à décider de ne pas construire");
+		}
 	}
-	
+
 	// Test d'un tour de jeu
 	public void test4() {
 		JeuPublic jeu = new JeuPublic();
 		System.out.println("TEST DU CALCUL DES POINTS");
 		jeu.initialisation();
-		
+
 		Joueur joueur0 = jeu.plateauDeJeu.getJoueur(0);
 		Personnage personnage0 = jeu.plateauDeJeu.getPersonnage(0);
 		personnage0.setJoueur(joueur0);
-		
+
 		Joueur joueur1 = jeu.plateauDeJeu.getJoueur(1);
 		Personnage personnage1 = jeu.plateauDeJeu.getPersonnage(1);
 		personnage1.setJoueur(joueur1);
-		
+
 		Joueur joueur2 = jeu.plateauDeJeu.getJoueur(2);
 		Personnage personnage2 = jeu.plateauDeJeu.getPersonnage(2);
 		personnage2.setJoueur(joueur2);
-		
+
 		Joueur joueur3 = jeu.plateauDeJeu.getJoueur(3);
 		Personnage personnage3 = jeu.plateauDeJeu.getPersonnage(3);
 		personnage3.setJoueur(joueur3);
-		
+
 		jeu.winner = jeu.plateauDeJeu.getJoueur(2);
-		
-		//Cité Joueur 1
+
+		// Cité Joueur 1
 		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Temple", Quartier.TYPE_QUARTIERS[0], 1));
 		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Monastère", Quartier.TYPE_QUARTIERS[0], 3));
 		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Caserne", Quartier.TYPE_QUARTIERS[1], 3));
 		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Palais", Quartier.TYPE_QUARTIERS[2], 5));
 		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Comptoir", Quartier.TYPE_QUARTIERS[3], 3));
-		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Fontaine aux souhaits",Quartier.TYPE_QUARTIERS[4], 5, Caracteristiques.FONTAINE));
-		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Cours des miracles",Quartier.TYPE_QUARTIERS[4], 2, Caracteristiques.COURS));
+		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(
+				new Quartier("Fontaine aux souhaits", Quartier.TYPE_QUARTIERS[4], 5, Caracteristiques.FONTAINE));
+		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(
+				new Quartier("Cours des miracles", Quartier.TYPE_QUARTIERS[4], 2, Caracteristiques.COURS));
 
-		//Cité Joueur 2
+		// Cité Joueur 2
 		jeu.plateauDeJeu.getJoueur(1).ajouterQuartierDansCite(new Quartier("Temple", Quartier.TYPE_QUARTIERS[0], 1));
 		jeu.plateauDeJeu.getJoueur(1).ajouterQuartierDansCite(new Quartier("Monastère", Quartier.TYPE_QUARTIERS[0], 3));
 		jeu.plateauDeJeu.getJoueur(1).ajouterQuartierDansCite(new Quartier("Caserne", Quartier.TYPE_QUARTIERS[1], 3));
-		jeu.plateauDeJeu.getJoueur(1).ajouterQuartierDansCite(new Quartier("Forteresse", Quartier.TYPE_QUARTIERS[1], 5));
+		jeu.plateauDeJeu.getJoueur(1)
+				.ajouterQuartierDansCite(new Quartier("Forteresse", Quartier.TYPE_QUARTIERS[1], 5));
 		jeu.plateauDeJeu.getJoueur(1).ajouterQuartierDansCite(new Quartier("Palais", Quartier.TYPE_QUARTIERS[2], 5));
 		jeu.plateauDeJeu.getJoueur(1).ajouterQuartierDansCite(new Quartier("Manoir", Quartier.TYPE_QUARTIERS[2], 3));
-		
-		//Cité Joueur 3
+
+		// Cité Joueur 3
 		jeu.plateauDeJeu.getJoueur(2).ajouterQuartierDansCite(new Quartier("Temple", Quartier.TYPE_QUARTIERS[0], 1));
 		jeu.plateauDeJeu.getJoueur(2).ajouterQuartierDansCite(new Quartier("Monastère", Quartier.TYPE_QUARTIERS[0], 3));
 		jeu.plateauDeJeu.getJoueur(2).ajouterQuartierDansCite(new Quartier("Caserne", Quartier.TYPE_QUARTIERS[1], 3));
-		jeu.plateauDeJeu.getJoueur(2).ajouterQuartierDansCite(new Quartier("Forteresse", Quartier.TYPE_QUARTIERS[1], 5));
+		jeu.plateauDeJeu.getJoueur(2)
+				.ajouterQuartierDansCite(new Quartier("Forteresse", Quartier.TYPE_QUARTIERS[1], 5));
 		jeu.plateauDeJeu.getJoueur(2).ajouterQuartierDansCite(new Quartier("Palais", Quartier.TYPE_QUARTIERS[2], 5));
 		jeu.plateauDeJeu.getJoueur(2).ajouterQuartierDansCite(new Quartier("Manoir", Quartier.TYPE_QUARTIERS[2], 3));
-		jeu.plateauDeJeu.getJoueur(2).ajouterQuartierDansCite(new Quartier("Dracoport",Quartier.TYPE_QUARTIERS[4], 6, Caracteristiques.DRACOPORT));
-		
-		//Cité Joueur 4
+		jeu.plateauDeJeu.getJoueur(2).ajouterQuartierDansCite(
+				new Quartier("Dracoport", Quartier.TYPE_QUARTIERS[4], 6, Caracteristiques.DRACOPORT));
+
+		// Cité Joueur 4
 		jeu.plateauDeJeu.getJoueur(3).ajouterQuartierDansCite(new Quartier("Temple", Quartier.TYPE_QUARTIERS[0], 1));
 		jeu.plateauDeJeu.getJoueur(3).ajouterQuartierDansCite(new Quartier("Monastère", Quartier.TYPE_QUARTIERS[0], 3));
-		jeu.plateauDeJeu.getJoueur(3).ajouterQuartierDansCite(new Quartier("Forteresse", Quartier.TYPE_QUARTIERS[1], 5));
+		jeu.plateauDeJeu.getJoueur(3)
+				.ajouterQuartierDansCite(new Quartier("Forteresse", Quartier.TYPE_QUARTIERS[1], 5));
 		jeu.plateauDeJeu.getJoueur(3).ajouterQuartierDansCite(new Quartier("Palais", Quartier.TYPE_QUARTIERS[2], 5));
 
 		jeu.calculDesPoints();
 
 		for (int i = 0; i < jeu.nombreJoueurs; i++) {
-			if (i==0) {
+			if (i == 0) {
 				System.out.println("");
-				Test.test(jeu.pointsCoutConstruction.get(0) == 22,"1er joueur : Comptage des points de construction");
-				Test.test(jeu.pointsNombreType.get(0) == 3,"1er joueur : Comptage des points des types présents du 1er joueur");
-				Test.test(jeu.pointsCiteTermine.get(0) == 2,"1er joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
+				Test.test(jeu.pointsCoutConstruction.get(0) == 22, "1er joueur : Comptage des points de construction");
+				Test.test(jeu.pointsNombreType.get(0) == 3,
+						"1er joueur : Comptage des points des types présents du 1er joueur");
+				Test.test(jeu.pointsCiteTermine.get(0) == 2,
+						"1er joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
 				if (jeu.nombrePoints.get(0) == 29) {
-					Test.test(jeu.pointsMerveille.get(0) == 2,"1er joueur : Comptage des points gagnés grâce aux Merveilles");
-					Test.test(jeu.nombrePoints.get(0) == 29,"1er joueur : Comptage des points totaux");
+					Test.test(jeu.pointsMerveille.get(0) == 2,
+							"1er joueur : Comptage des points gagnés grâce aux Merveilles");
+					Test.test(jeu.nombrePoints.get(0) == 29, "1er joueur : Comptage des points totaux");
 				} else if (jeu.nombrePoints.get(0) == 28) {
-					Test.test(jeu.pointsMerveille.get(0) == 1,"1er joueur : Comptage des points gagnés grâce aux Merveilles");
-					Test.test(jeu.nombrePoints.get(0) == 28,"1er joueur : Comptage des points totaux");
+					Test.test(jeu.pointsMerveille.get(0) == 1,
+							"1er joueur : Comptage des points gagnés grâce aux Merveilles");
+					Test.test(jeu.nombrePoints.get(0) == 28, "1er joueur : Comptage des points totaux");
 				}
 				System.out.println("");
-			} else if(i==1) {
+			} else if (i == 1) {
 				System.out.println("");
-				Test.test(jeu.pointsCoutConstruction.get(1) == 20,"2ème joueur : Comptage des points de construction");
-				Test.test(jeu.pointsNombreType.get(1) == 0,"2ème joueur : Comptage des points des types présents du 1er joueur");
-				Test.test(jeu.pointsCiteTermine.get(1) == 0,"2ème joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
-				Test.test(jeu.pointsMerveille.get(1) == 0,"2ème joueur : Comptage des points gagnés grâce aux Merveilles");
-          		Test.test(jeu.nombrePoints.get(1) == 20,"2ème joueur : Comptage des points totaux");
+				Test.test(jeu.pointsCoutConstruction.get(1) == 20, "2ème joueur : Comptage des points de construction");
+				Test.test(jeu.pointsNombreType.get(1) == 0,
+						"2ème joueur : Comptage des points des types présents du 1er joueur");
+				Test.test(jeu.pointsCiteTermine.get(1) == 0,
+						"2ème joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
+				Test.test(jeu.pointsMerveille.get(1) == 0,
+						"2ème joueur : Comptage des points gagnés grâce aux Merveilles");
+				Test.test(jeu.nombrePoints.get(1) == 20, "2ème joueur : Comptage des points totaux");
 				System.out.println("");
-			} else if (i==2) {
+			} else if (i == 2) {
 				System.out.println("");
-				Test.test(jeu.pointsCoutConstruction.get(2) == 26,"3ème joueur : Comptage des points de construction");
-				Test.test(jeu.pointsNombreType.get(2) == 0,"3ème joueur : Comptage des points des types présents du 1er joueur");
-				Test.test(jeu.pointsCiteTermine.get(2) == 4,"3ème joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
-				Test.test(jeu.pointsMerveille.get(2) == 2,"3ème joueur : Comptage des points gagnés grâce aux Merveilles");
-				Test.test(jeu.nombrePoints.get(2) == 32,"3ème joueur : Comptage des points totaux");
+				Test.test(jeu.pointsCoutConstruction.get(2) == 26, "3ème joueur : Comptage des points de construction");
+				Test.test(jeu.pointsNombreType.get(2) == 0,
+						"3ème joueur : Comptage des points des types présents du 1er joueur");
+				Test.test(jeu.pointsCiteTermine.get(2) == 4,
+						"3ème joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
+				Test.test(jeu.pointsMerveille.get(2) == 2,
+						"3ème joueur : Comptage des points gagnés grâce aux Merveilles");
+				Test.test(jeu.nombrePoints.get(2) == 32, "3ème joueur : Comptage des points totaux");
 				System.out.println("");
-			} else if (i==3) {
+			} else if (i == 3) {
 				System.out.println("");
-				Test.test(jeu.pointsCoutConstruction.get(3) == 14,"4ème joueur : Comptage des points de construction");
-				Test.test(jeu.pointsNombreType.get(3) == 0,"4ème joueur : Comptage des points des types présents du 1er joueur");
-				Test.test(jeu.pointsCiteTermine.get(3) == 0,"4ème joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
-				Test.test(jeu.pointsMerveille.get(3) == 0,"4ème joueur : Comptage des points gagnés grâce aux Merveilles");
-				Test.test(jeu.nombrePoints.get(3) == 14,"4ème joueur : Comptage des points totaux");
+				Test.test(jeu.pointsCoutConstruction.get(3) == 14, "4ème joueur : Comptage des points de construction");
+				Test.test(jeu.pointsNombreType.get(3) == 0,
+						"4ème joueur : Comptage des points des types présents du 1er joueur");
+				Test.test(jeu.pointsCiteTermine.get(3) == 0,
+						"4ème joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
+				Test.test(jeu.pointsMerveille.get(3) == 0,
+						"4ème joueur : Comptage des points gagnés grâce aux Merveilles");
+				Test.test(jeu.nombrePoints.get(3) == 14, "4ème joueur : Comptage des points totaux");
 				System.out.println("");
 			}
-		} 
+		}
 	}
 
 	// Test d'une partie complète d'Avatar
@@ -240,26 +265,5 @@ public class TestJeu {
 				}
 			}
 		}
-	}
-	
-	public void test6() {
-		JeuPublic jeu = new JeuPublic();
-		System.out.println("TEST DES MERVEILLES");
-		jeu.jouer();
-
-		/*jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Bibliothèque", Quartier.TYPE_QUARTIERS[4], 6, Caracteristiques.BIBLIOTHEQUE));
-		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Carrière", Quartier.TYPE_QUARTIERS[4], 5, Caracteristiques.CARRIERE));
-		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Cours des miracles",Quartier.TYPE_QUARTIERS[4], 2, Caracteristiques.COURS));
-		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Donjon",Quartier.TYPE_QUARTIERS[4], 3, Caracteristiques.DONJON));
-		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Dracoport",Quartier.TYPE_QUARTIERS[4], 6, Caracteristiques.DRACOPORT));
-		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Ecole de magie",Quartier.TYPE_QUARTIERS[4], 6, Caracteristiques.MAGIE));
-		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Fontaine aux souhaits",Quartier.TYPE_QUARTIERS[4], 5, Caracteristiques.FONTAINE));
-		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Forge",Quartier.TYPE_QUARTIERS[4], 5, Caracteristiques.FORGE));
-		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Laboratoire",Quartier.TYPE_QUARTIERS[4], 5, Caracteristiques.LABORATOIRE));
-		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Manufacture",Quartier.TYPE_QUARTIERS[4], 5, Caracteristiques.MANUFACTURE));
-		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Salle des cartes",Quartier.TYPE_QUARTIERS[4], 5, Caracteristiques.CARTE));
-		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Statue equestre",Quartier.TYPE_QUARTIERS[4], 3, Caracteristiques.STATUE));
-		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Trésor Imperial",Quartier.TYPE_QUARTIERS[4], 5, Caracteristiques.TRESOR));
-		jeu.plateauDeJeu.getJoueur(0).ajouterQuartierDansCite(new Quartier("Tripot",Quartier.TYPE_QUARTIERS[4], 6, Caracteristiques.TRIPOT));*/
 	}
 }
