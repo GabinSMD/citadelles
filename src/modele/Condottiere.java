@@ -87,7 +87,7 @@ public class Condottiere extends Personnage {
 				if (choixPersonnage == this.getPlateau().getNombrePersonnages()) {
 					System.out.println("Le pouvoir échoue");
 					break;
-				}else if(this.getPlateau().getPersonnage(choixPersonnage).getNom() == "Eveque" && this.getPlateau().getPersonnage(choixPersonnage).getAssassine()==false) {
+				}else if(this.getPlateau().getPersonnage(choixPersonnage).getNom() == "Eveque" && !this.getPlateau().getPersonnage(choixPersonnage).getAssassine()) {
 					break;
 				}else if(this.getPlateau().getPersonnage(choixPersonnage) != null){
 					do {
