@@ -15,8 +15,8 @@ public class TestCondottiere {
 	public static void main(String[] args) {
 		TestCondottiere test = new TestCondottiere();
 		//test.test1();
-		test.test2();
-		//test.test3();
+		//test.test2();
+		test.test3();
 		//test.test4();
 	}
 	
@@ -30,10 +30,8 @@ public class TestCondottiere {
 		Voleur voleur= new Voleur();
 		plateau.ajouterPersonnage(voleur);
 		Test.test(plateau.getNombrePersonnages()== 3,"nombre de personnages");
-		Test.test(plateau.getPersonnage(0)==condottiere,
-				"récupération du personnage du condottiere");
-		Test.test(plateau.getPersonnage(0).getRang()==8,
-				"rang du condottiere");		
+		Test.test(plateau.getPersonnage(0)==condottiere, "récupération du personnage du condottiere");
+		Test.test(plateau.getPersonnage(0).getRang()==8, "rang du condottiere");		
 	}
 	
 	public void test2() {
@@ -64,17 +62,26 @@ public class TestCondottiere {
 		
 		// création d'une pioche:
 		Pioche pioche = plateau.getPioche();
-		Quartier q = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1); pioche.ajouter(q);
-		q = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2); pioche.ajouter(q);
-		q = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5); pioche.ajouter(q);
-		q = new Quartier("taverne",Quartier.TYPE_QUARTIERS[3],1); pioche.ajouter(q);
-		q = new Quartier("échoppe",Quartier.TYPE_QUARTIERS[3],2); pioche.ajouter(q);
+		Quartier q = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1); 
+		pioche.ajouter(q);
+		q = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2); 
+		pioche.ajouter(q);
+		q = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5); 
+		pioche.ajouter(q);
+		q = new Quartier("taverne",Quartier.TYPE_QUARTIERS[3],1); 
+		pioche.ajouter(q);
+		q = new Quartier("échoppe",Quartier.TYPE_QUARTIERS[3],2); 
+		pioche.ajouter(q);
 		q = new Quartier("basilique",Quartier.TYPE_QUARTIERS[4],4,"A la fin de la partie, ..."); 
 		pioche.ajouter(q);
-		q = new Quartier("cath�drale",Quartier.TYPE_QUARTIERS[0],5); pioche.ajouter(q);
-		q = new Quartier("caserne",Quartier.TYPE_QUARTIERS[1],3); pioche.ajouter(q);
-		q = new Quartier("manoir",Quartier.TYPE_QUARTIERS[2],3); pioche.ajouter(q);
-		q = new Quartier("hôtel de ville",Quartier.TYPE_QUARTIERS[3],5); pioche.ajouter(q);
+		q = new Quartier("cath�drale",Quartier.TYPE_QUARTIERS[0],5); 
+		pioche.ajouter(q);
+		q = new Quartier("caserne",Quartier.TYPE_QUARTIERS[1],3); 
+		pioche.ajouter(q);
+		q = new Quartier("manoir",Quartier.TYPE_QUARTIERS[2],3); 
+		pioche.ajouter(q);
+		q = new Quartier("hôtel de ville",Quartier.TYPE_QUARTIERS[3],5); 
+		pioche.ajouter(q);
 		q = new Quartier("bibliothèque",Quartier.TYPE_QUARTIERS[4],6,"Si vous choisissez..."); 
 		pioche.ajouter(q);
 		pioche.melanger();
@@ -106,7 +113,7 @@ public class TestCondottiere {
 			System.out.print(mainCondottiere[i].getNom() + ", ");
 		System.out.println("");
 				
-		// utiliser le pouvoir du condottiere:		
+		// utiliser le pouvoir du condottiere:	
 		condottiere.utiliserPouvoir();
 		
 		// on réaffiche la main de chaque joueur:
@@ -152,19 +159,18 @@ public class TestCondottiere {
 		
 		// création d'une pioche:
 		Pioche pioche = plateau.getPioche();
-		Quartier q = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1); pioche.ajouter(q);
-		q = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2); pioche.ajouter(q);
-		q = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5); pioche.ajouter(q);
-		q = new Quartier("taverne",Quartier.TYPE_QUARTIERS[3],1); pioche.ajouter(q);
-		q = new Quartier("échoppe",Quartier.TYPE_QUARTIERS[3],2); pioche.ajouter(q);
-		q = new Quartier("basilique",Quartier.TYPE_QUARTIERS[4],4,"A la fin de la partie, ..."); 
-		pioche.ajouter(q);
-		q = new Quartier("cath�drale",Quartier.TYPE_QUARTIERS[0],5); pioche.ajouter(q);
-		q = new Quartier("caserne",Quartier.TYPE_QUARTIERS[1],3); pioche.ajouter(q);
-		q = new Quartier("manoir",Quartier.TYPE_QUARTIERS[2],3); pioche.ajouter(q);
-		q = new Quartier("hôtel de ville",Quartier.TYPE_QUARTIERS[3],5); pioche.ajouter(q);
-		q = new Quartier("bibliothèque",Quartier.TYPE_QUARTIERS[4],6,"Si vous choisissez..."); 
-		pioche.ajouter(q);
+		pioche.ajouter(new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1)); 
+		pioche.ajouter(new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2)); 
+		pioche.ajouter(new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2));
+		pioche.ajouter(new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5)); 
+		pioche.ajouter(new Quartier("taverne",Quartier.TYPE_QUARTIERS[3],1)); 
+		pioche.ajouter(new Quartier("échoppe",Quartier.TYPE_QUARTIERS[3],2)); 
+		pioche.ajouter(new Quartier("basilique",Quartier.TYPE_QUARTIERS[4],4,"A la fin de la partie, ...")); 
+		pioche.ajouter(new Quartier("cath�drale",Quartier.TYPE_QUARTIERS[0],5)); 
+		pioche.ajouter(new Quartier("caserne",Quartier.TYPE_QUARTIERS[1],3)); 
+		pioche.ajouter(new Quartier("manoir",Quartier.TYPE_QUARTIERS[2],3)); 
+		pioche.ajouter(new Quartier("hôtel de ville",Quartier.TYPE_QUARTIERS[3],5)); 
+		pioche.ajouter(new Quartier("bibliothèque",Quartier.TYPE_QUARTIERS[4],6,"Si vous choisissez...")); 
 		pioche.melanger();
 		
 		// on distribue les cartes aux joueurs:
@@ -221,14 +227,12 @@ public class TestCondottiere {
 		Quartier quartier3 = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5);
 		condottiere.setJoueur(joueur);
 		condottiere.ajouterPieces();
-		Test.test(condottiere.getJoueur().nbPieces() == 2,
-			"test du nombre de pièces d'or avant perception");
+		Test.test(condottiere.getJoueur().nbPieces() == 2, "test du nombre de pièces d'or avant perception");
 		condottiere.construire(quartier1);
 		condottiere.construire(quartier2);
 		condottiere.construire(quartier3);		
 		condottiere.percevoirRessourcesSpecifiques();
-		Test.test(condottiere.getJoueur().nbPieces() == 3,
-			"test du nombre de pièces d'or après perception de ressources spécifiques avec 1 quartier militaire");
+		Test.test(condottiere.getJoueur().nbPieces() == 3, "test du nombre de pièces d'or après perception de ressources spécifiques avec 1 quartier militaire");
 	}
 	
 	
