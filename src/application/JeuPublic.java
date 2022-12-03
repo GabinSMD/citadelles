@@ -463,8 +463,6 @@ public class JeuPublic {
 		}
 	}
 	
-
-	
 	public void ecoleDeMagie(Personnage personnageActuel) {
 		for (int k = 0; k < personnageActuel.getJoueur() .nbQuartiersDansCite(); k++) {
 			if (personnageActuel.getJoueur() .quartierPresentDansCite("Ecole de magie")) {
@@ -645,7 +643,7 @@ public class JeuPublic {
 						this.architecte(personnageActuel);
 					}
 
-					if(this.partieFinie() && !first) {
+					if(!first && this.partieFinie()) {
 
 						this.first = true;
 						if (this.nombreJoueurs == 4 || this.nombreJoueurs == 5 || this.nombreJoueurs == 6 || this.nombreJoueurs == 7) {
@@ -686,14 +684,13 @@ public class JeuPublic {
 	
 	public boolean partieFinie() {
 		boolean end = false;
-
-
+		
 		switch (this.nombreJoueurs) {
 			case 4, 5, 6, 7:
 				for (int i = 0; i < this.nombreJoueurs; i++) {
 					if (this.plateauDeJeu.getJoueur(i).nbQuartiersDansCite() == 7) {
 						end = true;
-						System.out.println("Partie Terminé !\n");
+						System.out.println(Configuration.GAME_INFO+"Partie Terminé !\n"+Configuration.TEXT_RESET);
 						break;
 					}
 				}
@@ -701,7 +698,7 @@ public class JeuPublic {
 				for (int i = 0; i < this.nombreJoueurs; i++) {
 					if (this.plateauDeJeu.getJoueur(i).nbQuartiersDansCite() == 8) {
 						end = true;
-						System.out.println("Partie Terminé !\n");
+						System.out.println(Configuration.GAME_INFO+"Partie Terminé !\n"+Configuration.TEXT_RESET);
 						break;
 					}
 
@@ -866,7 +863,7 @@ public class JeuPublic {
 		this.initialisation();
 		
 		do {
-			System.out.println("Tour n°" + i);
+			System.out.println(Configuration.GAME_INFO+"Tour n°" + i+Configuration.TEXT_RESET);
 			this.tourDeJeu();
 			this.gestionCouronne();
 			if(!this.first) {
