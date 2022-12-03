@@ -367,6 +367,36 @@ public class JeuPublic {
 		}
 	}
 	
+	public void architecte(Personnage personnageActuel) {
+		if (personnageActuel.getNom() == "Architecte") {
+			if(personnageActuel.getJoueur().getAvatar()) {
+				this.choix=this.generateur.nextInt(2);
+				switch(choix) {
+					case 0:
+						this.choixBoolean=false;
+						break;
+					case 1:
+						this.choixBoolean=true;
+						break;
+				}	
+			}else {
+				System.out.println("En tant qu'Architecte, vous pouvez construire 2 quartiers supplémentaire");
+				System.out.println("Voulez vous en construire des quartiers supplémentaire ?");
+				this.choixBoolean=Interaction.lireOuiOuNon();
+			}
+			if (this.choixBoolean) {
+				if(personnageActuel.getJoueur().getAvatar()) {
+					this.choix = this.generateur.nextInt(2);
+				}else {
+					System.out.println("Combien de quartiers voulez-vous construire ?");
+					this.choix = Interaction.lireUnEntier(0,2);
+				}
+				for(int i = choix;i>0; i--) {
+					construire(personnageActuel);
+				}
+			}
+		}
+	}
 	//MAYBE REFACTOR
 	public void construire(Personnage personnageActuel) {
 		Quartier quartierAConstruire;
@@ -387,7 +417,7 @@ public class JeuPublic {
 			System.out.println("Voulez vous construire ? ");
 			System.out.println("Vous avez " + personnageActuel.getJoueur().nbPieces()+ " pièces dans votre trésorerie et votre main est composé de :");
 			for (int i = 0; i < personnageActuel.getJoueur().nbQuartiersDansMain(); i++) {
-				System.out.print(i + ". " + personnageActuel.getJoueur().getMain().get(i).getNom() + "(coût "+ personnageActuel.getJoueur().getMain().get(i).getCout() + "), ");
+				System.out.print(i + ". " + personnageActuel.getJoueur().getMain().get(i).getNom() + "(coût "+ personnageActuel.getJoueur().getMain().get(i).getCout() + ")\n");
 			}
 			this.choixBoolean=Interaction.lireOuiOuNon();
 		}
@@ -428,36 +458,7 @@ public class JeuPublic {
 		}
 	}
 	
-	public void architecte(Personnage personnageActuel) {
-		if (personnageActuel.getNom() == Caracteristiques.ARCHITECTE) {
-			if(personnageActuel.getJoueur().getAvatar()) {
-				this.choix=this.generateur.nextInt(2);
-				switch(choix) {
-					case 0:
-						this.choixBoolean=false;
-						break;
-					case 1:
-						this.choixBoolean=true;
-						break;
-				}	
-			}else {
-				System.out.println("En tant qu'Architecte, vous pouvez construire 2 quartiers supplémentaire");
-				System.out.println("Voulez vous en construire des quartiers supplémentaire ?");
-				this.choixBoolean=Interaction.lireOuiOuNon();
-			}
-			if (this.choixBoolean) {
-				if(personnageActuel.getJoueur().getAvatar()) {
-					this.choix = this.generateur.nextInt(2);
-				}else {
-					System.out.println("Combien de quartiers voulez-vous construire ?");
-					this.choix = Interaction.lireUnEntier(0,2);
-				}
-				for(int i = choix;i>0; i--) {
-					construire(personnageActuel);
-				}
-			}
-		}
-	}
+
 	
 	public void ecoleDeMagie(Personnage personnageActuel) {
 		for (int k = 0; k < personnageActuel.getJoueur() .nbQuartiersDansCite(); k++) {
