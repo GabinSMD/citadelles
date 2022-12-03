@@ -123,7 +123,8 @@ public class TestCondottiere {
 		System.out.println("");
 		System.out.print("Main de l'assassin (" + eveque.getJoueur().getNom() + "): ");
 		for(int i = 0; i< eveque.getJoueur().nbQuartiersDansCite(); i++)
-			System.out.print(mainAssassin[i].getNom() + ", ");System.out.println("");
+			System.out.print(mainAssassin[i].getNom() + ", ");
+			System.out.println("");
 		System.out.print("Main du condottiere (" + condottiere.getJoueur().getNom() + "): ");
 		for(int i = 0; i< condottiere.getJoueur().nbQuartiersDansCite(); i++)
 			System.out.print(mainCondottiere[i].getNom() + ", ");
@@ -212,7 +213,8 @@ public class TestCondottiere {
 		System.out.println("");
 		System.out.print("Main de l'assassin (" + assassin.getJoueur().getNom() + "): ");
 		for(int i = 0; i< assassin.getJoueur().nbQuartiersDansCite(); i++)
-			System.out.print(mainAssassin[i].getNom() + ", ");System.out.println("");
+			System.out.print(mainAssassin[i].getNom() + ", ");
+			System.out.println("");
 		System.out.print("Main du condottiere (" + condottiere.getJoueur().getNom() + "): ");
 		for(int i = 0; i< condottiere.getJoueur().nbQuartiersDansCite(); i++)
 			System.out.print(mainCondottiere[i].getNom() + ", ");
