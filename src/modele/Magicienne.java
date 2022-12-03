@@ -141,31 +141,38 @@ public class Magicienne extends Personnage{
 	}
 	
 	private void echangeJoueurAvatar() {
-		ArrayList<Quartier> selectedTableau;
-		int max = 0;
+		ArrayList<Quartier> selectedTableau = new ArrayList<Quartier>(this.getJoueur().getMain());
+		ArrayList<Personnage> personnageTableau = new ArrayList<Personnage>(this.getPlateau().getNombrePersonnages());
+		int index=0;
 		System.out.println("Avec quel joueur voulez vous échanger :");
-		for(int i=0; i<9; i++) {
-			if(this.getPlateau().getJoueur(i)!= null && this.getPlateau().getJoueur(i).getNom() != this.getJoueur().getNom()) {
-				System.out.println(i+"."+ this.getPlateau().getJoueur(i).getNom() +": "+ this.getPlateau().getJoueur(i).getMain().size() + "carte(s)");
-				max++;
+		for(int i=0; i<this.getPlateau().getNombreJoueurs(); i++) {
+			if(this.getPlateau().getJoueur(i).getNom() != this.getJoueur().getNom() && this.getPlateau().getPersonnage(i).getJoueur()!=null) {
+				personnageTableau.add(this.getPlateau().getPersonnage(i));
 			}
 		}
 		Random r = new Random();
-		int select = r.nextInt(0, max);
+		int select = r.nextInt(0, personnageTableau.size());
 		System.out.println("Choix du Personnage : "+select);
-		selectedTableau = new ArrayList<Quartier>(this.getPlateau().getJoueur(select).getMain());
+		for(int i=0;i<this.getPlateau().getNombrePersonnages();i++) {
+			if (personnageTableau.get(select).getNom() == this.getPlateau().getPersonnage(i).getNom()) {
+				selectedTableau = new ArrayList<Quartier>(this.getPlateau().getPersonnage(i).getJoueur().getMain());
+				index=i;
+			}
+		}
 		copieTableau = new ArrayList<Quartier>(this.getJoueur().getMain());
 		for(int i=0; i<copieTableau.size(); i++) {
 			this.getJoueur().retirerQuartierDansMain();
 		}
-		for(int i=0; i<selectedTableau.size(); i++) {
-			this.getPlateau().getJoueur(select).retirerQuartierDansMain();
-		}
-		for(int i=0; i<selectedTableau.size(); i++) {
-			this.getJoueur().ajouterQuartierDansMain(selectedTableau.get(i));
+		if (selectedTableau.size()!=0) {
+			for(int i=0; i<selectedTableau.size(); i++) {
+				this.getJoueur().ajouterQuartierDansMain(selectedTableau.get(i));
+			}
+			for(int i=0; i<selectedTableau.size(); i++) {
+				this.getPlateau().getPersonnage(index).getJoueur().retirerQuartierDansMain();
+			}
 		}
 		for(int i=0; i<copieTableau.size(); i++) {
-			this.getPlateau().getJoueur(select).ajouterQuartierDansMain(copieTableau.get(i));
+			this.getPlateau().getPersonnage(index).getJoueur().ajouterQuartierDansMain(copieTableau.get(i));
 		}
 	}
 	
