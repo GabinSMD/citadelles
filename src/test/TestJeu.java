@@ -37,7 +37,7 @@ public class TestJeu {
 				}
 			}
 			if (jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne() == true) {
-				Test.test(jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne() == true,"Le joueur " + jeu.plateauDeJeu.getJoueur(i).getNom() + " possède la couronne");
+				Test.test(jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne(),"Le joueur " + jeu.plateauDeJeu.getJoueur(i).getNom() + " possède la couronne");
 			}
 		}
 	}
