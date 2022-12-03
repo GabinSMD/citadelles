@@ -447,8 +447,8 @@ public class JeuPublic {
 			} else if(!tripot(personnageActuel, quartierAConstruire, coutQuartier)){
 				ArrayList<Quartier> copieTableau = new ArrayList<Quartier>(personnageActuel.getJoueur().getMain());
 
-				this.plateauDeJeu.getPioche().ajouter(copieTableau.get(this.choix));
-				copieTableau.remove(this.choix);
+				this.plateauDeJeu.getPioche().ajouter(copieTableau.get(this.choix-1));
+				copieTableau.remove(this.choix-1);
 
 				nbCartePossedez=personnageActuel.getJoueur().nbQuartiersDansMain();
 				for (int i = 0; i < nbCartePossedez; i++) {
