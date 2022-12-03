@@ -363,6 +363,7 @@ public class JeuPublic {
 		}else if(!personnageActuel.getJoueur().quartierPresentDansCite(quartierAConstruire.getNom())) {
 			return true;
 		}else {
+			System.out.println("Impossible de construire ce quartier");
 			return false;
 		}
 	}
@@ -386,10 +387,10 @@ public class JeuPublic {
 			}
 			if (this.choixBoolean) {
 				if(personnageActuel.getJoueur().getAvatar()) {
-					this.choix = this.generateur.nextInt(2);
+					this.choix = this.generateur.nextInt(3);
 				}else {
 					System.out.println("Combien de quartiers voulez-vous construire ?");
-					this.choix = Interaction.lireUnEntier(0,2);
+					this.choix = Interaction.lireUnEntier(0,3);
 				}
 				for(int i = choix;i>0; i--) {
 					construire(personnageActuel);
@@ -417,43 +418,48 @@ public class JeuPublic {
 			System.out.println("Voulez vous construire ? ");
 			System.out.println("Vous avez " + personnageActuel.getJoueur().nbPieces()+ " pièces dans votre trésorerie et votre main est composé de :");
 			for (int i = 0; i < personnageActuel.getJoueur().nbQuartiersDansMain(); i++) {
-				System.out.print(i + ". " + personnageActuel.getJoueur().getMain().get(i).getNom() + "(coût "+ personnageActuel.getJoueur().getMain().get(i).getCout() + ")\n");
+				System.out.print(i+1 + ". " + personnageActuel.getJoueur().getMain().get(i).getNom() + "(coût "+ personnageActuel.getJoueur().getMain().get(i).getCout() + ")\n");
 			}
 			this.choixBoolean=Interaction.lireOuiOuNon();
 		}
 
 		if (this.choixBoolean && personnageActuel.getJoueur().nbQuartiersDansMain()!=0) {
-			if(personnageActuel.getJoueur().getAvatar()) {
-				this.choix = this.generateur.nextInt(personnageActuel.getJoueur().nbQuartiersDansMain());
-			}else {
-				System.out.println("Quel quartier voulez-vous construire ?");
-				this.choix = Interaction.lireUnEntier(0, personnageActuel.getJoueur().nbQuartiersDansMain());
-			}
-			quartierAConstruire = personnageActuel.getJoueur().getMain().get(this.choix);
-			
-			if(this.carriere(personnageActuel, quartierAConstruire)) {
-				coutQuartier = manufacture(personnageActuel, quartierAConstruire);
-				System.out.println("La construction coute : " + coutQuartier + " pièces d'or");
-				if (quartierAConstruire.getNom() != "Tripot" && coutQuartier > personnageActuel.getJoueur().nbPieces()) {
-					System.out.println("Votre trésor n'est pas suffisant");
-				} else if(!tripot(personnageActuel, quartierAConstruire, coutQuartier)){
-					ArrayList<Quartier> copieTableau = new ArrayList<Quartier>(personnageActuel.getJoueur().getMain());
-
-					this.plateauDeJeu.getPioche().ajouter(copieTableau.get(this.choix));
-					copieTableau.remove(this.choix);
-
-					nbCartePossedez=personnageActuel.getJoueur().nbQuartiersDansMain();
-					for (int i = 0; i < nbCartePossedez; i++) {
-						personnageActuel.getJoueur().retirerQuartierDansMain();
-					}
-					for (int i = 0; i < copieTableau.size(); i++) {
-						personnageActuel.getJoueur().ajouterQuartierDansMain(copieTableau.get(i));
-					}
-					personnageActuel.getJoueur().retirerPieces(coutQuartier);
-					personnageActuel.construire(quartierAConstruire);
+		
+			do {
+				if(personnageActuel.getJoueur().getAvatar()) {
+					this.choix = this.generateur.nextInt(0,personnageActuel.getJoueur().nbQuartiersDansMain());
+				}else {
+					System.out.println("Quel quartier voulez-vous construire ?");
+					System.out.println("0. Pour sortir");
+					this.choix = Interaction.lireUnEntier(0, personnageActuel.getJoueur().nbQuartiersDansMain()+1);
 				}
-			}else {
-				System.out.println("Impossible de construire ce quartier");
+				if(this.choix==0) {
+					return;
+				}else {
+					quartierAConstruire = personnageActuel.getJoueur().getMain().get(this.choix-1);
+				}
+			}while(!this.carriere(personnageActuel, quartierAConstruire));
+			
+			
+			coutQuartier = manufacture(personnageActuel, quartierAConstruire);
+			System.out.println("La construction coute : " + coutQuartier + " pièces d'or");
+			if (quartierAConstruire.getNom() != "Tripot" && coutQuartier > personnageActuel.getJoueur().nbPieces()) {
+				System.out.println("Votre trésor n'est pas suffisant");
+			} else if(!tripot(personnageActuel, quartierAConstruire, coutQuartier)){
+				ArrayList<Quartier> copieTableau = new ArrayList<Quartier>(personnageActuel.getJoueur().getMain());
+
+				this.plateauDeJeu.getPioche().ajouter(copieTableau.get(this.choix));
+				copieTableau.remove(this.choix);
+
+				nbCartePossedez=personnageActuel.getJoueur().nbQuartiersDansMain();
+				for (int i = 0; i < nbCartePossedez; i++) {
+					personnageActuel.getJoueur().retirerQuartierDansMain();
+				}
+				for (int i = 0; i < copieTableau.size(); i++) {
+					personnageActuel.getJoueur().ajouterQuartierDansMain(copieTableau.get(i));
+				}
+				personnageActuel.getJoueur().retirerPieces(coutQuartier);
+				personnageActuel.construire(quartierAConstruire);
 			}
 		}
 	}
