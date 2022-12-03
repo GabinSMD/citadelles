@@ -63,7 +63,7 @@ public class Condottiere extends Personnage {
 						System.out.println(this.getPlateau().getJoueur(choixPersonnage-1).getNom()+" votre quartier : " + nomQuartier + " à  été détruit par le Condottiere");
 					}
 				}
-			}while(this.getPlateau().getPersonnage(choixPersonnage-1).getNom() == "Eveque" && this.getPlateau().getPersonnage(choixPersonnage-1).getAssassine()==false || choixQuartier==0);
+			}while(this.getPlateau().getPersonnage(choixPersonnage-1).getNom() == "Eveque" && !this.getPlateau().getPersonnage(choixPersonnage-1).getAssassine() || choixQuartier==0);
 		}else {System.out.println("Vous n'utilisez pas votre pouvoir de destruction");}
 	}
 	
