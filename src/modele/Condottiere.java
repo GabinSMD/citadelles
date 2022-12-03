@@ -6,8 +6,6 @@ import controleur.Interaction;
 
 public class Condottiere extends Personnage {
 
-	private int choix=0;
-
 	public Condottiere() {
 		super("Condotierre", 8, Caracteristiques.CONDOTTIERE);
 	}
@@ -41,7 +39,7 @@ public class Condottiere extends Personnage {
 				if(choixPersonnage==0) {
 					System.out.println("Vous n'utilisez pas votre pouvoir de destruction");
 					break;
-				}else if(this.getPlateau().getPersonnage(choixPersonnage-1).getNom() == "Eveque" && this.getPlateau().getPersonnage(choixPersonnage-1).getAssassine()==false){
+				}else if(this.getPlateau().getPersonnage(choixPersonnage-1).getNom() == "Eveque" && !this.getPlateau().getPersonnage(choixPersonnage-1).getAssassine()){
 					System.out.println("L'évêque est vivant vous ne pouvez pas le selectionner");
 				}else if(this.getPlateau().getPersonnage(choixPersonnage-1)!=null){
 					do {
@@ -69,6 +67,7 @@ public class Condottiere extends Personnage {
 	
 	// Utilisation du pouvoir par un avatar
 	public void utiliserPouvoirAvatar() {
+		int choix=0;
 		Random r = new Random();
 		int choixPersonnage;
 		int	choixQuartier;
