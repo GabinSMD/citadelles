@@ -26,7 +26,7 @@ public class Condottiere extends Personnage {
 				System.out.println("Voici maintenant la liste des victimes potentielles :");
 				for(int i=0; i<9; i++) {
 					if(this.getPlateau().getPersonnage(i)!= null) {
-						System.out.print("\n"+ (i + 1) + " " + getPlateau().getPersonnage(i).getJoueur().getNom() + ": ");
+						System.out.print("\n"+ (i + 1) + " " + getPlateau().getPersonnage(i).getNom() + ": ");
 						if(this.getPlateau().getPersonnage(i) != null) {
 							for (int j = 0; j < this.getPlateau().getPersonnage(i).getJoueur().nbQuartiersDansCite(); j++) {
 								System.out.print(j + 1 + " " + getPlateau().getPersonnage(i).getJoueur().getCite()[j].getNom() + "(coût "+ getPlateau().getJoueur(i).getCite()[j].getCout() + "), ");
@@ -36,13 +36,13 @@ public class Condottiere extends Personnage {
 				}
 				do {
 					System.out.println("\nQui ciblez-vous ?( 0 pour annuler )");
-					choixPersonnage =Interaction.lireUnEntier(0, this.getPlateau().getNombrePersonnages());
-				}while(this.getPlateau().getPersonnage(choixPersonnage-1) == null || this.getPlateau().getPersonnage(choixPersonnage).getJoueur()==null);
+					choixPersonnage =Interaction.lireUnEntier(0, this.getPlateau().getNombrePersonnages()+1);
+				}while(this.getPlateau().getPersonnage(choixPersonnage-1) == null || this.getPlateau().getPersonnage(choixPersonnage-1).getJoueur()==null);
 				if(choixPersonnage==0) {
 					System.out.println("Vous n'utilisez pas votre pouvoir de destruction");
 					break;
 				}else if(this.getPlateau().getPersonnage(choixPersonnage-1).getNom() == "Eveque" && this.getPlateau().getPersonnage(choixPersonnage-1).getAssassine()==false){
-					System.out.println("L'évêque est vivant c'est impossible");
+					System.out.println("L'évêque est vivant vous ne pouvez pas le selectionner");
 				}else if(this.getPlateau().getPersonnage(choixPersonnage-1)!=null){
 					do {
 						System.out.println("Quel quartier choisissez-vous ? (0 pour annuler)");
@@ -56,9 +56,7 @@ public class Condottiere extends Personnage {
 							System.out.println("Le Donjon n'est pas destructible");	
 						}
 					}while(this.getPlateau().getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getCout() - 1 > this.getJoueur().nbPieces()|| this.getPlateau().getPersonnage(choixPersonnage-1).getJoueur().getCite()[choixQuartier-1].getNom()=="Donjon"); //tourne tant que le quartier n'est pas achetable
-					if(choixQuartier==0) {
-						
-					}else if(choixQuartier!=this.getPlateau().getPersonnage(choixPersonnage-1).getJoueur().nbQuartiersDansCite()) {
+					if(choixQuartier!=0) {
 						nomQuartier = this.getPlateau().getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getNom();
 						this.getJoueur().retirerPieces(this.getPlateau().getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getCout() - 1);
 						this.getPlateau().getJoueur(choixPersonnage-1).retirerQuartierDansCite(nomQuartier);
