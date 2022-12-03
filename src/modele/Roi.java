@@ -10,7 +10,6 @@ public class Roi extends Personnage {
 
 	public Roi() {
 		super("Roi",4,Caracteristiques.ROI);
-		// TODO Auto-generated constructor stub
 	}
 	//Utilisation du pouvoir par un joueur humain
 	public void utiliserPouvoir() {
