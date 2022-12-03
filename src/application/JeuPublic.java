@@ -211,9 +211,8 @@ public class JeuPublic {
 	}
 
 	public void percevoirRessource(Personnage personnageActuel) {
-
 		if(personnageActuel.getJoueur().getAvatar()) {
-			this.choix = this.generateur.nextInt(2);
+			this.choix = this.generateur.nextInt(1,3);
 		}else {
 			//Choix entre pièces (1) ou cartes (2)
 			System.out.println("Souhaitez vous obtenir 2 pièces d'or ou choisir entre 2 cartes quartiers ? ");
