@@ -7,8 +7,6 @@ import controleur.Interaction;
 public class Condottiere extends Personnage {
 
 	private int choix=0;
-	private int max = 0;
-	private Personnage[] selection = new Personnage[9];
 
 	public Condottiere() {
 		super("Condotierre", 8, Caracteristiques.CONDOTTIERE);
@@ -16,74 +14,58 @@ public class Condottiere extends Personnage {
 
 	// Utilisation du pouvoir par un joueur humain
 	public void utiliserPouvoir() {
-		int choixJoueur;
-		int	choixQuartier;
+		int choixPersonnage;
+		int	choixQuartier=0;
 		String nomQuartier ="";
 		boolean choix;
+		
 		System.out.println("Voulez-vous utiliser votre pouvoir de destruction ?");
 		choix=Interaction.lireOuiOuNon();
 		if (choix) {
-			System.out.println("Voici maintenant la liste des victimes potentielles :");
-			for(int i=0; i<9; i++) {
-				if(this.getPlateau().getPersonnage(i)!= null) {
-					System.out.print("\n"+ (i + 1) + " " + getPlateau().getJoueur(i).getNom() + ": ");
-					if(this.getPlateau().getJoueur(i).getPersonnage() != null) {
-					for (int j = 0; j < this.getPlateau().getJoueur(i).nbQuartiersDansCite(); j++) {
-						System.out.print(j + 1 + " " + getPlateau().getJoueur(i).getCite()[j].getNom() + "(coût "+ getPlateau().getJoueur(i).getCite()[j].getCout() + "), ");
-					}
-					max++;
+			do {
+				System.out.println("Voici maintenant la liste des victimes potentielles :");
+				for(int i=0; i<9; i++) {
+					if(this.getPlateau().getPersonnage(i)!= null) {
+						System.out.print("\n"+ (i + 1) + " " + getPlateau().getPersonnage(i).getNom() + ": ");
+						if(this.getPlateau().getPersonnage(i) != null) {
+							for (int j = 0; j < this.getPlateau().getPersonnage(i).getJoueur().nbQuartiersDansCite(); j++) {
+								System.out.print(j + 1 + " " + getPlateau().getPersonnage(i).getJoueur().getCite()[j].getNom() + "(coût "+ getPlateau().getJoueur(i).getCite()[j].getCout() + "), ");
+							}
+						}
 					}
 				}
-			}
-			do {
-				System.out.println("\nQui ciblez-vous ?( 0 pour annuler )");
-				choixJoueur =Interaction.lireUnEntier(0, max+1);
-				if(choixJoueur==0) {
+				do {
+					System.out.println("\nQui ciblez-vous ?( 0 pour annuler )");
+					choixPersonnage =Interaction.lireUnEntier(0, this.getPlateau().getNombrePersonnages()+1);
+				}while(this.getPlateau().getPersonnage(choixPersonnage-1) == null || this.getPlateau().getPersonnage(choixPersonnage-1).getJoueur()==null);
+				if(choixPersonnage==0) {
 					System.out.println("Vous n'utilisez pas votre pouvoir de destruction");
 					break;
-				}else if(this.getPlateau().getJoueur(choixJoueur-1).getPersonnage().getNom() == "Eveque" && this.getPlateau().getJoueur(choixJoueur-1).getPersonnage().getAssassine()==false){
-					System.out.println("L'évêque est vivant c'est impossible");
-				}else {
+				}else if(this.getPlateau().getPersonnage(choixPersonnage-1).getNom() == "Eveque" && this.getPlateau().getPersonnage(choixPersonnage-1).getAssassine()==false){
+					System.out.println("L'évêque est vivant vous ne pouvez pas le selectionner");
+				}else if(this.getPlateau().getPersonnage(choixPersonnage-1)!=null){
 					do {
 						System.out.println("Quel quartier choisissez-vous ? (0 pour annuler)");
-						choixQuartier = Interaction.lireUnEntier(0,getPlateau().getJoueur(choixJoueur-1).nbQuartiersDansCite()+1);
+						choixQuartier = Interaction.lireUnEntier(0,getPlateau().getPersonnage(choixPersonnage-1).getJoueur().nbQuartiersDansCite()+1);
 						if(choixQuartier==0) { // L'index 0 correspond à la liberté de ne pas continuer
+							System.out.println("Vous annulez le choix du quartier");
 							break;
-						}else if((this.getPlateau().getJoueur(choixJoueur-1).getCite()[choixQuartier-1].getCout() - 1) > this.getJoueur().nbPieces()) {
+						}else if((this.getPlateau().getPersonnage(choixPersonnage-1).getJoueur().getCite()[choixQuartier-1].getCout() - 1) > this.getJoueur().nbPieces()) {
 							System.out.println("Pas assez d'argent pour détruire ce quartier");
+						}else if(this.getPlateau().getPersonnage(choixPersonnage-1).getJoueur().getCite()[choixQuartier-1].getNom()=="Donjon") {
+							System.out.println("Le Donjon n'est pas destructible");	
 						}
-					}while(this.getPlateau().getJoueur(choixJoueur-1).getCite()[choixQuartier-1] == null || (this.getPlateau().getJoueur(choixJoueur-1).getCite()[choixQuartier-1].getCout() - 1) > this.getJoueur().nbPieces()); //tourne tant que le quartier n'est pas achetable
-					if(choixQuartier==0) {//porte de sortie au cas ou il sort avant d'avoir choisie un quartier
-						System.out.println("Vous n'utilisez pas votre pouvoir de destruction");
-						break;
-					} 
-					choixQuartier -= 1;
-					nomQuartier = this.getPlateau().getJoueur(choixJoueur).getCite()[choixQuartier].getNom();
-					int verifCoutQuartier = this.getPlateau().getJoueur(choixJoueur).getCite()[choixQuartier].getCout();
-					if (verifCoutQuartier - 1 > this.getJoueur().nbPieces()) {
-						System.out.println("Votre trésor n'est pas suffisant");
-						System.out.println("Votre choix ? (0 pour annuler)");
-					} else {
-						if(nomQuartier != "Donjon") {
-							this.getJoueur().retirerPieces(verifCoutQuartier - 1);
-							this.getPlateau().getJoueur(choixJoueur).retirerQuartierDansCite(nomQuartier);
-							System.out.println("=> On retire  " + nomQuartier + " à " + this.getPlateau().getJoueur(choixJoueur).getNom());
-							System.out.println("Pour information vous avez " + this.getJoueur().nbPieces() + " pièces d'or dans votre trésor");
-						}else {
-							System.out.println("Vous ne pouvez pas détruire le Donjon");
-						}
+					}while(this.getPlateau().getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getCout() - 1 > this.getJoueur().nbPieces()|| this.getPlateau().getPersonnage(choixPersonnage-1).getJoueur().getCite()[choixQuartier-1].getNom()=="Donjon"); //tourne tant que le quartier n'est pas achetable
+					if(choixQuartier!=0) {
+						nomQuartier = this.getPlateau().getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getNom();
+						this.getJoueur().retirerPieces(this.getPlateau().getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getCout() - 1);
+						this.getPlateau().getJoueur(choixPersonnage-1).retirerQuartierDansCite(nomQuartier);
+						System.out.println(this.getPlateau().getJoueur(choixPersonnage-1).getNom()+" votre quartier : " + nomQuartier + " à  été détruit par le Condottiere");
 					}
-					nomQuartier = this.getPlateau().getJoueur(choixJoueur-1).getCite()[choixQuartier-1].getNom();
-					this.getJoueur().retirerPieces(this.getPlateau().getJoueur(choixJoueur-1).getCite()[choixQuartier-1].getCout() - 1);
-					this.getPlateau().getJoueur(choixJoueur-1).retirerQuartierDansCite(nomQuartier);
-					System.out.println(this.getPlateau().getJoueur(choixJoueur-1).getNom()+" votre quartier : " + nomQuartier + " à  été détruit par le Condottiere");
 				}
-				
-				
-			}while(this.getPlateau().getJoueur(choixJoueur-1).retirerQuartierDansCite(nomQuartier) != null || this.getPlateau().getJoueur(choixJoueur-1).getPersonnage().getNom() == "Eveque" && this.getPlateau().getJoueur(choixJoueur-1).getPersonnage().getAssassine()==false);
-			
-				}else {System.out.println("Vous n'utilisez pas votre pouvoir de destruction");}
-			}
+			}while(this.getPlateau().getPersonnage(choixPersonnage-1).getNom() == "Eveque" && !this.getPlateau().getPersonnage(choixPersonnage-1).getAssassine() || choixQuartier==0);
+		}else {System.out.println("Vous n'utilisez pas votre pouvoir de destruction");}
+	}
 	
 	// Utilisation du pouvoir par un avatar
 	public void utiliserPouvoirAvatar() {
@@ -105,7 +87,7 @@ public class Condottiere extends Personnage {
 				if (choixPersonnage == this.getPlateau().getNombrePersonnages()) {
 					System.out.println("Le pouvoir échoue");
 					break;
-				}else if(this.getPlateau().getPersonnage(choixPersonnage).getNom() == "Eveque" && this.getPlateau().getPersonnage(choixPersonnage).getAssassine()==false) {
+				}else if(this.getPlateau().getPersonnage(choixPersonnage).getNom() == "Eveque" && !this.getPlateau().getPersonnage(choixPersonnage).getAssassine()) {
 					break;
 				}else if(this.getPlateau().getPersonnage(choixPersonnage) != null){
 					do {
@@ -114,7 +96,7 @@ public class Condottiere extends Personnage {
 							System.out.println("Le pouvoir échoue");
 							break;
 						}
-					}while(this.getPlateau().getPersonnage(choixPersonnage).getJoueur().getCite()[choixQuartier].getCout() - 1 > this.getJoueur().nbPieces()); //tourne tant que le quartier n'est pas achetable
+					}while(this.getPlateau().getPersonnage(choixPersonnage).getJoueur().getCite()[choixQuartier].getCout() - 1 > this.getJoueur().nbPieces() && this.getPlateau().getPersonnage(choixPersonnage-1).getJoueur().getCite()[choixQuartier-1].getNom()!="Donjon"); //tourne tant que le quartier n'est pas achetable
 					if(choixQuartier!=this.getPlateau().getPersonnage(choixPersonnage).getJoueur().nbQuartiersDansCite()) {
 						nomQuartier = this.getPlateau().getPersonnage(choixPersonnage).getJoueur().getCite()[choixQuartier].getNom();
 						this.getJoueur().retirerPieces(this.getPlateau().getPersonnage(choixPersonnage).getJoueur().getCite()[choixQuartier].getCout() - 1);
