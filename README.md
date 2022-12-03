@@ -18,6 +18,7 @@
 -->
 [![Contributors][contributors-shield]][contributors-url]
 [![CodeFactor][codefactor-shield]][codefactor-url]
+[![Codacy][codacy-shield]][codacy-url]
 [![Commit][commit-shield]][commit-url]
 [![Issues][issues-shield]][issues-url]
 [![License][license-shield]][license-url]
@@ -191,7 +192,9 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/gabinsmd/citadelles?style=for-the-badge
 [contributors-url]: https://github.com/gabinsmd/citadelles/graphs/contributors
-[codefactor-shield]: https://img.shields.io/codefactor/grade/github/gabinsmd/citadelles?style=for-the-badge
+[codefactor-shield]: https://img.shields.io/codefactor/grade/github/gabinsmd/citadelles?label=Codefactor&style=for-the-badge
+[codacy-shield]: https://img.shields.io/codacy/grade/e5241157c34f40bcb23b37fa098a5622?label=Codacy&style=for-the-badge
+[codacy-url]: https://app.codacy.com/gh/GabinSMD/citadelles/
 [codefactor-url]:https://www.codefactor.io/repository/github/gabinsmd/citadelles
 [commit-shield]: https://img.shields.io/github/commit-activity/w/gabinsmd/citadelles?style=for-the-badge
 [commit-url]: https://github.com/GabinSMD/citadelles/graphs/commit-activity
