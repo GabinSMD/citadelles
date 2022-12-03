@@ -222,7 +222,7 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [issues-shield]: https://img.shields.io/github/issues/gabinsmd/citadelles?style=for-the-badge
 [issues-url]: https://github.com/gabinsmd/citadelles/issues
 [license-shield]: https://img.shields.io/github/license/gabinsmd/citadelles?style=for-the-badge
-[license-url]: https://github.com/gabinsmd/citadelles/master/LICENSE.txt
+[license-url]: https://github.com/gabinsmd/citadelles/master/LICENSE
 [product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
