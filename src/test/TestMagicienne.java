@@ -242,30 +242,22 @@ public class TestMagicienne {
 	
 	public void test4() {
 		System.out.println("TEST DU POUVOIR DE LA MAGICIENNE SI PAS DE JOUEUR ATTRIBUE");
-		PlateauDeJeu plateau = new PlateauDeJeu();
-		
-		// création de quatre personnages
-		Roi roi = new Roi();
-		plateau.ajouterPersonnage(roi);
-		Assassin assassin = new Assassin();
-		plateau.ajouterPersonnage(assassin);
 		Magicienne magicienne = new Magicienne();
-		plateau.ajouterPersonnage(magicienne);
-			
-		// création de trois joueurs
-		Joueur joueur1 = new Joueur("Milou");
-		plateau.ajouterJoueur(joueur1);
-		Joueur joueur2 = new Joueur("Billy");
-		plateau.ajouterJoueur(joueur2);
-		Joueur joueur3 = new Joueur("Belle");
-		plateau.ajouterJoueur(joueur3);
-			
-		// on associe les personnages aux joueurs
-		roi.setJoueur(joueur1);
-		assassin.setJoueur(joueur2);
-		
+
 		// utiliser le pouvoir de la magicienne :		
 		magicienne.utiliserPouvoir();
+		
+		// on vérifie que la non attribution d'un Joueur ne fait pas planter la partie:
+		Test.test(magicienne.getJoueur()==null, "Gestion de la non attribution d'un Joueur");
+	}
+	
+	public void test5() {
+		System.out.println("TEST DU POUVOIR DE LA MAGICIENNE SI PAS DE JOUEUR ATTRIBUE (AVATAR)");
+		Magicienne magicienne = new Magicienne();
+
+		
+		// utiliser le pouvoir de la magicienne :		
+		magicienne.utiliserPouvoirAvatar();
 		
 		// on vérifie que la non attribution d'un Joueur ne fait pas planter la partie:
 		Test.test(magicienne.getJoueur()==null, "Gestion de la non attribution d'un Joueur");
