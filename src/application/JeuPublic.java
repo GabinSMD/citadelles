@@ -289,7 +289,7 @@ public class JeuPublic {
 				}
 				if (this.choixBoolean) {
 					ArrayList<Quartier> copieTableau = new ArrayList<Quartier>(personnageActuel.getJoueur().getMain());
-					for(int i=0; i<=copieTableau.size(); i++) {
+					for(int i=0; i<copieTableau.size(); i++) {
 						if(copieTableau.get(i).getNom()=="Tripot") {
 							copieTableau.remove(i);
 						}
@@ -426,7 +426,7 @@ public class JeuPublic {
 		
 			do {
 				if(personnageActuel.getJoueur().getAvatar()) {
-					this.choix = this.generateur.nextInt(0,personnageActuel.getJoueur().nbQuartiersDansMain());
+					this.choix = this.generateur.nextInt(0,personnageActuel.getJoueur().nbQuartiersDansMain()+1);
 				}else {
 					System.out.println("Quel quartier voulez-vous construire ?");
 					System.out.println("0. Pour sortir");
@@ -447,8 +447,8 @@ public class JeuPublic {
 			} else if(!tripot(personnageActuel, quartierAConstruire, coutQuartier)){
 				ArrayList<Quartier> copieTableau = new ArrayList<Quartier>(personnageActuel.getJoueur().getMain());
 
-				this.plateauDeJeu.getPioche().ajouter(copieTableau.get(this.choix));
-				copieTableau.remove(this.choix);
+				this.plateauDeJeu.getPioche().ajouter(copieTableau.get(this.choix-1));
+				copieTableau.remove(this.choix-1);
 
 				nbCartePossedez=personnageActuel.getJoueur().nbQuartiersDansMain();
 				for (int i = 0; i < nbCartePossedez; i++) {
@@ -462,7 +462,6 @@ public class JeuPublic {
 			}
 		}
 	}
-	
 	public void ecoleDeMagie(Personnage personnageActuel) {
 		for (int k = 0; k < personnageActuel.getJoueur() .nbQuartiersDansCite(); k++) {
 			if (personnageActuel.getJoueur() .quartierPresentDansCite("Ecole de magie")) {
@@ -827,8 +826,6 @@ public class JeuPublic {
 						}
 					}
 				}
-	
-				
 			}
 			
 			if (this.plateauDeJeu.getJoueur(i).quartierPresentDansCite("Fontaine aux souhaits")) {
