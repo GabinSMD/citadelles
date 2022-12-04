@@ -12,9 +12,9 @@ public class TestJeu {
 		//test.test1(); //initialisation()
 		//test.test2(); //choixPersonnages()
 		//test.test3(); //percevoirRessource()
-		//test.test4(); //construire()
+		test.test4(); //construire()
 		//test.test5(); //calculDesPoints()
-		test.test6(); //jouer()
+		//test.test6(); //jouer()
 	}
 
 	//Test de l'initialisation					   
@@ -88,7 +88,7 @@ public class TestJeu {
 		Joueur joueurAleatoire = jeu.plateauDeJeu.getJoueur(indexJoueurAleatoire);
 		Personnage personnageAleatoire = jeu.plateauDeJeu.getPersonnage(indexPersonnageAleatoire);
 		personnageAleatoire.setJoueur(joueurAleatoire);
-		joueurAleatoire.ajouterPieces(5);
+		joueurAleatoire.ajouterPieces(3);
 
 		int nbCartePossedez = personnageAleatoire.getJoueur().nbQuartiersDansMain();
 		for (int i = 0; i < nbCartePossedez; i++) {
@@ -100,8 +100,14 @@ public class TestJeu {
 		joueurAleatoire.ajouterQuartierDansMain(new Quartier("Forteresse", Quartier.TYPE_QUARTIERS[1], 5));
 		
 		System.out.println(personnageAleatoire.getNom());
-		jeu.construire(personnageAleatoire);
-		jeu.architecte(personnageAleatoire);
+		if(personnageAleatoire.getNom()=="Architecte") {
+			jeu.construire(personnageAleatoire);
+			jeu.architecte(personnageAleatoire);
+		} else {
+			jeu.construire(personnageAleatoire);
+			jeu.construire(personnageAleatoire);
+			jeu.construire(personnageAleatoire);
+		}
 		
 		if (personnageAleatoire.getJoueur().nbQuartiersDansCite() == 1) {
 			for (int i = 0; i < personnageAleatoire.getJoueur().nbQuartiersDansCite(); i++) {
