@@ -9,14 +9,14 @@ public class Eveque extends Personnage {
 	// Utilisation du pouvoir par un joueur humain
 	public void utiliserPouvoir() {
 		if(this.getJoueur().getNom() !=null) {
-			System.out.println("Je me dirige vers la Mecque");
+			System.out.println("L'Eveque se dirige en direction de Jerusalem");
 		}
 	}
 	
 	// Utilisation du pouvoir par un avatar
 	public void utiliserPouvoirAvatar() {
 		if(this.getJoueur().getNom() !=null) {
-			System.out.println("Je me dirige vers la Mecque");
+			System.out.println("L'Eveque se dirige en direction de Jerusalem");
 		}
 	}
 	// Perception des ressources spécifiques
