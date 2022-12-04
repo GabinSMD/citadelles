@@ -14,10 +14,10 @@ import modele.Quartier;
 public class TestCondottiere {
 	public static void main(String[] args) {
 		TestCondottiere test = new TestCondottiere();
-		//test.test1();
-		//test.test2();
+		test.test1();
+		test.test2();
 		test.test3();
-		//test.test4();
+		test.test4();
 	}
 	
 	public void test1() {
@@ -123,7 +123,8 @@ public class TestCondottiere {
 		System.out.println("");
 		System.out.print("Main de l'assassin (" + eveque.getJoueur().getNom() + "): ");
 		for(int i = 0; i< eveque.getJoueur().nbQuartiersDansCite(); i++)
-			System.out.print(mainAssassin[i].getNom() + ", ");System.out.println("");
+			System.out.print(mainAssassin[i].getNom() + ", ");
+			System.out.println("");
 		System.out.print("Main du condottiere (" + condottiere.getJoueur().getNom() + "): ");
 		for(int i = 0; i< condottiere.getJoueur().nbQuartiersDansCite(); i++)
 			System.out.print(mainCondottiere[i].getNom() + ", ");
@@ -159,6 +160,7 @@ public class TestCondottiere {
 		
 		// création d'une pioche:
 		Pioche pioche = plateau.getPioche();
+
 		pioche.ajouter(new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1)); 
 		pioche.ajouter(new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2)); 
 		pioche.ajouter(new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2));
@@ -171,6 +173,7 @@ public class TestCondottiere {
 		pioche.ajouter(new Quartier("manoir",Quartier.TYPE_QUARTIERS[2],3)); 
 		pioche.ajouter(new Quartier("hôtel de ville",Quartier.TYPE_QUARTIERS[3],5)); 
 		pioche.ajouter(new Quartier("bibliothèque",Quartier.TYPE_QUARTIERS[4],6,"Si vous choisissez...")); 
+
 		pioche.melanger();
 		
 		// on distribue les cartes aux joueurs:
@@ -210,7 +213,8 @@ public class TestCondottiere {
 		System.out.println("");
 		System.out.print("Main de l'assassin (" + assassin.getJoueur().getNom() + "): ");
 		for(int i = 0; i< assassin.getJoueur().nbQuartiersDansCite(); i++)
-			System.out.print(mainAssassin[i].getNom() + ", ");System.out.println("");
+			System.out.print(mainAssassin[i].getNom() + ", ");
+			System.out.println("");
 		System.out.print("Main du condottiere (" + condottiere.getJoueur().getNom() + "): ");
 		for(int i = 0; i< condottiere.getJoueur().nbQuartiersDansCite(); i++)
 			System.out.print(mainCondottiere[i].getNom() + ", ");

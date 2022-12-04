@@ -15,7 +15,7 @@ public class Interaction {
 				i = sc.nextInt();
 				continu = false;
 			} catch (InputMismatchException e) {
-				sc.next(); // passe l'entier pour �viter de boucler
+				sc.next(); // passe l'entier pour éviter de boucler
 			}
 		} while(continu);
 		return i;
@@ -30,20 +30,19 @@ public class Interaction {
 				System.out.print("Veuillez entrer un chiffre dans l'intervalle ["+borneMin+","+borneMax+"[: \n");
 				i = sc.nextInt();
 			} catch (InputMismatchException e) {
-				sc.next(); // passe l'entier pour �viter de boucler
+				sc.next(); // passe l'entier pour éviter de boucler
 			}
 		} while(i < borneMin || i >= borneMax);
 		return i;
 	}
 
-	// lit les r�ponses "oui", "non", "o" ou "n" et renvoie un bool�en
+	// lit les réponses "oui", "non", "o" ou "n" et renvoie un booléen
 	public static boolean lireOuiOuNon() {
 		boolean retour = true;
 		boolean check = false;
 		String val="";
 		do {
 			try {
-				System.out.print("Veuillez entrer \"oui\", \"o\", \"non\" ou \"n\" : ");
 				val = sc.nextLine();
 				switch(val)
 			    {
@@ -63,15 +62,19 @@ public class Interaction {
 			            retour = false;
 			            check = true;
 			            break;
+			        default:
+			        	System.out.print("Veuillez entrer \"oui\", \"o\", \"non\" ou \"n\" : ");
+			        	break;
 			    }
 			} catch (InputMismatchException e) {
-				sc.next(); // passe l'entier pour �viter de boucler
+				System.out.print("Veuillez entrer \"oui\", \"o\", \"non\" ou \"n\" : ");
+				sc.next(); // passe l'entier pour éviter de boucler
 			}
 		} while(!check);
 		return retour;
 	}
 
-	// renvoie une cha�ne de caract�re lue au clavier:
+	// renvoie une chaîne de caractère lue au clavier:
 	public static String lireUneChaine() {
 		System.out.print("Veuillez entrer un mot :");
 		String retour = "";

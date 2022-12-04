@@ -113,8 +113,8 @@ public class Personnage {
 	public void reinitialiser() {
 		if(this.joueur!=null) {
 			this.joueur.monPersonnage = null;
+			this.joueur=null;
 		}
-		this.joueur=null;
 		this.vole=false;
 		this.assassine=false;
 		

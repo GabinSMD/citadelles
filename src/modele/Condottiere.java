@@ -118,6 +118,7 @@ public class Condottiere extends Personnage {
 								}
 							}
 						}
+
 					}
 				}while(listePersonnage.get(choixPersonnage-1).getNom() == "Eveque" && !listePersonnage.get(choixPersonnage-1).getAssassine() || choixQuartier==0);
 			}else {

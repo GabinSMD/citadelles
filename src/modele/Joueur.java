@@ -128,7 +128,7 @@ public class Joueur {
 					this.cite[j] = this.cite[j + 1];
 				}
 				return removeQuartier;
-			}else {
+			}else if(this.cite[this.cite.length-1] != null && this.cite[this.cite.length-1].getNom() == nom) {
 				System.out.println("Impossible de retirer le/la "+nom);
 			}
 		}
@@ -136,7 +136,9 @@ public class Joueur {
 	}
 
 	public void ajouterQuartierDansMain(Quartier quartier) {
-		this.main.add(quartier);
+		if (quartier!=null) {
+			this.main.add(quartier);
+		}
 	}
 
 	public Quartier retirerQuartierDansMain() {
