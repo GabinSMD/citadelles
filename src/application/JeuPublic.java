@@ -289,7 +289,7 @@ public class JeuPublic {
 				}
 				if (this.choixBoolean) {
 					ArrayList<Quartier> copieTableau = new ArrayList<Quartier>(personnageActuel.getJoueur().getMain());
-					for(int i=0; i<=copieTableau.size(); i++) {
+					for(int i=0; i<copieTableau.size(); i++) {
 						if(copieTableau.get(i).getNom()=="Tripot") {
 							copieTableau.remove(i);
 						}
@@ -462,9 +462,7 @@ public class JeuPublic {
 			}
 		}
 	}
-	
-
-	
+		
 	public void ecoleDeMagie(Personnage personnageActuel) {
 		for (int k = 0; k < personnageActuel.getJoueur() .nbQuartiersDansCite(); k++) {
 			if (personnageActuel.getJoueur() .quartierPresentDansCite("Ecole de magie")) {
@@ -830,8 +828,6 @@ public class JeuPublic {
 						}
 					}
 				}
-	
-				
 			}
 			
 			if (this.plateauDeJeu.getJoueur(i).quartierPresentDansCite("Fontaine aux souhaits")) {
