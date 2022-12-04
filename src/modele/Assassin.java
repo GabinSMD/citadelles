@@ -18,10 +18,10 @@ public class Assassin extends Personnage {
 				System.out.println("Quel personnage voulez-vous assassiner ?");
 		
 				//Affichage de la liste des personnages selectionnables
-				for(int i=0; i<9; i++) {
-				if(this.getPlateau().getPersonnage(i)!= null) {
-					System.out.println(i+1+"."+ this.getPlateau().getPersonnage(i).getNom());
-				}
+				for(int i=0; i<this.getPlateau().getNombrePersonnages(); i++) {
+					if(this.getPlateau().getPersonnage(i)!= null) {
+						System.out.println(i+1+"."+ this.getPlateau().getPersonnage(i).getNom());
+					}
 				}
 				//Choix du personnage que l'on souhaite assassiner
 				//NB: L'assassin ne pourra pas être assassiné, le joueur en sera avertis et devra choisir une nouvelle cible
@@ -48,23 +48,23 @@ public class Assassin extends Personnage {
 		//Rempli la liste des personnages selectionnables 
 		
 		switch(choix) {
-		case 0:
-			System.out.println("L'Assassin n'utilise pas son pouvoir");
-			break;
-		case 1:
-			System.out.println("L'Assassin utilise son pouvoir");
-			
-			//Choix du personnage à assassiner par l'avatar
-			//NB: L'assassin ne pourra pas être assassiné, le choix s'effectuera jusqu'à ce qu'un autre personnage soit sélectionné
-			do {
-				choix =r.nextInt(this.getPlateau().getNombreJoueurs());
-			}while(this.getPlateau().getPersonnage(choix).getNom()=="Assassin");
-			//Assassinat de la cible choisie
-			this.getPlateau().getPersonnage(choix).setAssassine();
-			System.out.println("Le/La "+this.getPlateau().getPersonnage(choix).getNom()+" a été assassiné.e");
-			break;
-		default:
-			break;
+			case 0:
+				System.out.println("L'Assassin n'utilise pas son pouvoir");
+				break;
+			case 1:
+				System.out.println("L'Assassin utilise son pouvoir");
+				
+				//Choix du personnage à assassiner par l'avatar
+				//NB: L'assassin ne pourra pas être assassiné, le choix s'effectuera jusqu'à ce qu'un autre personnage soit sélectionné
+				do {
+					choix =r.nextInt(this.getPlateau().getNombrePersonnages());
+				}while(this.getPlateau().getPersonnage(choix).getNom()=="Assassin");
+				//Assassinat de la cible choisie
+				this.getPlateau().getPersonnage(choix).setAssassine();
+				System.out.println("Le/La "+this.getPlateau().getPersonnage(choix).getNom()+" a été assassiné.e");
+				break;
+			default:
+				break;
 		}
 	}
 }
