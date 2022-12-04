@@ -4,9 +4,7 @@ import java.util.Random;
 import controleur.Interaction;
 
 public class Assassin extends Personnage {
-	private int max = 0;
 	private int choix=0;
-	Personnage[] selection = new Personnage[9];
 
 	public Assassin() {
 		super("Assassin", 1, Caracteristiques.ASSASSIN);
