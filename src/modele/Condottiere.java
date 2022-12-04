@@ -95,7 +95,8 @@ public class Condottiere extends Personnage {
 							System.out.println("Le pouvoir échoue");
 							break;
 						}
-					}while(this.getPlateau().getPersonnage(choixPersonnage).getJoueur().getCite()[choixQuartier].getCout() - 1 > this.getJoueur().nbPieces() && this.getPlateau().getPersonnage(choixPersonnage-1).getJoueur().getCite()[choixQuartier-1].getNom()!="Donjon"); //tourne tant que le quartier n'est pas achetable
+					}while(this.getPlateau().getPersonnage(choixPersonnage).getJoueur().getCite()[choixQuartier].getCout() - 1 > this.getJoueur().nbPieces() && this.getPlateau().getPersonnage(choixPersonnage).getJoueur().getCite()[choixQuartier].getNom()!="Donjon"); //tourne tant que le quartier n'est pas achetable
+					
 					if(choixQuartier!=this.getPlateau().getPersonnage(choixPersonnage).getJoueur().nbQuartiersDansCite()) {
 						nomQuartier = this.getPlateau().getPersonnage(choixPersonnage).getJoueur().getCite()[choixQuartier].getNom();
 						this.getJoueur().retirerPieces(this.getPlateau().getPersonnage(choixPersonnage).getJoueur().getCite()[choixQuartier].getCout() - 1);

@@ -1,6 +1,7 @@
 package test;
 
 import modele.Marchande;
+import modele.PlateauDeJeu;
 import modele.Caracteristiques;
 import modele.Joueur;
 import modele.Quartier;
@@ -13,6 +14,8 @@ public class TestMarchande {
 		test.test2();
 		test.test3();
 		test.test4();
+		test.test5();
+		test.test6();
 	}
 	
 	public void test1(){
@@ -48,7 +51,7 @@ public class TestMarchande {
 		Joueur joueur = new Joueur("Billy");
 		Marchande marchande = new Marchande();
 		marchande.setJoueur(joueur);
-		Test.test(marchande.getJoueur().nbPieces() == 0, "test du nombre de piéces d'or avant l'utilisation du pouvoir");
+		Test.test(marchande.getJoueur().nbPieces() == 0, "test du nombre de pièces d'or avant l'utilisation du pouvoir");
 		marchande.utiliserPouvoir();
 		Test.test(marchande.getJoueur().nbPieces() == 1, "test du nombre de pièces d'or après l'utilisation du pouvoir");
 			
@@ -63,5 +66,32 @@ public class TestMarchande {
 		marchande.utiliserPouvoirAvatar();
 		Test.test(marchande.getJoueur().nbPieces() == 1, "test du nombre de pièces d'or après l'utilisation du pouvoir");
 			
+	}
+	
+	public void test5(){
+		System.out.println("TEST DE L'UTILISATION DU POUVOIR SANS ASSOCIATION DE JOUEUR");
+		// On crée un plateau et on ajoute des cartes Quartier à la pioche:		
+				PlateauDeJeu plateau = new PlateauDeJeu();
+
+				// On ajoute le personnage au plateau:
+				Marchande marchande = new Marchande();
+				plateau.ajouterPersonnage(marchande);
+
+				marchande.utiliserPouvoir();
+				Test.test(marchande.getJoueur()==null, "Non attribution de Joueur ");
+	}
+
+	public void test6(){
+		System.out.println("TEST DE L'UTILISATION DU POUVOIR SANS ASSOCIATION DE JOUEUR (AVATAR)");
+		// On crée un plateau et on ajoute des cartes Quartier à la pioche:		
+		PlateauDeJeu plateau = new PlateauDeJeu();
+
+		// On ajoute le personnage au plateau:
+		Marchande marchande = new Marchande();
+		plateau.ajouterPersonnage(marchande);
+
+		marchande.utiliserPouvoirAvatar();
+		Test.test(marchande.getJoueur()==null, "Non attribution de Joueur ");
+
 	}
 }

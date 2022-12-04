@@ -14,6 +14,8 @@ public class TestArchitecte {
 		test.test1();
 		test.test2();
 		test.test3();
+		test.test4();
+		test.test5();
 	}
 	
 	public void test1(){
@@ -73,6 +75,33 @@ public class TestArchitecte {
 		Test.test(architecte.getJoueur().nbQuartiersDansMain() == 0, "test du nombre de cartes dans la main avant l'utilisation du pouvoir");			
 		architecte.utiliserPouvoirAvatar();
 		Test.test(architecte.getJoueur().nbQuartiersDansMain() == 2, "test du nombre de cartes dans la main après l'utilisation du pouvoir");
+			
+	}
+	
+	public void test4(){
+		System.out.println("TEST DE L'UTILISATION DU POUVOIR SANS ASSOCIATION DE JOUEUR");
+		// On crée un plateau et on ajoute des cartes Quartier à la pioche:		
+				PlateauDeJeu plateau = new PlateauDeJeu();
+				
+				// On ajoute le personnage au plateau:
+				Architecte architecte = new Architecte();
+				plateau.ajouterPersonnage(architecte);
+						
+				architecte.utiliserPouvoir();
+				Test.test(architecte.getJoueur()==null, "Non attribution de Joueur ");
+	}
+	
+	public void test5(){
+		System.out.println("TEST DE L'UTILISATION DU POUVOIR SANS ASSOCIATION DE JOUEUR (AVATAR)");
+		// On crée un plateau et on ajoute des cartes Quartier à la pioche:		
+		PlateauDeJeu plateau = new PlateauDeJeu();
+		
+		// On ajoute le personnage au plateau:
+		Architecte architecte = new Architecte();
+		plateau.ajouterPersonnage(architecte);
+				
+		architecte.utiliserPouvoirAvatar();
+		Test.test(architecte.getJoueur()==null, "Non attribution de Joueur ");
 			
 	}
 }

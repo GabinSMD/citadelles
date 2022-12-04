@@ -18,6 +18,7 @@ public class TestMagicienne {
 		test.test1();
 		test.test2();
 		test.test3();
+		test.test4();
 	}
 	
 	public void test1() {
@@ -237,5 +238,28 @@ public class TestMagicienne {
 		
 		// on vérifie que la taille de la pioche n'a pas changé:
 		Test.test(taillePiocheAvantPouvoir==pioche.nombreElements(), "taille inchangée de la pioche");
+	}
+	
+	public void test4() {
+		System.out.println("TEST DU POUVOIR DE LA MAGICIENNE SI PAS DE JOUEUR ATTRIBUE");
+		Magicienne magicienne = new Magicienne();
+
+		// utiliser le pouvoir de la magicienne :		
+		magicienne.utiliserPouvoir();
+		
+		// on vérifie que la non attribution d'un Joueur ne fait pas planter la partie:
+		Test.test(magicienne.getJoueur()==null, "Gestion de la non attribution d'un Joueur");
+	}
+	
+	public void test5() {
+		System.out.println("TEST DU POUVOIR DE LA MAGICIENNE SI PAS DE JOUEUR ATTRIBUE (AVATAR)");
+		Magicienne magicienne = new Magicienne();
+
+		
+		// utiliser le pouvoir de la magicienne :		
+		magicienne.utiliserPouvoirAvatar();
+		
+		// on vérifie que la non attribution d'un Joueur ne fait pas planter la partie:
+		Test.test(magicienne.getJoueur()==null, "Gestion de la non attribution d'un Joueur");
 	}
 }
