@@ -877,8 +877,7 @@ public class JeuPublic {
 	}
 
 	public void jouer() {
-		this.choix = 0;
-		
+		int choixJeu = 0;
 		System.out.println("Bienvenue dans la version de Citadelles codé par Gabin SIMOND, Kilian LABORDERIE et Sofiane DION.");
 		
 		do{
@@ -886,8 +885,8 @@ public class JeuPublic {
 							 + "1 - Jouer une partie\n"
 							 + "2 - Afficher les règles\n"
 							 + "3 - Quitter\n");
-			this.choix=Interaction.lireUnEntier(1,4);
-			switch (this.choix) {
+			choixJeu=Interaction.lireUnEntier(1,4);
+			switch (choixJeu) {
 				case 1:
 					jouerPartie();
 					break;
@@ -903,6 +902,6 @@ public class JeuPublic {
 					System.out.println("Choix incorrect");
 					break;
 			}
-		} while ( this.choix != 3);  
+		} while ( choixJeu != 3);  
 	}
 }
