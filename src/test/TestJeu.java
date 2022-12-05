@@ -9,10 +9,10 @@ import modele.Quartier;
 public class TestJeu {
 	public static void main(String[] args) {
 		TestJeu test = new TestJeu();
-		//test.test1(); //initialisation()
+		test.test1(); //initialisation()
 		//test.test2(); //choixPersonnages()
 		//test.test3(); //percevoirRessource()
-		test.test4(); //construire()
+		//test.test4(); //construire()
 		//test.test5(); //calculDesPoints()
 		//test.test6(); //jouer()
 	}
@@ -20,6 +20,7 @@ public class TestJeu {
 	//Test de l'initialisation					   
 	public void test1() {
 		int aucunProbleme = 0;
+		int nombreJoueurAvatar = 0;
 		JeuPublic jeu = new JeuPublic();
 		System.out.println("TEST INITIALISATION");
 		jeu.initialisation();
@@ -36,8 +37,20 @@ public class TestJeu {
 					Test.test(jeu.plateauDeJeu.getJoueur(i).nbPieces() == 2, "Nombre de pièces des joueurs");
 				}
 			}
-			if (jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne() == true) {
+			if (jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne()) {
 				Test.test(jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne(),"Le joueur " + jeu.plateauDeJeu.getJoueur(i).getNom() + " possède la couronne");
+			}
+			
+			if (jeu.plateauDeJeu.getJoueur(i).getAvatar()) {
+				nombreJoueurAvatar += 1;
+			}
+			
+		}
+		
+		System.out.println("Il y a "+nombreJoueurAvatar+" Avatar initialisé");
+		for (int j = 0; j < jeu.nombreJoueurs; j++) {
+			if(jeu.plateauDeJeu.getJoueur(j).getAvatar()) {
+				Test.test(jeu.plateauDeJeu.getJoueur(j).getAvatar(),"Le joueur "+jeu.plateauDeJeu.getJoueur(j).getNom()+" est un Avatar");
 			}
 		}
 	}
@@ -86,9 +99,9 @@ public class TestJeu {
 		int indexJoueurAleatoire = jeu.generateur.nextInt(4);
 		int indexPersonnageAleatoire = jeu.generateur.nextInt(8);
 		Joueur joueurAleatoire = jeu.plateauDeJeu.getJoueur(indexJoueurAleatoire);
-		Personnage personnageAleatoire = jeu.plateauDeJeu.getPersonnage(indexPersonnageAleatoire);
+		Personnage personnageAleatoire = jeu.plateauDeJeu.getPersonnage(6);
 		personnageAleatoire.setJoueur(joueurAleatoire);
-		joueurAleatoire.ajouterPieces(3);
+		joueurAleatoire.ajouterPieces(4);
 
 		int nbCartePossedez = personnageAleatoire.getJoueur().nbQuartiersDansMain();
 		for (int i = 0; i < nbCartePossedez; i++) {
@@ -101,8 +114,15 @@ public class TestJeu {
 		
 		System.out.println(personnageAleatoire.getNom());
 		if(personnageAleatoire.getNom()=="Architecte") {
-			jeu.construire(personnageAleatoire);
-			jeu.architecte(personnageAleatoire);
+			if(joueurAleatoire.getAvatar()==true) { 
+				do {
+					jeu.construire(personnageAleatoire);
+					jeu.architecte(personnageAleatoire);
+				} while(personnageAleatoire.getJoueur().nbQuartiersDansCite() < 2);
+			} else {
+				jeu.construire(personnageAleatoire);
+				jeu.architecte(personnageAleatoire);
+			}
 		} else {
 			jeu.construire(personnageAleatoire);
 			jeu.construire(personnageAleatoire);
@@ -114,9 +134,8 @@ public class TestJeu {
 				Test.test((joueurAleatoire.getCite()[i].getNom() == "Temple") || (joueurAleatoire.getCite()[i].getNom() == "Forteresse"), "Un quartier à été construit");
 			}
 		} else if (personnageAleatoire.getJoueur().nbQuartiersDansCite() > 1) {
-			for (int i = 0; i < personnageAleatoire.getJoueur().nbQuartiersDansCite(); i++) {
-				Test.test(personnageAleatoire.getNom() == Caracteristiques.ARCHITECTE, "Le joueur est un architecte");
-			}
+			Test.test(personnageAleatoire.getJoueur().nbQuartiersDansCite() == 2 && personnageAleatoire.getNom() == "Architecte", "Le joueur a construit 2 quartiers grâce à l'architecte");
+			
 		} else {
 			Test.test(personnageAleatoire.getJoueur().nbQuartiersDansCite() == 0, "Le joueur à décider de ne pas construire");
 		}
@@ -182,8 +201,8 @@ public class TestJeu {
 		jeu.calculDesPoints();
 
 		for (int i = 0; i < jeu.nombreJoueurs; i++) {
+			System.out.println("");
 			if (i == 0) {
-				System.out.println("");
 				Test.test(jeu.pointsCoutConstruction.get(0) == 22, "1er joueur : Comptage des points de construction");
 				Test.test(jeu.pointsNombreType.get(0) == 3,"1er joueur : Comptage des points des types présents du 1er joueur");
 				Test.test(jeu.pointsCiteTermine.get(0) == 2,"1er joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
@@ -194,31 +213,24 @@ public class TestJeu {
 					Test.test(jeu.pointsMerveille.get(0) == 1,"1er joueur : Comptage des points gagnés grâce aux Merveilles");
 					Test.test(jeu.nombrePoints.get(0) == 28, "1er joueur : Comptage des points totaux");
 				}
-				System.out.println("");
 			} else if (i == 1) {
-				System.out.println("");
 				Test.test(jeu.pointsCoutConstruction.get(1) == 20,"2ème joueur : Comptage des points de construction");
 				Test.test(jeu.pointsNombreType.get(1) == 0,"2ème joueur : Comptage des points des types présents du 1er joueur");
 				Test.test(jeu.pointsCiteTermine.get(1) == 0,"2ème joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
 				Test.test(jeu.pointsMerveille.get(1) == 0,"2ème joueur : Comptage des points gagnés grâce aux Merveilles");
 				Test.test(jeu.nombrePoints.get(1) == 20, "2ème joueur : Comptage des points totaux");
-				System.out.println("");
 			} else if (i == 2) {
-				System.out.println("");
 				Test.test(jeu.pointsCoutConstruction.get(2) == 26,"3ème joueur : Comptage des points de construction");
 				Test.test(jeu.pointsNombreType.get(2) == 0,"3ème joueur : Comptage des points des types présents du 1er joueur");
 				Test.test(jeu.pointsCiteTermine.get(2) == 4,"3ème joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
 				Test.test(jeu.pointsMerveille.get(2) == 2,"3ème joueur : Comptage des points gagnés grâce aux Merveilles");
 				Test.test(jeu.nombrePoints.get(2) == 32, "3ème joueur : Comptage des points totaux");
-				System.out.println("");
 			} else if (i == 3) {
-				System.out.println("");
 				Test.test(jeu.pointsCoutConstruction.get(3) == 14, "4ème joueur : Comptage des points de construction");
 				Test.test(jeu.pointsNombreType.get(3) == 0,"4ème joueur : Comptage des points des types présents du 1er joueur");
 				Test.test(jeu.pointsCiteTermine.get(3) == 0,"4ème joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
 				Test.test(jeu.pointsMerveille.get(3) == 0,"4ème joueur : Comptage des points gagnés grâce aux Merveilles");
 				Test.test(jeu.nombrePoints.get(3) == 14, "4ème joueur : Comptage des points totaux");
-				System.out.println("");
 			}
 		}
 	}
