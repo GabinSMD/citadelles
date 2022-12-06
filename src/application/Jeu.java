@@ -51,6 +51,7 @@ public class Jeu{
 		System.out.println("Combien de joueurs robot souhaitez-vous ?");
 
 		this.choix = Interaction.lireUnEntier(0, this.nombreJoueurs+1);
+		//this.choix = 4;
 		if(this.choix==this.nombreJoueurs) {
 			for(int j=0; j<this.nombreJoueurs;j++) {
 				this.plateauDeJeu.getJoueur(j).setAvatar(true);
@@ -200,11 +201,11 @@ public class Jeu{
 	private Boolean bibliotheque(Personnage personnageActuel) {
 		if (personnageActuel.getJoueur().quartierPresentDansCite("Bibliothèque")) {
 			for (int i = 0; i < 2; i++) {
-				if(this.plateauDeJeu.getPioche().nombreElements() != 0) {
 					Quartier choixQuartier = this.pioche.piocher();
-					System.out.println(i + ". " + choixQuartier.getNom() + " (coût " + choixQuartier.getCout() + ")");
-					personnageActuel.ajouterQuartier(choixQuartier);
-				}
+					if (choixQuartier != null) {
+						System.out.println(i + ". " + choixQuartier.getNom() + " (coût " + choixQuartier.getCout() + ")");
+						personnageActuel.ajouterQuartier(choixQuartier);
+					}
 			}
 			return true;
 		}else {
@@ -308,8 +309,9 @@ public class Jeu{
 						}else {
 							this.choix = Interaction.lireUnEntier(0,nbCartePossedez+1);
 						}
-						if(this.choix==nbCartePossedez) {
-
+						if(this.choix==0) {
+							break;
+						}else if(this.choix==nbCartePossedez) {
 							for(int i=0; i<nbCartePossedez; i++) {
 								coutQuartier -=1;
 								pioche.ajouter(personnageActuel.getJoueur().retirerQuartierDansMain());
@@ -529,7 +531,7 @@ public class Jeu{
 		}
 	}
 	private void laboratoire(Personnage personnageActuel) {
-		if (personnageActuel.getJoueur() .quartierPresentDansCite("Laboratoire")) {
+		if (personnageActuel.getJoueur() .quartierPresentDansCite("Laboratoire") && personnageActuel.getJoueur().getMain().size() != 0) {
 			if(personnageActuel.getJoueur() .getAvatar()) {
 				this.choix=this.generateur.nextInt(2);
 				switch(choix) {
@@ -889,6 +891,7 @@ public class Jeu{
 							 + "2 - Afficher les règles\n"
 							 + "3 - Quitter\n");
 			choixJeu=Interaction.lireUnEntier(1,4);
+			//choixJeu=1;
 			switch (choixJeu) {
 				case 1:
 					jouerPartie();
