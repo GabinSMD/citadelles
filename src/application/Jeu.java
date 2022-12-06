@@ -13,21 +13,27 @@ import modele.PlateauDeJeu;
 import modele.Quartier;
 
 public class Jeu{
-	private PlateauDeJeu plateauDeJeu;
+	protected PlateauDeJeu plateauDeJeu;
 	//public int numeroConfiguration;
-	private Random generateur;
-	private int nombreJoueurs;
-	private int nombrePersonnages;
-	private Pioche pioche;
+	protected Random generateur;
+	protected int nombreJoueurs;
+	protected int nombrePersonnages;
+	protected Pioche pioche;
 	
-	private boolean first = false;
+	protected boolean first = false;
 	
-	private Joueur winner;
+	protected Joueur winner;
 
-	private int choix=0;
-	private boolean choixBoolean=false;
-	private int nbTypeQuartier = Quartier.TYPE_QUARTIERS.length;
-	private int index=0;
+	protected int choix=0;
+	protected boolean choixBoolean=false;
+	protected int nbTypeQuartier = Quartier.TYPE_QUARTIERS.length;
+	protected int index=0;
+	
+	protected ArrayList<Integer> pointsCoutConstruction = new ArrayList<Integer>(this.nombreJoueurs);
+	protected ArrayList<Integer> pointsMerveille = new ArrayList<Integer>(this.nombreJoueurs);
+	protected ArrayList<Integer> pointsCiteTermine = new ArrayList<Integer>(this.nombreJoueurs);
+	protected ArrayList<Integer> nombrePoints = new ArrayList<Integer>(this.nombreJoueurs);
+	protected ArrayList<Integer> pointsNombreType = new ArrayList<Integer>(this.nombreJoueurs);
 	
 	public Jeu() {
 		this.plateauDeJeu = new PlateauDeJeu();
@@ -36,7 +42,12 @@ public class Jeu{
 		//this.numeroConfiguration = numeroConfiguration;
 	}
 	
-	private void initialisation() {
+	protected void initialisation() {
+		pointsCoutConstruction.clear();
+		pointsMerveille.clear();
+		pointsCiteTermine.clear();
+		nombrePoints.clear();
+		pointsNombreType.clear();
 		ArrayList<Joueur> joueursRobot;
 		this.pioche = Configuration.nouvellePioche();
 		this.plateauDeJeu = Configuration.configurationDeBase(pioche);
@@ -51,7 +62,7 @@ public class Jeu{
 		System.out.println("Combien de joueurs robot souhaitez-vous ?");
 
 		this.choix = Interaction.lireUnEntier(0, this.nombreJoueurs+1);
-		//this.choix = 4.
+		//this.choix = 4;
 
 		if(this.choix==this.nombreJoueurs) {
 			for(int j=0; j<this.nombreJoueurs;j++) {
@@ -93,7 +104,7 @@ public class Jeu{
 		this.plateauDeJeu.getJoueur(generateur.nextInt(nombreJoueurs)).setPossedeCouronne(true);
 	}
 	
-	private void choixPersonnages() {
+	protected void choixPersonnages() {
 		int randomVisible1 = 0;
 		int randomVisible2= 0;
 		int randomCache = 0;
@@ -199,7 +210,7 @@ public class Jeu{
 		System.out.println("L'attribution des personnages est terminée");
 	}
 	
-	private Boolean bibliotheque(Personnage personnageActuel) {
+	protected Boolean bibliotheque(Personnage personnageActuel) {
 		if (personnageActuel.getJoueur().quartierPresentDansCite("Bibliothèque")) {
 			for (int i = 0; i < 2; i++) {
 					Quartier choixQuartier = this.pioche.piocher();
@@ -215,7 +226,7 @@ public class Jeu{
 		}
 	}
 
-	private void percevoirRessource(Personnage personnageActuel) {
+	protected void percevoirRessource(Personnage personnageActuel) {
 		if(personnageActuel.getJoueur().getAvatar()) {
 			this.choix = this.generateur.nextInt(1,3);
 		}else {
@@ -261,7 +272,7 @@ public class Jeu{
 
 	}
 
-	private int manufacture(Personnage personnageActuel, Quartier quartierAConstruire) {
+	protected int manufacture(Personnage personnageActuel, Quartier quartierAConstruire) {
 		int coutQuartier;
 		coutQuartier=quartierAConstruire.getCout();
 		if(personnageActuel.getJoueur().quartierPresentDansCite("Manufacture") && quartierAConstruire.getType() == Quartier.TYPE_QUARTIERS[4]) {
@@ -272,7 +283,7 @@ public class Jeu{
 		}
 	}
 	
-	private Boolean tripot(Personnage personnageActuel, Quartier quartierAConstruire, int coutQuartier) {
+	protected Boolean tripot(Personnage personnageActuel, Quartier quartierAConstruire, int coutQuartier) {
 		int nbCartePossedez=0;
 		if(quartierAConstruire.getNom() == "Tripot") {
 			if (coutQuartier > (personnageActuel.getJoueur().nbPieces() + personnageActuel.getJoueur().nbQuartiersDansMain())) {
@@ -363,7 +374,7 @@ public class Jeu{
 		}
 	}
 	
-	private Boolean carriere(Personnage personnageActuel, Quartier quartierAConstruire) {
+	protected Boolean carriere(Personnage personnageActuel, Quartier quartierAConstruire) {
 		if(personnageActuel.getJoueur().quartierPresentDansCite(quartierAConstruire.getNom()) && personnageActuel.getJoueur().quartierPresentDansCite("Carrière")) {
 			return true;
 		}else if(!personnageActuel.getJoueur().quartierPresentDansCite(quartierAConstruire.getNom())) {
@@ -374,7 +385,7 @@ public class Jeu{
 		}
 	}
 	
-	private void architecte(Personnage personnageActuel) {
+	protected void architecte(Personnage personnageActuel) {
 		if (personnageActuel.getNom() == "Architecte") {
 			if(personnageActuel.getJoueur().getAvatar()) {
 				this.choix=this.generateur.nextInt(2);
@@ -405,7 +416,7 @@ public class Jeu{
 		}
 	}
 	//MAYBE REFACTOR
-	private void construire(Personnage personnageActuel) {
+	protected void construire(Personnage personnageActuel) {
 		Quartier quartierAConstruire;
 		int coutQuartier=0;
 		int nbCartePossedez=0;
@@ -469,7 +480,7 @@ public class Jeu{
 			}
 		}
 	}
-	private void ecoleDeMagie(Personnage personnageActuel) {
+	protected void ecoleDeMagie(Personnage personnageActuel) {
 		for (int k = 0; k < personnageActuel.getJoueur() .nbQuartiersDansCite(); k++) {
 			if (personnageActuel.getJoueur() .quartierPresentDansCite("Ecole de magie")) {
 				if(personnageActuel.getJoueur() .getAvatar()) {
@@ -505,7 +516,7 @@ public class Jeu{
 		}
 	}
 	
-	private void forge(Personnage personnageActuel) {
+	protected void forge(Personnage personnageActuel) {
 		if (personnageActuel.getJoueur().quartierPresentDansCite("Forge")) {
 			if(personnageActuel.getJoueur() .getAvatar()) {
 				this.choix=this.generateur.nextInt(2);
@@ -534,7 +545,7 @@ public class Jeu{
 			}
 		}
 	}
-	private void laboratoire(Personnage personnageActuel) {
+	protected void laboratoire(Personnage personnageActuel) {
 		if (personnageActuel.getJoueur() .quartierPresentDansCite("Laboratoire") && personnageActuel.getJoueur().getMain().size() != 0) {
 
 			if(personnageActuel.getJoueur() .getAvatar()) {
@@ -579,7 +590,7 @@ public class Jeu{
 		}
 	}
 	//MAYBE REFACTOR
-	private void tourDeJeu() {
+	protected void tourDeJeu() {
 		Personnage personnageActuel;
 		ArrayList<Personnage> personnages = new ArrayList<Personnage>();
 		
@@ -672,7 +683,7 @@ public class Jeu{
 		System.out.println("Tour terminé !");
 	}
 	
-	private void gestionCouronne() {
+	protected void gestionCouronne() {
 
 		for (int i = 0; i < this.nombrePersonnages; i++) {
 			if (this.plateauDeJeu.getPersonnage(i).getNom() == "Roi" && this.plateauDeJeu.getPersonnage(i).getJoueur() != null) {
@@ -683,7 +694,7 @@ public class Jeu{
 
 	}
 	
-	private void reinitialisationPersonnages() {
+	protected void reinitialisationPersonnages() {
 
 		for (int i = 0; i < this.nombrePersonnages; i++) {
 
@@ -691,7 +702,7 @@ public class Jeu{
 		}
 	}
 	
-	private boolean partieFinie() {
+	protected boolean partieFinie() {
 		boolean end = false;
 		
 		switch (this.nombreJoueurs) {
@@ -716,13 +727,7 @@ public class Jeu{
 		return end;
 	}
 	
-	private void calculDesPoints() {
-		ArrayList<Integer> pointsCoutConstruction = new ArrayList<Integer>(this.nombreJoueurs);
-		ArrayList<Integer> pointsMerveille = new ArrayList<Integer>(this.nombreJoueurs);
-		ArrayList<Integer> pointsCiteTermine = new ArrayList<Integer>(this.nombreJoueurs);
-		ArrayList<Integer> nombrePoints = new ArrayList<Integer>(this.nombreJoueurs);
-		ArrayList<Integer> pointsNombreType = new ArrayList<Integer>(this.nombreJoueurs);
-		
+	protected void calculDesPoints() {		
 		int point = 0;
 		Joueur gameWinner = this.plateauDeJeu.getJoueur(0);
 		
@@ -857,14 +862,9 @@ public class Jeu{
 			
 		}
 		System.out.println(gameWinner.getNom() + " remporte la partie avec " + point + " points !\n");
-		pointsCoutConstruction.clear();
-		pointsMerveille.clear();
-		pointsCiteTermine.clear();
-		nombrePoints.clear();
-		pointsNombreType.clear();
 	}
 	
-	private void jouerPartie() {
+	protected void jouerPartie() {
 		int i = 1;
 		
 		this.initialisation();

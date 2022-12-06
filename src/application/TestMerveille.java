@@ -1,12 +1,13 @@
-package test;
+package application;
 
-import application.JeuPublic;
+import application.Jeu;
 import modele.Caracteristiques;
 import modele.Joueur;
 import modele.Personnage;
 import modele.Quartier;
+import test.Test;
 
-public class TestMerveille extends JeuPublic {
+public class TestMerveille extends Jeu {
 	public static void main(String[] args) {
 		TestMerveille test = new TestMerveille();
 		//test.test1(); //Bibliothèque
@@ -28,7 +29,7 @@ public class TestMerveille extends JeuPublic {
 
 	public void test1() { // Bibliothèque
 		System.out.println("TEST DE LA BIBLIOTHEQUE");
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		jeu.initialisation();
 		jeu.choixPersonnages();
 		
@@ -49,7 +50,7 @@ public class TestMerveille extends JeuPublic {
 
 	public void test2() { // Carrière
 		System.out.println("TEST DE LA CARRIERE");
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		jeu.initialisation();
 		jeu.choixPersonnages();
 		
@@ -91,7 +92,7 @@ public class TestMerveille extends JeuPublic {
 
 	public void test3() { // Cours des miracles
 		System.out.println("TEST DE LA COURS DES MIRACLES");
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		jeu.initialisation();
 		jeu.choixPersonnages();
 		
@@ -124,7 +125,7 @@ public class TestMerveille extends JeuPublic {
 
 	public void test4() { // Donjon
 		System.out.println("TEST DU DONJON");
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		jeu.initialisation();
 		
 		int indexJoueurAleatoire = 0;
@@ -154,7 +155,7 @@ public class TestMerveille extends JeuPublic {
 
 	public void test5() { // Dracoport
 		System.out.println("TEST DU DRACOPORT");
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		jeu.initialisation();
 		jeu.choixPersonnages();
 		
@@ -172,7 +173,7 @@ public class TestMerveille extends JeuPublic {
 
 	public void test6() { // Ecole de magie
 		System.out.println("TEST DE L'ECOLE DE MAGIE");
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		jeu.initialisation();
 		
 		int indexJoueurAleatoire = jeu.generateur.nextInt(4);
@@ -198,7 +199,7 @@ public class TestMerveille extends JeuPublic {
 
 	public void test7() { // Fontaine aux souhaits
 		System.out.println("TEST DE LA FONTAINE AUX SOUHAITS");
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		jeu.initialisation();
 		jeu.choixPersonnages();
 		
@@ -217,7 +218,7 @@ public class TestMerveille extends JeuPublic {
 
 	public void test8() { // Forge
 		System.out.println("TEST DE LA FORGE");
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		jeu.initialisation();
 		jeu.choixPersonnages();
 		
@@ -248,7 +249,7 @@ public class TestMerveille extends JeuPublic {
 
 	public void test9() { // Laboratoire
 		System.out.println("TEST DU LABORATOIRE");
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		jeu.initialisation();
 		jeu.choixPersonnages();
 		
@@ -275,7 +276,7 @@ public class TestMerveille extends JeuPublic {
 
 	public void test10() { // Manufacture
 		System.out.println("TEST DE LA MANUFACTURE");
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		jeu.initialisation();
 		jeu.choixPersonnages();
 		
@@ -300,7 +301,7 @@ public class TestMerveille extends JeuPublic {
 
 	public void test11() { // Salle des cartes
 		System.out.println("TEST DE LA SALLE DES CARTES");
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		jeu.initialisation();
 		jeu.choixPersonnages();
 		
@@ -318,7 +319,7 @@ public class TestMerveille extends JeuPublic {
 
 	public void test12() { // Statue equestre
 		System.out.println("TEST DE LA STATUE EQUESTRE");
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		jeu.initialisation();
 		jeu.choixPersonnages();
 		
@@ -338,7 +339,7 @@ public class TestMerveille extends JeuPublic {
 
 	public void test13() { // Trésor Imperial
 		System.out.println("TEST DU TRESOR IMPERIAL");
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		jeu.initialisation();
 		jeu.choixPersonnages();
 		
@@ -356,7 +357,7 @@ public class TestMerveille extends JeuPublic {
 
 	public void test14() { // Tripot
 		System.out.println("TEST DU TRIPOT");
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		jeu.initialisation();
 		jeu.choixPersonnages();
 		
