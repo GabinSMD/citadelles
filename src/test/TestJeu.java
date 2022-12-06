@@ -16,8 +16,8 @@ public class TestJeu {
 		//test.test5(); //gestionCouronne()
 		//test.test6(); //reinitialisationPersonnages()
 		//test.test7(); //calculDesPoints()
-		test.test8(); //tourDeJeu()
-		//test.test8(); //jouer()
+		//test.test8(); //tourDeJeu()
+		test.test9(); //jouer()
 	}
 
 	//Test de l'initialisation					   
