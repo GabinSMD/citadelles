@@ -1,9 +1,6 @@
 package test;
 
-import java.util.ArrayList;
-
 import application.JeuPublic;
-import controleur.Interaction;
 import modele.Caracteristiques;
 import modele.Joueur;
 import modele.Personnage;
@@ -15,7 +12,7 @@ public class TestMerveille extends JeuPublic {
 		//test.test1(); //Bibliothèque
 		//test.test2(); //Carrière
 		//test.test3(); //Cours des miracles
-		test.test4(); //Donjon NOT OK
+		//test.test4(); //Donjon
 		//test.test5(); //Dracoport
 		//test.test6(); //Ecole de magie
 		//test.test7(); //Fontaine aux souhaits
@@ -25,7 +22,7 @@ public class TestMerveille extends JeuPublic {
 		//test.test11(); //Salle des cartes
 		//test.test12(); //Statue equestre
 		//test.test13(); //Trésor Imperial
-		//test.test14(); //Tripot
+		test.test14(); //Tripot
 
 	}
 
@@ -168,9 +165,7 @@ public class TestMerveille extends JeuPublic {
 		jeu.calculDesPoints();
 		for (int i = 0; i < jeu.nombreJoueurs; i++) {
 			if (jeu.plateauDeJeu.getJoueur(i)==joueurAleatoire) {
-				Test.test(jeu.pointsCoutConstruction.get(i) == 6, "Comptage des points de construction");
 				Test.test(jeu.pointsMerveille.get(i) == 2,"Comptage des points gagnés grâce aux Merveilles");
-				Test.test(jeu.nombrePoints.get(i) == 8, "Comptage des points totaux");
 			}
 		}
 	}
@@ -215,9 +210,7 @@ public class TestMerveille extends JeuPublic {
 		jeu.calculDesPoints();
 		for (int i = 0; i < jeu.nombreJoueurs; i++) {
 			if (jeu.plateauDeJeu.getJoueur(i)==joueurAleatoire) {
-				Test.test(jeu.pointsCoutConstruction.get(i) == 11, "Comptage des points de construction");
 				Test.test(jeu.pointsMerveille.get(i) == 2,"Comptage des points gagnés grâce aux Merveilles");
-				Test.test(jeu.nombrePoints.get(i) == 13, "Comptage des points totaux");
 			}
 		}
 	}
@@ -318,9 +311,7 @@ public class TestMerveille extends JeuPublic {
 		jeu.calculDesPoints();
 		for (int i = 0; i < jeu.nombreJoueurs; i++) {
 			if (jeu.plateauDeJeu.getJoueur(i)==joueurAleatoire) {
-				Test.test(jeu.pointsCoutConstruction.get(i) == 5, "Comptage des points de construction");
-				Test.test(jeu.pointsMerveille.get(i) == 4,"Comptage des points gagnés grâce aux Merveilles");
-				Test.test(jeu.nombrePoints.get(i) == 9, "Comptage des points totaux");
+				Test.test(jeu.pointsMerveille.get(i) == joueurAleatoire.nbQuartiersDansMain(),"Comptage des points gagnés grâce aux Merveilles");
 			}
 		}
 	}
@@ -339,10 +330,8 @@ public class TestMerveille extends JeuPublic {
 		jeu.calculDesPoints();
 		for (int i = 0; i < jeu.nombreJoueurs; i++) {
 			if (jeu.plateauDeJeu.getJoueur(i)==joueurAleatoire) {
-				Test.test(joueurAleatoire.getPossedeCouronne() == true, "Possede la couronne");
-				Test.test(jeu.pointsCoutConstruction.get(i) == 3, "Comptage des points de construction");
+				Test.test(joueurAleatoire.getPossedeCouronne(), "Possede la couronne");
 				Test.test(jeu.pointsMerveille.get(i) == 5,"Comptage des points gagnés grâce aux Merveilles");
-				Test.test(jeu.nombrePoints.get(i) == 8, "Comptage des points totaux");
 			}
 		}
 	}
@@ -360,9 +349,7 @@ public class TestMerveille extends JeuPublic {
 		jeu.calculDesPoints();
 		for (int i = 0; i < jeu.nombreJoueurs; i++) {
 			if (jeu.plateauDeJeu.getJoueur(i)==joueurAleatoire) {
-				Test.test(jeu.pointsCoutConstruction.get(i) == 5, "Comptage des points de construction");
-				Test.test(jeu.pointsMerveille.get(i) == 2,"Comptage des points gagnés grâce aux Merveilles");
-				Test.test(jeu.nombrePoints.get(i) == 7, "Comptage des points totaux");
+				Test.test(jeu.pointsMerveille.get(i) == joueurAleatoire.nbPieces(),"Comptage des points gagnés grâce aux Merveilles");
 			}
 		}
 	}
