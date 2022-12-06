@@ -9,12 +9,15 @@ import modele.Quartier;
 public class TestJeu {
 	public static void main(String[] args) {
 		TestJeu test = new TestJeu();
-		test.test1(); //initialisation()
+		//test.test1(); //initialisation()
 		//test.test2(); //choixPersonnages()
 		//test.test3(); //percevoirRessource()
 		//test.test4(); //construire()
-		//test.test5(); //calculDesPoints()
-		//test.test6(); //jouer()
+		//test.test5(); //gestionCouronne()
+		//test.test6(); //reinitialisationPersonnages()
+		//test.test7(); //calculDesPoints()
+		test.test8(); //tourDeJeu()
+		//test.test8(); //jouer()
 	}
 
 	//Test de l'initialisation					   
@@ -55,21 +58,18 @@ public class TestJeu {
 		}
 	}
 
+	//Test du choix du personnage
 	public void test2() { // AVATAR OK
-		int aucunProbleme = 0;
 		JeuPublic jeu = new JeuPublic();
 		System.out.println("TEST DU CHOIX DU PERSONNAGE");
 		jeu.initialisation();
 		jeu.choixPersonnages();
 		// jeu.plateauDeJeu.getJoueur(0).getPersonnage().reinitialiser();
 		for (int i = 0; i < jeu.nombreJoueurs; i++) {
-			if (jeu.plateauDeJeu.getJoueur(i).getPersonnage() == null) {
-				Test.test(jeu.plateauDeJeu.getJoueur(i).getPersonnage() != null,"Le joueur " + jeu.plateauDeJeu.getJoueur(i).getNom() + " à un personnage");
+			if (jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne()) {
+				Test.test(jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne() && jeu.plateauDeJeu.getJoueur(i).getPersonnage() != null,"Le joueur " + jeu.plateauDeJeu.getJoueur(i).getNom() + " à la couronne et à choisi le personnage "+jeu.plateauDeJeu.getJoueur(i).getPersonnage().getNom());
 			} else {
-				aucunProbleme += 1;
-				if (aucunProbleme == 4) {
-					Test.test(jeu.plateauDeJeu.getJoueur(i).getPersonnage() != null,"Les joueurs ont tous un personnage");
-				}
+				Test.test(jeu.plateauDeJeu.getJoueur(i).getPersonnage() != null,"Le joueur " + jeu.plateauDeJeu.getJoueur(i).getNom() + " et à choisi le personnage "+jeu.plateauDeJeu.getJoueur(i).getPersonnage().getNom());
 			}
 		}
 	}
@@ -86,7 +86,7 @@ public class TestJeu {
 			jeu.percevoirRessource(jeu.plateauDeJeu.getJoueur(i).getPersonnage());
 			int nbPiecesApresPercepetion = jeu.plateauDeJeu.getJoueur(i).nbPieces();
 			int nbCartesApresPercepetion = jeu.plateauDeJeu.getJoueur(i).nbQuartiersDansMain();
-			Test.test(nbPiecesApresPercepetion == nbPiecesAvantPercepetion+2 || nbCartesApresPercepetion == nbCartesAvantPercepetion+1,"Le nombre de ressources est adéquat");
+			Test.test(nbPiecesApresPercepetion == nbPiecesAvantPercepetion+2 || nbCartesApresPercepetion == nbCartesAvantPercepetion+1,"Le nombre de ressources de "+jeu.plateauDeJeu.getJoueur(i).getNom()+" est adéquat");
 		} 
 	}
 
@@ -99,9 +99,9 @@ public class TestJeu {
 		int indexJoueurAleatoire = jeu.generateur.nextInt(4);
 		int indexPersonnageAleatoire = jeu.generateur.nextInt(8);
 		Joueur joueurAleatoire = jeu.plateauDeJeu.getJoueur(indexJoueurAleatoire);
-		Personnage personnageAleatoire = jeu.plateauDeJeu.getPersonnage(6);
+		Personnage personnageAleatoire = jeu.plateauDeJeu.getPersonnage(indexPersonnageAleatoire);
 		personnageAleatoire.setJoueur(joueurAleatoire);
-		joueurAleatoire.ajouterPieces(4);
+		joueurAleatoire.ajouterPieces(3);
 
 		int nbCartePossedez = personnageAleatoire.getJoueur().nbQuartiersDansMain();
 		for (int i = 0; i < nbCartePossedez; i++) {
@@ -114,6 +114,7 @@ public class TestJeu {
 		
 		System.out.println(personnageAleatoire.getNom());
 		if(personnageAleatoire.getNom()=="Architecte") {
+			joueurAleatoire.ajouterPieces(1);
 			if(joueurAleatoire.getAvatar()==true) { 
 				do {
 					jeu.construire(personnageAleatoire);
@@ -141,9 +142,42 @@ public class TestJeu {
 		}
 	}
 	
-
-	// Test d'un tour de jeu
+	//Test de la gestion de la couronne
 	public void test5() {
+		JeuPublic jeu = new JeuPublic();
+		System.out.println("TEST DE LA GESTION DE LA COURONNE");
+		jeu.initialisation();
+		for (int i = 0; i < jeu.nombreJoueurs; i++) {
+			if (jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne()) {
+				Test.test(jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne(),"Le joueur " + jeu.plateauDeJeu.getJoueur(i).getNom() + " possède la couronne");
+			}
+		}
+		
+		jeu.choixPersonnages();
+		jeu.gestionCouronne();
+		
+		for (int i = 0; i < jeu.nombreJoueurs; i++) {
+			
+			if (jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne()) {
+				Test.test(jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne(),"Le joueur " + jeu.plateauDeJeu.getJoueur(i).getNom() + " possède la couronne");
+			}
+		}
+	}
+
+	//Test de la reinitialisation des personnages
+	public void test6() {
+		JeuPublic jeu = new JeuPublic();
+		System.out.println("TEST DE LA REINITIALISATION DES PERSONNAGES");
+		jeu.initialisation();
+		jeu.choixPersonnages();
+		jeu.reinitialisationPersonnages();
+		for (int i = 0; i < jeu.nombrePersonnages; i++) {
+			Test.test(jeu.plateauDeJeu.getPersonnage(i).getAssassine() == false && jeu.plateauDeJeu.getPersonnage(i).getVole() == false && jeu.plateauDeJeu.getPersonnage(i).getJoueur() == null,"Le personnage " + jeu.plateauDeJeu.getPersonnage(i).getNom() + " n'est ni volé, ni assassiné et ne possède pas de joueur");
+		}		
+	}
+	
+	//Test du calcul des points
+	public void test7() {
 		JeuPublic jeu = new JeuPublic();
 		System.out.println("TEST DU CALCUL DES POINTS");
 		jeu.initialisation();
@@ -235,8 +269,17 @@ public class TestJeu {
 		}
 	}
 
+	//Test d'un tour de jeu
+	public void test8() {
+		JeuPublic jeu = new JeuPublic();
+		System.out.println("TEST D'UN TOUR DE JEU");
+		jeu.initialisation();
+		jeu.tourDeJeu();
+
+	}
+
 	// Test d'une partie complète d'Avatar
-	public void test6() {
+	public void test9() {
 		int aucunProbleme = 0;
 		JeuPublic jeu = new JeuPublic();
 		System.out.println("TEST D'UN JEU COMPLET D'AVATAR");
