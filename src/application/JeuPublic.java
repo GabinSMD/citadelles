@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.Random;
 
 import controleur.Interaction;
-import modele.Caracteristiques;
 import modele.Joueur;
 import modele.Personnage;
 import modele.Pioche;
@@ -37,6 +36,11 @@ public class JeuPublic {
 	}
 	
 	public void initialisation() {
+		this.pointsCoutConstruction.clear();
+		this.pointsMerveille.clear();
+		this.pointsCiteTermine.clear();
+		this.nombrePoints.clear();
+		this.pointsNombreType.clear();
 		ArrayList<Joueur> joueursRobot;
 		this.pioche = Configuration.nouvellePioche();
 		this.plateauDeJeu = Configuration.configurationDeBase(pioche);
@@ -462,6 +466,7 @@ public class JeuPublic {
 			}
 		}
 	}
+
 	public void ecoleDeMagie(Personnage personnageActuel) {
 		for (int k = 0; k < personnageActuel.getJoueur() .nbQuartiersDansCite(); k++) {
 			if (personnageActuel.getJoueur() .quartierPresentDansCite("Ecole de magie")) {
@@ -595,9 +600,9 @@ public class JeuPublic {
 						if (personnageActuel.getVole()) {
 							System.out.println("Vous avez été volé ! Vous donnez " + personnageActuel.getJoueur() .nbPieces() + " pièces d'or au Voleur");
 							for (int k = 0; k < nombreJoueurs; k++) {
-								if (this.plateauDeJeu.getJoueur(k).getPersonnage().getNom() == Caracteristiques.VOLEUR) {
-									this.plateauDeJeu.getJoueur(k).ajouterPieces(personnageActuel.getJoueur() .nbPieces());
-									personnageActuel.getJoueur() .retirerPieces(personnageActuel.getJoueur() .nbPieces());
+								if (this.plateauDeJeu.getJoueur(k).getPersonnage().getNom() == "Voleur") {
+									this.plateauDeJeu.getJoueur(k).ajouterPieces(personnageActuel.getJoueur().nbPieces());
+									personnageActuel.getJoueur() .retirerPieces(personnageActuel.getJoueur().nbPieces());
 								}
 							}
 						}
@@ -615,27 +620,13 @@ public class JeuPublic {
 						
 						this.laboratoire(personnageActuel);
 						
+
 						if(personnageActuel.getJoueur() .getAvatar()) {
-							this.choix=this.generateur.nextInt(2);
-							switch(choix) {
-								case 0:
-									this.choixBoolean=false;
-									break;
-								case 1:
-									this.choixBoolean=true;
-									break;
-							}	
-						}else {
-							System.out.println("Voulez vous utilisez votre pouvoir ? ");
-							this.choixBoolean=Interaction.lireOuiOuNon();
+							personnageActuel.utiliserPouvoirAvatar();
+						} else {
+							personnageActuel.utiliserPouvoir();
 						}
-						if (this.choixBoolean) {
-							if(personnageActuel.getJoueur() .getAvatar()) {
-								personnageActuel.utiliserPouvoirAvatar();
-							} else {
-								personnageActuel.utiliserPouvoir();
-							}
-						}
+						
 						//Appelle de la fonction construire
 						this.construire(personnageActuel);
 						
@@ -666,8 +657,12 @@ public class JeuPublic {
 
 		for (int i = 0; i < this.nombrePersonnages; i++) {
 			if (this.plateauDeJeu.getPersonnage(i).getNom() == "Roi" && this.plateauDeJeu.getPersonnage(i).getJoueur() != null) {
-
-				this.plateauDeJeu.getJoueur(i).setPossedeCouronne(true);
+				for (int j = 0; j < this.nombreJoueurs; j++) {
+					if (this.plateauDeJeu.getJoueur(j).getPossedeCouronne()) {
+						this.plateauDeJeu.getJoueur(j).setPossedeCouronne(false);
+					}
+				}
+				this.plateauDeJeu.getPersonnage(i).getJoueur().setPossedeCouronne(true);
 			}
 		}
 
@@ -847,11 +842,6 @@ public class JeuPublic {
 			
 		}
 		System.out.println(gameWinner.getNom() + " remporte la partie avec " + point + " points !\n");
-		this.pointsCoutConstruction.clear();
-		this.pointsMerveille.clear();
-		this.pointsCiteTermine.clear();
-		this.nombrePoints.clear();
-		this.pointsNombreType.clear();
 	}
 	
 	public void jouerPartie() {

@@ -12,14 +12,18 @@ public class TestJeu {
 		//test.test1(); //initialisation()
 		//test.test2(); //choixPersonnages()
 		//test.test3(); //percevoirRessource()
-		test.test4(); //construire()
-		//test.test5(); //calculDesPoints()
-		//test.test6(); //jouer()
+		//test.test4(); //construire()
+		//test.test5(); //gestionCouronne()
+		//test.test6(); //reinitialisationPersonnages()
+		//test.test7(); //calculDesPoints()
+		//test.test8(); //tourDeJeu()
+		test.test9(); //jouer()
 	}
 
 	//Test de l'initialisation					   
 	public void test1() {
 		int aucunProbleme = 0;
+		int nombreJoueurAvatar = 0;
 		JeuPublic jeu = new JeuPublic();
 		System.out.println("TEST INITIALISATION");
 		jeu.initialisation();
@@ -36,27 +40,36 @@ public class TestJeu {
 					Test.test(jeu.plateauDeJeu.getJoueur(i).nbPieces() == 2, "Nombre de pièces des joueurs");
 				}
 			}
-			if (jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne() == true) {
+			if (jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne()) {
 				Test.test(jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne(),"Le joueur " + jeu.plateauDeJeu.getJoueur(i).getNom() + " possède la couronne");
+			}
+			
+			if (jeu.plateauDeJeu.getJoueur(i).getAvatar()) {
+				nombreJoueurAvatar += 1;
+			}
+			
+		}
+		
+		System.out.println("Il y a "+nombreJoueurAvatar+" Avatar initialisé");
+		for (int j = 0; j < jeu.nombreJoueurs; j++) {
+			if(jeu.plateauDeJeu.getJoueur(j).getAvatar()) {
+				Test.test(jeu.plateauDeJeu.getJoueur(j).getAvatar(),"Le joueur "+jeu.plateauDeJeu.getJoueur(j).getNom()+" est un Avatar");
 			}
 		}
 	}
 
+	//Test du choix du personnage
 	public void test2() { // AVATAR OK
-		int aucunProbleme = 0;
 		JeuPublic jeu = new JeuPublic();
 		System.out.println("TEST DU CHOIX DU PERSONNAGE");
 		jeu.initialisation();
 		jeu.choixPersonnages();
 		// jeu.plateauDeJeu.getJoueur(0).getPersonnage().reinitialiser();
 		for (int i = 0; i < jeu.nombreJoueurs; i++) {
-			if (jeu.plateauDeJeu.getJoueur(i).getPersonnage() == null) {
-				Test.test(jeu.plateauDeJeu.getJoueur(i).getPersonnage() != null,"Le joueur " + jeu.plateauDeJeu.getJoueur(i).getNom() + " à un personnage");
+			if (jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne()) {
+				Test.test(jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne() && jeu.plateauDeJeu.getJoueur(i).getPersonnage() != null,"Le joueur " + jeu.plateauDeJeu.getJoueur(i).getNom() + " à la couronne et à choisi le personnage "+jeu.plateauDeJeu.getJoueur(i).getPersonnage().getNom());
 			} else {
-				aucunProbleme += 1;
-				if (aucunProbleme == 4) {
-					Test.test(jeu.plateauDeJeu.getJoueur(i).getPersonnage() != null,"Les joueurs ont tous un personnage");
-				}
+				Test.test(jeu.plateauDeJeu.getJoueur(i).getPersonnage() != null,"Le joueur " + jeu.plateauDeJeu.getJoueur(i).getNom() + " et à choisi le personnage "+jeu.plateauDeJeu.getJoueur(i).getPersonnage().getNom());
 			}
 		}
 	}
@@ -73,7 +86,7 @@ public class TestJeu {
 			jeu.percevoirRessource(jeu.plateauDeJeu.getJoueur(i).getPersonnage());
 			int nbPiecesApresPercepetion = jeu.plateauDeJeu.getJoueur(i).nbPieces();
 			int nbCartesApresPercepetion = jeu.plateauDeJeu.getJoueur(i).nbQuartiersDansMain();
-			Test.test(nbPiecesApresPercepetion == nbPiecesAvantPercepetion+2 || nbCartesApresPercepetion == nbCartesAvantPercepetion+1,"Le nombre de ressources est adéquat");
+			Test.test(nbPiecesApresPercepetion == nbPiecesAvantPercepetion+2 || nbCartesApresPercepetion == nbCartesAvantPercepetion+1,"Le nombre de ressources de "+jeu.plateauDeJeu.getJoueur(i).getNom()+" est adéquat");
 		} 
 	}
 
@@ -101,8 +114,16 @@ public class TestJeu {
 		
 		System.out.println(personnageAleatoire.getNom());
 		if(personnageAleatoire.getNom()=="Architecte") {
-			jeu.construire(personnageAleatoire);
-			jeu.architecte(personnageAleatoire);
+			joueurAleatoire.ajouterPieces(1);
+			if(joueurAleatoire.getAvatar()==true) { 
+				do {
+					jeu.construire(personnageAleatoire);
+					jeu.architecte(personnageAleatoire);
+				} while(personnageAleatoire.getJoueur().nbQuartiersDansCite() < 2);
+			} else {
+				jeu.construire(personnageAleatoire);
+				jeu.architecte(personnageAleatoire);
+			}
 		} else {
 			jeu.construire(personnageAleatoire);
 			jeu.construire(personnageAleatoire);
@@ -114,17 +135,49 @@ public class TestJeu {
 				Test.test((joueurAleatoire.getCite()[i].getNom() == "Temple") || (joueurAleatoire.getCite()[i].getNom() == "Forteresse"), "Un quartier à été construit");
 			}
 		} else if (personnageAleatoire.getJoueur().nbQuartiersDansCite() > 1) {
-			for (int i = 0; i < personnageAleatoire.getJoueur().nbQuartiersDansCite(); i++) {
-				Test.test(personnageAleatoire.getNom() == Caracteristiques.ARCHITECTE, "Le joueur est un architecte");
-			}
+			Test.test(personnageAleatoire.getJoueur().nbQuartiersDansCite() == 2 && personnageAleatoire.getNom() == "Architecte", "Le joueur a construit 2 quartiers grâce à l'architecte");
+			
 		} else {
 			Test.test(personnageAleatoire.getJoueur().nbQuartiersDansCite() == 0, "Le joueur à décider de ne pas construire");
 		}
 	}
 	
-
-	// Test d'un tour de jeu
+	//Test de la gestion de la couronne
 	public void test5() {
+		JeuPublic jeu = new JeuPublic();
+		System.out.println("TEST DE LA GESTION DE LA COURONNE");
+		jeu.initialisation();
+		for (int i = 0; i < jeu.nombreJoueurs; i++) {
+			if (jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne()) {
+				Test.test(jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne(),"Le joueur " + jeu.plateauDeJeu.getJoueur(i).getNom() + " possède la couronne");
+			}
+		}
+		
+		jeu.choixPersonnages();
+		jeu.gestionCouronne();
+		
+		for (int i = 0; i < jeu.nombreJoueurs; i++) {
+			
+			if (jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne()) {
+				Test.test(jeu.plateauDeJeu.getJoueur(i).getPossedeCouronne(),"Le joueur " + jeu.plateauDeJeu.getJoueur(i).getNom() + " possède la couronne");
+			}
+		}
+	}
+
+	//Test de la reinitialisation des personnages
+	public void test6() {
+		JeuPublic jeu = new JeuPublic();
+		System.out.println("TEST DE LA REINITIALISATION DES PERSONNAGES");
+		jeu.initialisation();
+		jeu.choixPersonnages();
+		jeu.reinitialisationPersonnages();
+		for (int i = 0; i < jeu.nombrePersonnages; i++) {
+			Test.test(jeu.plateauDeJeu.getPersonnage(i).getAssassine() == false && jeu.plateauDeJeu.getPersonnage(i).getVole() == false && jeu.plateauDeJeu.getPersonnage(i).getJoueur() == null,"Le personnage " + jeu.plateauDeJeu.getPersonnage(i).getNom() + " n'est ni volé, ni assassiné et ne possède pas de joueur");
+		}		
+	}
+	
+	//Test du calcul des points
+	public void test7() {
 		JeuPublic jeu = new JeuPublic();
 		System.out.println("TEST DU CALCUL DES POINTS");
 		jeu.initialisation();
@@ -182,8 +235,8 @@ public class TestJeu {
 		jeu.calculDesPoints();
 
 		for (int i = 0; i < jeu.nombreJoueurs; i++) {
+			System.out.println("");
 			if (i == 0) {
-				System.out.println("");
 				Test.test(jeu.pointsCoutConstruction.get(0) == 22, "1er joueur : Comptage des points de construction");
 				Test.test(jeu.pointsNombreType.get(0) == 3,"1er joueur : Comptage des points des types présents du 1er joueur");
 				Test.test(jeu.pointsCiteTermine.get(0) == 2,"1er joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
@@ -194,37 +247,39 @@ public class TestJeu {
 					Test.test(jeu.pointsMerveille.get(0) == 1,"1er joueur : Comptage des points gagnés grâce aux Merveilles");
 					Test.test(jeu.nombrePoints.get(0) == 28, "1er joueur : Comptage des points totaux");
 				}
-				System.out.println("");
 			} else if (i == 1) {
-				System.out.println("");
 				Test.test(jeu.pointsCoutConstruction.get(1) == 20,"2ème joueur : Comptage des points de construction");
 				Test.test(jeu.pointsNombreType.get(1) == 0,"2ème joueur : Comptage des points des types présents du 1er joueur");
 				Test.test(jeu.pointsCiteTermine.get(1) == 0,"2ème joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
 				Test.test(jeu.pointsMerveille.get(1) == 0,"2ème joueur : Comptage des points gagnés grâce aux Merveilles");
 				Test.test(jeu.nombrePoints.get(1) == 20, "2ème joueur : Comptage des points totaux");
-				System.out.println("");
 			} else if (i == 2) {
-				System.out.println("");
 				Test.test(jeu.pointsCoutConstruction.get(2) == 26,"3ème joueur : Comptage des points de construction");
 				Test.test(jeu.pointsNombreType.get(2) == 0,"3ème joueur : Comptage des points des types présents du 1er joueur");
 				Test.test(jeu.pointsCiteTermine.get(2) == 4,"3ème joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
 				Test.test(jeu.pointsMerveille.get(2) == 2,"3ème joueur : Comptage des points gagnés grâce aux Merveilles");
 				Test.test(jeu.nombrePoints.get(2) == 32, "3ème joueur : Comptage des points totaux");
-				System.out.println("");
 			} else if (i == 3) {
-				System.out.println("");
 				Test.test(jeu.pointsCoutConstruction.get(3) == 14, "4ème joueur : Comptage des points de construction");
 				Test.test(jeu.pointsNombreType.get(3) == 0,"4ème joueur : Comptage des points des types présents du 1er joueur");
 				Test.test(jeu.pointsCiteTermine.get(3) == 0,"4ème joueur : Comptage des points du 1er joueur à avoir terminé sa cité");
 				Test.test(jeu.pointsMerveille.get(3) == 0,"4ème joueur : Comptage des points gagnés grâce aux Merveilles");
 				Test.test(jeu.nombrePoints.get(3) == 14, "4ème joueur : Comptage des points totaux");
-				System.out.println("");
 			}
 		}
 	}
 
+	//Test d'un tour de jeu
+	public void test8() {
+		JeuPublic jeu = new JeuPublic();
+		System.out.println("TEST D'UN TOUR DE JEU");
+		jeu.initialisation();
+		jeu.tourDeJeu();
+
+	}
+
 	// Test d'une partie complète d'Avatar
-	public void test6() {
+	public void test9() {
 		int aucunProbleme = 0;
 		JeuPublic jeu = new JeuPublic();
 		System.out.println("TEST D'UN JEU COMPLET D'AVATAR");
