@@ -687,8 +687,12 @@ public class Jeu{
 
 		for (int i = 0; i < this.nombrePersonnages; i++) {
 			if (this.plateauDeJeu.getPersonnage(i).getNom() == "Roi" && this.plateauDeJeu.getPersonnage(i).getJoueur() != null) {
-
-				this.plateauDeJeu.getJoueur(i).setPossedeCouronne(true);
+				for (int j = 0; j < this.nombreJoueurs; j++) {
+					if(this.plateauDeJeu.getJoueur(j).getPossedeCouronne()) {
+						this.plateauDeJeu.getJoueur(j).setPossedeCouronne(false);
+					}
+				}
+				this.plateauDeJeu.getPersonnage(i).getJoueur().setPossedeCouronne(true);
 			}
 		}
 
