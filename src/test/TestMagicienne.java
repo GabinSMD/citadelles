@@ -137,7 +137,7 @@ public class TestMagicienne {
 		System.out.println("\n");
 		
 		// on vérifie que la taille de la pioche n'a pas changé:
-		System.out.print("Test : Regarder si l'échange des mains a bien eu lieu\n");
+		Test.test(taillePiocheAvantPouvoir==pioche.nombreElements(), "taille inchangée de la pioche");
 	}
 	
 	public void test3() {
@@ -326,6 +326,7 @@ public class TestMagicienne {
 				
 		// on récupère la taille de la pioche:
 		int taillePiocheAvantPouvoir = pioche.nombreElements();
+		int tailleMainAvantPouvoir=magicienne.getJoueur().getMain().size();
 		
 		// utiliser le pouvoir de la magicienne :		
 		magicienne.utiliserPouvoirAvatar();
@@ -347,5 +348,6 @@ public class TestMagicienne {
 		// on vérifie que la taille de la pioche n'a pas changé:
 		System.out.print("Test : Regarder si l'échange des mains a bien eu lieu\n");
 		Test.test(taillePiocheAvantPouvoir==pioche.nombreElements(), "taille inchangée de la pioche");
+		Test.test(tailleMainAvantPouvoir==magicienne.getJoueur().getMain().size(), "taille inchangée de la main");
 	}
 }
