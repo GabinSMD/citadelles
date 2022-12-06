@@ -33,8 +33,8 @@ public class TestMagicienne {
 		Test.test(plateau.getPersonnage(2)==magicienne, "récupération du personnage de la magicienne");
 		Test.test(plateau.getPersonnage(2).getRang()==3, "rang de la magicienne");
 		Test.test(plateau.getPersonnage(2).getJoueur()==null, "Attribut joueur");
-		Test.test(plateau.getPersonnage(2).getAssassine()==false, "Attribut assassine");
-		Test.test(plateau.getPersonnage(2).getVole()==false, "Attribut vole");
+		Test.test(!plateau.getPersonnage(2).getAssassine(), "Attribut assassine");
+		Test.test(!plateau.getPersonnage(2).getVole(), "Attribut vole");
 		
 	}
 	public void test2() {
