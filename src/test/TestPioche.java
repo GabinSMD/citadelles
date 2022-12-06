@@ -42,14 +42,11 @@ public class TestPioche {
 		pioche.ajouter(quartier2);
 		pioche.ajouter(quartier3);
 		q = pioche.piocher();
-		Test.test(pioche.nombreElements()==2 && q==quartier1,
-			"test d'un retrait dans une pioche composée de trois cartes");
+		Test.test(pioche.nombreElements()==2 && q==quartier1, "test d'un retrait dans une pioche composée de trois cartes");
 		q = pioche.piocher();
-		Test.test(pioche.nombreElements()==1 && q==quartier2,
-			"test d'un retrait dans une pioche composée de deux cartes");
+		Test.test(pioche.nombreElements()==1 && q==quartier2, "test d'un retrait dans une pioche composée de deux cartes");
 		q = pioche.piocher();
-		Test.test(pioche.nombreElements()==0 && q==quartier3,
-			"test d'un retrait dans une pioche composée d'une seule carte");
+		Test.test(pioche.nombreElements()==0 && q==quartier3, "test d'un retrait dans une pioche composée d'une seule carte");
 	}
 	public void test4() {
 		System.out.println("TEST DU MELANGE DE LA PIOCHE");
@@ -65,11 +62,14 @@ public class TestPioche {
 		pioche.ajouter(new Quartier("hôtel de ville",Quartier.TYPE_QUARTIERS[3],15));
 		pioche.ajouter(new Quartier("bibliothèque",Quartier.TYPE_QUARTIERS[4],6,"Si vous choisissez..."));
 
+		System.out.println("Affichage de la pioche avant mélange : \n- temple \n- prison\n- palais \n- taverne\n- basilique\n- cathédrale\n- caserne\n- manoir\n- hôtel de ville\n- bibliothèque");
+				
 		pioche.melanger();		
 		Test.test(pioche.nombreElements()==10, "taille de la pioche après mélange");
 		System.out.println("Affichage de la pioche après mélange : ");
 		for(int i =pioche.nombreElements(); i>0; i--) {
 			System.out.println("- " + pioche.piocher().getNom());
 		}
+		System.out.println("Validation du test si l'ordre des cartes dans la pioche est différent après mélange");
 	}
 }
