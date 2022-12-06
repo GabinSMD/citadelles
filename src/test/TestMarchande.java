@@ -36,11 +36,13 @@ public class TestMarchande {
 		Quartier quartier3 = new Quartier("échoppe",Quartier.TYPE_QUARTIERS[3],2);
 		marchande.setJoueur(joueur);
 		Test.test(marchande.getJoueur().nbPieces() == 0, "test du nombre de pièces d'or avant perception des ressources spécifiques");
+		marchande.percevoirRessourcesSpecifiques();
+		Test.test(marchande.getJoueur().nbPieces() == 0, "test du nombre de pièces d'or après perception de ressources spécifiques sans quartiers commerçants présent dans la cité");	
 		marchande.construire(quartier1);
 		marchande.construire(quartier2);
 		marchande.construire(quartier3);		
 		marchande.percevoirRessourcesSpecifiques();
-		Test.test(marchande.getJoueur().nbPieces() == 2, "test du nombre de pièces d'or après perception de ressources spécifiques avec 2 quartiers commerçants");			
+		Test.test(marchande.getJoueur().nbPieces() == 2, "test du nombre de pièces d'or après perception de ressources spécifiques avec 2 quartiers commerçants présent dans la cité");			
 	}
 	
 	public void test3(){
