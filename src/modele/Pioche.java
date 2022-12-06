@@ -1,7 +1,6 @@
 package modele;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 public class Pioche {
@@ -41,5 +40,4 @@ public class Pioche {
 			this.liste.set(k, firstQuartier);
 		}
 	}
-
 }
