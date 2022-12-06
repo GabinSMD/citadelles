@@ -10,7 +10,9 @@ public class Architecte extends Personnage{
 	public void utiliserPouvoir() {
 		if(this.getJoueur()!=null) {
 			for(int i=0; i < 2 ; i++) {
-				this.getJoueur().ajouterQuartierDansMain(this.getPlateau().getPioche().piocher());
+				if(this.getPlateau().getPioche().nombreElements() != 0) {
+					this.getJoueur().ajouterQuartierDansMain(this.getPlateau().getPioche().piocher());
+				}
 			}
 		}
 	}
@@ -19,7 +21,9 @@ public class Architecte extends Personnage{
 	public void utiliserPouvoirAvatar() {
 		if(this.getJoueur()!=null) {
 			for(int i=0; i < 2 ; i++) {
-				this.getJoueur().ajouterQuartierDansMain(this.getPlateau().getPioche().piocher());
+				if(this.getPlateau().getPioche().nombreElements() != 0) {
+					this.getJoueur().ajouterQuartierDansMain(this.getPlateau().getPioche().piocher());
+				}
 			}
 		}
 	}

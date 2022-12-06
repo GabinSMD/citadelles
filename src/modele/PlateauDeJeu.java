@@ -63,7 +63,7 @@ public class PlateauDeJeu {
 	
 	public void ajouterPersonnage(Personnage nouveau) {
 		this.plein=false;
-		if(nouveau!=null && nouveau.getNom()!=null && nouveau.getCaracteristiques()!=null && nouveau.getAssassine()!=null && nouveau.getVole()!=null) {
+		if(nouveau!=null && nouveau.getNom()!=null && nouveau.getCaracteristiques()!=null && !nouveau.getAssassine() && !nouveau.getVole()) {
 			for(int i=0; i<this.listePersonnages.length; i++){
 			    if(this.listePersonnages[i] == null){
 			    	this.listePersonnages[i]=nouveau;

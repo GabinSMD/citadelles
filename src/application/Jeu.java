@@ -51,7 +51,8 @@ public class Jeu{
 		System.out.println("Combien de joueurs robot souhaitez-vous ?");
 
 		this.choix = Interaction.lireUnEntier(0, this.nombreJoueurs+1);
-		//this.choix = 4;
+		//this.choix = 4.
+
 		if(this.choix==this.nombreJoueurs) {
 			for(int j=0; j<this.nombreJoueurs;j++) {
 				this.plateauDeJeu.getJoueur(j).setAvatar(true);
@@ -206,6 +207,7 @@ public class Jeu{
 						System.out.println(i + ". " + choixQuartier.getNom() + " (coût " + choixQuartier.getCout() + ")");
 						personnageActuel.ajouterQuartier(choixQuartier);
 					}
+
 			}
 			return true;
 		}else {
@@ -231,7 +233,8 @@ public class Jeu{
 			//Ajout des cartes
 			case 2:
 				//Cas de la merveille
-				if (!bibliotheque(personnageActuel) && (this.plateauDeJeu.getPioche().nombreElements() != 0) || this.plateauDeJeu.getPioche().nombreElements() != 1) {
+
+				if (!bibliotheque(personnageActuel)) {
 					Quartier choixQuartier1 = this.pioche.piocher();
 					Quartier choixQuartier2 = this.pioche.piocher();
 					if(personnageActuel.getJoueur().getAvatar()) {
@@ -525,6 +528,7 @@ public class Jeu{
 					if (this.plateauDeJeu.getPioche().nombreElements() != 0) {
 						personnageActuel.getJoueur().ajouterQuartierDansMain(pioche.piocher());
 					}
+
 				}
 				personnageActuel.getJoueur() .retirerPieces(2);
 			}
@@ -532,6 +536,7 @@ public class Jeu{
 	}
 	private void laboratoire(Personnage personnageActuel) {
 		if (personnageActuel.getJoueur() .quartierPresentDansCite("Laboratoire") && personnageActuel.getJoueur().getMain().size() != 0) {
+
 			if(personnageActuel.getJoueur() .getAvatar()) {
 				this.choix=this.generateur.nextInt(2);
 				switch(choix) {
@@ -892,6 +897,7 @@ public class Jeu{
 							 + "3 - Quitter\n");
 			choixJeu=Interaction.lireUnEntier(1,4);
 			//choixJeu=1;
+
 			switch (choixJeu) {
 				case 1:
 					jouerPartie();

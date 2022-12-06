@@ -18,7 +18,7 @@ public class TestEveque {
 		Eveque eveque = new Eveque();
 		Test.test(eveque.getNom().equals("Eveque"),"test du nom du personnage");
 		Test.test(eveque.getRang()== 5,"test du rang du personnage");
-		Test.test(eveque.getCaracteristiques().equals(Caracteristiques.EVEQUE), "test des caract�ristiques du personnage");
+		Test.test(eveque.getCaracteristiques().equals(Caracteristiques.EVEQUE), "test des caractéristiques du personnage");
 		Test.test(eveque.getJoueur()==null, "test de l'initialisation de la variable \"joueur\"");
 		Test.test(eveque.getAssassine()==false, "test de l'initialisation de la variable \"assassine\"");
 		Test.test(eveque.getVole()==false, "test de l'initialisation de la variable \"vole\"");
@@ -34,11 +34,13 @@ public class TestEveque {
 		eveque.setJoueur(joueur);
 		eveque.ajouterPieces();
 		Test.test(eveque.getJoueur().nbPieces() == 2, "test du nombre de pièces d'or avant perception");
+		eveque.percevoirRessourcesSpecifiques();
+		Test.test(eveque.getJoueur().nbPieces() == 2, "test du nombre de pièces d'or après perception de ressources spécifiques sans quartiers religieux présent dans la cité");
 		eveque.construire(quartier1);
 		eveque.construire(quartier2);
 		eveque.construire(quartier3);		
 		eveque.percevoirRessourcesSpecifiques();
-		Test.test(eveque.getJoueur().nbPieces() == 4, "test du nombre de pièces d'or après perception de ressources spécifiques avec 2 quartiers religieux");
+		Test.test(eveque.getJoueur().nbPieces() == 4, "test du nombre de pièces d'or après perception de ressources spécifiques avec 2 quartiers religieux présent dans la cité");
 	}
 	
 }
