@@ -115,7 +115,7 @@ public class Magicienne extends Personnage{
 	}
 	
 	private int menuPouvoir() {
-		int max=2;
+		int max=1;
 		System.out.println("Quel action voulez vous effectuez");
 		System.out.println("0. Ne rien faire");
 		System.out.println("1. Echanger toutes vos cartes avec un adversaire");
@@ -157,12 +157,13 @@ public class Magicienne extends Personnage{
 		ArrayList<Personnage> personnageTableau = new ArrayList<Personnage>(this.getPlateau().getNombrePersonnages());
 		int index=0;
 		System.out.println("Avec quel joueur voulez vous échanger :");
-		for(int i=0; i<this.getPlateau().getNombreJoueurs(); i++) {
-			if(this.getPlateau().getJoueur(i).getNom() != this.getJoueur().getNom() && this.getPlateau().getPersonnage(i).getJoueur()!=null) {
+		for(int i=0; i<this.getPlateau().getNombrePersonnages(); i++) {
+			if(this.getPlateau().getPersonnage(i).getJoueur()!=null && this.getPlateau().getPersonnage(i).getJoueur().getNom() != this.getJoueur().getNom()) {
 				personnageTableau.add(this.getPlateau().getPersonnage(i));
 			}
 		}
 		Random r = new Random();
+		System.out.println(personnageTableau.size());
 		int select = r.nextInt(0, personnageTableau.size());
 		System.out.println("Choix du Personnage : "+select);
 		for(int i=0;i<this.getPlateau().getNombrePersonnages();i++) {
