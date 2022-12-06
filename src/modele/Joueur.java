@@ -157,8 +157,6 @@ public class Joueur {
 
 	public void reinitialiser() {
 		this.tresor = 0;
-		this.nbQuartiers = 0;
-		this.possedeCouronne = false;
 		this.cite = new Quartier[8];
 		this.main = new ArrayList<Quartier>();
 	}
