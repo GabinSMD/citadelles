@@ -100,8 +100,6 @@ public class Personnage {
 	public void percevoirRessourcesSpecifiques() {
 		if (this.joueur==null || this.assassine==true){
 			System.out.println("Impossible de percevoir les ressources spécifiques");
-		} else {
-			System.out.println("Aucune ressource spécifique");
 		}
 	}
 	public void utiliserPouvoir() {
