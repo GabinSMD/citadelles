@@ -19,7 +19,7 @@ public class Condottiere extends Personnage {
 		boolean choix;
 		ArrayList<Personnage> listePersonnage = new ArrayList<Personnage>(this.getPlateau().getNombreJoueurs());
 		for(int i=0; i<this.getPlateau().getNombrePersonnages(); i++) {
-			if(this.getPlateau().getPersonnage(i).getJoueur()!= null && this.getPlateau().getPersonnage(i) != null) {
+			if(this.getPlateau().getPersonnage(i).getJoueur()!= null && this.getPlateau().getPersonnage(i) != null && this.getPlateau().getPersonnage(i).getJoueur().nbQuartiersDansCite()<7) {
 				listePersonnage.add(this.getPlateau().getPersonnage(i));
 			}
 		}
@@ -81,7 +81,7 @@ public class Condottiere extends Personnage {
 		Random generateur = new Random();
 		ArrayList<Personnage> listePersonnage = new ArrayList<Personnage>(this.getPlateau().getNombreJoueurs());
 		for(int i=0; i<this.getPlateau().getNombrePersonnages(); i++) {
-			if(this.getPlateau().getPersonnage(i).getJoueur()!= null && this.getPlateau().getPersonnage(i) != null) {
+			if(this.getPlateau().getPersonnage(i).getJoueur()!= null && this.getPlateau().getPersonnage(i) != null && this.getPlateau().getPersonnage(i).getJoueur().nbQuartiersDansCite()<7) {
 				listePersonnage.add(this.getPlateau().getPersonnage(i));
 			}
 		}
