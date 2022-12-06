@@ -115,7 +115,7 @@ public class Magicienne extends Personnage{
 	}
 	
 	private int menuPouvoir() {
-		int max=1;
+		int max=2;
 		System.out.println("Quel action voulez vous effectuez");
 		System.out.println("0. Ne rien faire");
 		System.out.println("1. Echanger toutes vos cartes avec un adversaire");
