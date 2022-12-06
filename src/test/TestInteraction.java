@@ -14,15 +14,13 @@ public class TestInteraction {
 	public void test1(){
 		System.out.println("TEST POUR LIRE UN ENTIER");
 		int i = Interaction.lireUnEntier();
-		System.out.println("entier = " + i);
-		int j = Interaction.lireUnEntier();
-		System.out.println("entier = " + j);
+		System.out.println("Votre entier : " + i);
 	}
 	
 	public void test2(){
 		System.out.println("TEST POUR LIRE UN ENTIER BORNE");
 		int entier = Interaction.lireUnEntier(0,10);
-		System.out.println("entier = " + entier);
+		System.out.println("Votre entier : " + entier);
 		Test.test(entier>=0 && entier <10,"test de saisie d'un entier entre [0,10[");
 	}
 	
@@ -31,9 +29,11 @@ public class TestInteraction {
 		boolean reponse = Interaction.lireOuiOuNon();
 		Test.test(reponse==true || reponse==false,"test de saisie d'une réponse oui ou non");
 	}
+	
 	public void test4(){
 		System.out.println("TEST POUR LIRE UNE CHAINE DE CARACTERES");
 		String s = Interaction.lireUneChaine();
+		System.out.println("Votre chaine : "+s);
 		Test.test(s.length()!=0, "test de saisie d'une chaîne de caractères");
 	}
 }
