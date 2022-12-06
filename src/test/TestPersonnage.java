@@ -90,6 +90,7 @@ public class TestPersonnage {
 	}
 	
 	public void test4() {
+		System.out.println("TEST REINITIALISATION");
 		Personnage personnage = new Personnage("Fou",1,"Fictif");
 		Joueur joueur = new Joueur("Billy");
 		personnage.setJoueur(joueur);
