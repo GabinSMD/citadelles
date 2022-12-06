@@ -1,10 +1,11 @@
-package test;
+package application;
 
-import application.JeuPublic;
+import application.Jeu;
 import modele.Caracteristiques;
 import modele.Joueur;
 import modele.Personnage;
 import modele.Quartier;
+import test.Test;
 
 public class TestJeu {
 	public static void main(String[] args) {
@@ -24,7 +25,7 @@ public class TestJeu {
 	public void test1() {
 		int aucunProbleme = 0;
 		int nombreJoueurAvatar = 0;
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		System.out.println("TEST INITIALISATION");
 		jeu.initialisation();
 		Test.test(jeu.nombreJoueurs == 4, "Nombre de joueurs");
@@ -60,7 +61,7 @@ public class TestJeu {
 
 	//Test du choix du personnage
 	public void test2() { // AVATAR OK
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		System.out.println("TEST DU CHOIX DU PERSONNAGE");
 		jeu.initialisation();
 		jeu.choixPersonnages();
@@ -76,7 +77,7 @@ public class TestJeu {
 	
 	//Test de la percepetion des ressources de base
 	public void test3() { //
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		System.out.println("TEST DE LA PERCEPTION DES RESSOURCES");
 		jeu.initialisation();
 		jeu.choixPersonnages();
@@ -92,7 +93,7 @@ public class TestJeu {
 
 	//Test de la construction
 	public void test4() {
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		System.out.println("TEST DE LA CONSTRUCTION");
 		jeu.initialisation();
 
@@ -144,7 +145,7 @@ public class TestJeu {
 	
 	//Test de la gestion de la couronne
 	public void test5() {
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		System.out.println("TEST DE LA GESTION DE LA COURONNE");
 		jeu.initialisation();
 		for (int i = 0; i < jeu.nombreJoueurs; i++) {
@@ -166,7 +167,7 @@ public class TestJeu {
 
 	//Test de la reinitialisation des personnages
 	public void test6() {
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		System.out.println("TEST DE LA REINITIALISATION DES PERSONNAGES");
 		jeu.initialisation();
 		jeu.choixPersonnages();
@@ -178,7 +179,7 @@ public class TestJeu {
 	
 	//Test du calcul des points
 	public void test7() {
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		System.out.println("TEST DU CALCUL DES POINTS");
 		jeu.initialisation();
 
@@ -271,7 +272,7 @@ public class TestJeu {
 
 	//Test d'un tour de jeu
 	public void test8() {
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		System.out.println("TEST D'UN TOUR DE JEU");
 		jeu.initialisation();
 		jeu.tourDeJeu();
@@ -281,7 +282,7 @@ public class TestJeu {
 	// Test d'une partie complète d'Avatar
 	public void test9() {
 		int aucunProbleme = 0;
-		JeuPublic jeu = new JeuPublic();
+		Jeu jeu = new Jeu();
 		System.out.println("TEST D'UN JEU COMPLET D'AVATAR");
 		jeu.jouer();
 		if (jeu.nombreJoueurs == 4 || jeu.nombreJoueurs == 5 || jeu.nombreJoueurs == 6 || jeu.nombreJoueurs == 7) {
