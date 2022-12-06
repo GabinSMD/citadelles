@@ -620,27 +620,13 @@ public class JeuPublic {
 						
 						this.laboratoire(personnageActuel);
 						
+
 						if(personnageActuel.getJoueur() .getAvatar()) {
-							this.choix=this.generateur.nextInt(2);
-							switch(choix) {
-								case 0:
-									this.choixBoolean=false;
-									break;
-								case 1:
-									this.choixBoolean=true;
-									break;
-							}	
-						}else {
-							System.out.println("Voulez vous utilisez votre pouvoir ? ");
-							this.choixBoolean=Interaction.lireOuiOuNon();
+							personnageActuel.utiliserPouvoirAvatar();
+						} else {
+							personnageActuel.utiliserPouvoir();
 						}
-						if (this.choixBoolean) {
-							if(personnageActuel.getJoueur() .getAvatar()) {
-								personnageActuel.utiliserPouvoirAvatar();
-							} else {
-								personnageActuel.utiliserPouvoir();
-							}
-						}
+						
 						//Appelle de la fonction construire
 						this.construire(personnageActuel);
 						
