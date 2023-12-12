@@ -920,4 +920,231 @@ public class Jeu{
 			}
 		} while ( choixJeu != 3);  
 	}
+
+	
+	// tripot
+	protected Boolean tripot(Personnage personnageActuel, Quartier quartierAConstruire, int coutQuartier) {
+	    int nbCartePossedez=0;
+	    if(quartierAConstruire.getNom() == "Tripot") {
+	        if (coutQuartier > (personnageActuel.getJoueur().nbPieces() + personnageActuel.getJoueur().nbQuartiersDansMain())) {
+	            System.out.println("Votre trésor n'est pas suffisant");
+	        } else {
+	            if(personnageActuel.getJoueur().getAvatar()) {
+	                this.choix=this.generateur.nextInt(2);
+	                switch(choix) {
+	                    case 0:
+	                        this.choixBoolean=false;
+	                        break;
+	                    case 1:
+	                        this.choixBoolean=true;
+	                        break;
+	                }	
+	            }else {
+	                System.out.println("Vous pouvez payer tout ou partie du coût de construction du Tripot en cartes de votre main, au prix de 1 carte pour 1 pièce d’or.");
+	                System.out.println("Voulez vous payer en carte ? ");
+	                this.choixBoolean=Interaction.lireOuiOuNon();
+	            }
+	            if (this.choixBoolean) {
+	                ArrayList<Quartier> copieTableau = new ArrayList<Quartier>(personnageActuel.getJoueur().getMain());
+	                for(int i=0; i<copieTableau.size(); i++) {
+	                    if(copieTableau.get(i).getNom()=="Tripot") {
+	                        copieTableau.remove(i);
+	                    }
+	                }
+	                nbCartePossedez = copieTableau.size();
+	
+	                if(!personnageActuel.getJoueur().getAvatar()) {
+	                    System.out.println("Vous avez "+ nbCartePossedez +" carte(s)");
+	                    System.out.println("Combien de carte voulez vous utiliser :");
+	                }
+	                do {
+	                    if(personnageActuel.getJoueur().getAvatar()){
+	                        this.choix = this.generateur.nextInt(nbCartePossedez+1);
+	                    }else {
+	                        this.choix = Interaction.lireUnEntier(0,nbCartePossedez+1);
+	                    }
+	                    if(this.choix==0) {
+	                        break;
+	                    }else if(this.choix==nbCartePossedez) {
+	                        for(int i=0; i<nbCartePossedez; i++) {
+	                            coutQuartier -=1;
+	                            pioche.ajouter(personnageActuel.getJoueur().retirerQuartierDansMain());
+	                        }
+	                        personnageActuel.getJoueur().retirerQuartierDansMain();
+	                    } else if (choix+personnageActuel.getJoueur().nbPieces() >= coutQuartier && choix <= nbCartePossedez) {
+	                        for (int i = choix; i > 0; i--) {
+	                            nbCartePossedez=copieTableau.size();
+	                            
+	                            if(personnageActuel.getJoueur().getAvatar()) {
+	                                this.choix = this.generateur.nextInt(0,nbCartePossedez);
+	                            }else {
+	                                System.out.println("Quelle carte voulez-vous defausser ? (" + i + " cartes à defausser)");
+	                                for (int j = 0; j < nbCartePossedez; j++) {
+	                                    System.out.println(j + ". " + copieTableau.get(j).getNom());
+	                                } 
+	                                this.choix = Interaction.lireUnEntier(0,nbCartePossedez);
+	                            }
+	                            
+	                            pioche.ajouter(copieTableau.get(this.choix));
+	                            copieTableau.remove(this.choix);
+	
+	                            coutQuartier -=1;
+	                        }
+	                        nbCartePossedez=personnageActuel.getJoueur().nbQuartiersDansMain();
+	                        for(int i=0; i<nbCartePossedez; i++) {
+	                            personnageActuel.getJoueur().retirerQuartierDansMain();
+	                        }
+	                        for(int i=0; i<copieTableau.size(); i++) {
+	                            if(copieTableau.get(i).getNom()!="Tripot") {
+	                                personnageActuel.getJoueur().ajouterQuartierDansMain(copieTableau.get(i));
+	                            }
+	                        }
+	                    } else {
+	                        System.out.println("Nombre de cartes insuffisant");
+	                    }
+	                } while (this.choix+personnageActuel.getJoueur().nbPieces() < coutQuartier);
+	
+	                personnageActuel.getJoueur().retirerPieces(coutQuartier);
+	                personnageActuel.construire(quartierAConstruire);
+	            }
+	        }
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
+	//laboratoire
+	protected void laboratoire(Personnage personnageActuel) {
+	    if (personnageActuel.getJoueur() .quartierPresentDansCite("Laboratoire") && personnageActuel.getJoueur().getMain().size() != 0) {
+	
+	        if(personnageActuel.getJoueur() .getAvatar()) {
+	            this.choix=this.generateur.nextInt(2);
+	            switch(choix) {
+	                case 0:
+	                    this.choixBoolean=false;
+	                    break;
+	                case 1:
+	                    this.choixBoolean=true;
+	                    break;
+	            }	
+	        }else {
+	            System.out.println("Voulez-vous vous défausser d'1 carte pour recevoir 2 pièces d’or  ?");
+	            this.choixBoolean=Interaction.lireOuiOuNon();
+	        }
+	        if (this.choixBoolean) {
+	            int nbCartePossedee = personnageActuel.getJoueur() .getMain().size();
+	            ArrayList<Quartier> copieTableau = new ArrayList<Quartier>(personnageActuel.getJoueur() .getMain());
+	            if(personnageActuel.getJoueur() .getAvatar()) {
+	                this.choix = this.generateur.nextInt(nbCartePossedee);
+	            }else {
+	                System.out.println("Quelle carte voulez vous défausser ?");
+	                for (int k = 0; k < nbCartePossedee; k++) {
+	                    System.out.println(k + ". " + copieTableau.get(k).getNom());
+	                }
+	                this.choix = Interaction.lireUnEntier(0, nbCartePossedee);
+	            }
+	
+	            this.pioche.ajouter(copieTableau.get(choix));
+	
+	            copieTableau.remove(choix);
+	            personnageActuel.getJoueur() .ajouterPieces(2);
+	            nbCartePossedee = personnageActuel.getJoueur() .getMain().size();
+	            for (int k = 0; k < nbCartePossedee; k++) {
+	                personnageActuel.getJoueur() .retirerQuartierDansMain();
+	            }
+	            for (int k = 0; k < copieTableau.size(); k++) {
+	                personnageActuel.getJoueur() .ajouterQuartierDansMain(copieTableau.get(k));
+	            }
+	        }
+	    }
+	}
+	//carriere
+	protected Boolean carriere(Personnage personnageActuel, Quartier quartierAConstruire) {
+	    if(personnageActuel.getJoueur().quartierPresentDansCite(quartierAConstruire.getNom()) && personnageActuel.getJoueur().quartierPresentDansCite("Carrière")) {
+	        return true;
+	    }else if(!personnageActuel.getJoueur().quartierPresentDansCite(quartierAConstruire.getNom())) {
+	        return true;
+	    }else {
+	        System.out.println("Impossible de construire ce quartier");
+	        return false;
+	    }
+	}
+	
+	//manufacture
+	protected int manufacture(Personnage personnageActuel, Quartier quartierAConstruire) {
+	    int coutQuartier;
+	    coutQuartier=quartierAConstruire.getCout();
+	    if(personnageActuel.getJoueur().quartierPresentDansCite("Manufacture") && quartierAConstruire.getType() == Quartier.TYPE_QUARTIERS[4]) {
+	        coutQuartier = quartierAConstruire.getCout()-1;
+	        return coutQuartier;
+	    }else {
+	        return coutQuartier;
+	    }
+	}
+	//forge
+	protected void forge(Personnage personnageActuel) {
+	    if (personnageActuel.getJoueur().quartierPresentDansCite("Forge")) {
+	        if(personnageActuel.getJoueur() .getAvatar()) {
+	            this.choix=this.generateur.nextInt(2);
+	            switch(choix) {
+	                case 0:
+	                    this.choixBoolean=false;
+	                    break;
+	                case 1:
+	                    this.choixBoolean=true;
+	                    break;
+	            }	
+	        }else {
+	            System.out.println("Vous avez " + personnageActuel.getJoueur() .nbPieces() + " pièces dans votre trésorerie.");
+	            System.out.println("Voulez vous payez 2 pièces d’or pour piocher 3 cartes ?");
+	            this.choixBoolean=Interaction.lireOuiOuNon();
+	        }
+	        
+	        if (this.choixBoolean) {
+	            for (int k = 0; k < 3; k++) {
+	                if (this.plateauDeJeu.getPioche().nombreElements() != 0) {
+	                    personnageActuel.getJoueur().ajouterQuartierDansMain(pioche.piocher());
+	                }
+	
+	            }
+	            personnageActuel.getJoueur() .retirerPieces(2);
+	        }
+	    }
+	}
+	//Ecole de magi
+	protected void ecoleDeMagie(Personnage personnageActuel) {
+	    for (int k = 0; k < personnageActuel.getJoueur() .nbQuartiersDansCite(); k++) {
+	        if (personnageActuel.getJoueur() .quartierPresentDansCite("Ecole de magie")) {
+	            if(personnageActuel.getJoueur() .getAvatar()) {
+	                this.choix = this.generateur.nextInt(this.nbTypeQuartier);
+	            }else {
+	                System.out.println("Comment considerez-vous l'école de magie ?");
+	                for (int l = 0; l < this.nbTypeQuartier; l++) {
+	                    System.out.println(l + " - " + Quartier.TYPE_QUARTIERS[l]);
+	                }
+	                this.choix = Interaction.lireUnEntier(0, this.nbTypeQuartier);
+	            }
+	            
+	            switch (this.choix) {
+	                case 0:
+	                    personnageActuel.getJoueur() .getCite()[k].setType(Quartier.TYPE_QUARTIERS[0]);
+	                    break;
+	                case 1:
+	                    personnageActuel.getJoueur() .getCite()[k].setType(Quartier.TYPE_QUARTIERS[1]);
+	                    break;
+	                case 2:
+	                    personnageActuel.getJoueur() .getCite()[k].setType(Quartier.TYPE_QUARTIERS[2]);
+	                    break;
+	                case 3:
+	                    personnageActuel.getJoueur() .getCite()[k].setType(Quartier.TYPE_QUARTIERS[3]);
+	                    break;
+	                case 4:
+	                    personnageActuel.getJoueur() .getCite()[k].setType(Quartier.TYPE_QUARTIERS[4]);
+	                    break;
+	                default:
+	                    break;
+	            }
+	        }
+	    }
+	}
 }
