@@ -1,45 +1,24 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
 
 <!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
 [![Contributors][contributors-shield]][contributors-url]
 [![CodeFactor][codefactor-shield]][codefactor-url]
 [![Codacy][codacy-shield]][codacy-url]
-[![Commit][commit-shield]][commit-url]
 [![Issues][issues-shield]][issues-url]
-[![License][license-shield]][license-url]
+[![AGPL-3.0 License][license-shield]][license-url]
+![Java][java-shield]
 
-<!-- PROJECT LOGO -->
+<!-- PROJECT HEADER -->
 <br />
 <div align="center">
-  <a href="https://github.com/gabinsmd/citadelles/">
-    <img src="https://gamecows.com/wp-content/uploads/2019/10/Citadels-Board-Game-Featured.jpg" alt="Logo" height='300px' >
-  </a>
 
 <h3 align="center">Citadelles</h3>
 
   <p align="center">
-    A smart rebuild of Citadels game in java 
+    A terminal rebuild of the board game Citadels in plain Java — 8 characters,
+    14 wonders, robot opponents, no framework and no build tool.
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
     <br />
-    <br />
-    <a href="https://github.com/gabinsmd/citadelles">View Demo</a>
-    ·
     <a href="https://github.com/GabinSMD/citadelles/issues/new?assignees=&labels=&template=bug_report.md&title=">Report Bug</a>
     ·
     <a href="https://github.com/GabinSMD/citadelles/issues/new?assignees=&labels=&template=feature_request.md&title=">Request Feature</a>
@@ -53,17 +32,20 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
+        <li><a href="#whats-implemented">What's implemented</a></li>
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
+    <li><a href="#architecture">Architecture</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#compile-and-run">Compile and run</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#tests">Tests</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -75,148 +57,174 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+This project was built as part of our studies at [esaip](https://www.esaip.org/): produce a digital
+version of the board game **Citadels**. Given the time allocated, the result is a game you play in a
+terminal, against robot opponents, with the character powers and the scoring implemented by hand.
 
-This project was realized within the scope of our study at esaip. The objective was to make a digital version of the board game : Citadelles. For reasons of time allocated to the project, this version is playable with 4 players maximum and contains 8 characters and 14 wonders.
-This game is playable via a terminal, then a graphical interface will be proposed.
+There is no framework, no dependency and no build tool — 36 Java files, `javac`, and the standard
+library. The project ships as an Eclipse project (`.classpath`, `.project`) targeting **Java 17**.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### What's implemented
+
+| | |
+| --- | --- |
+| **Characters** | 8 — Assassin, Voleur, Magicienne, Roi, Évêque, Marchande, Condottiere, Architecte, each with its power |
+| **Districts** | 5 families — religious, military, noble, trade, and wonders |
+| **Wonders** | 14, with their special effects (Bibliothèque, Carrière, Cours des miracles, Donjon, Dracoport…) |
+| **Players** | 4, the project's target; the end-of-game rule is written for 4 to 7 |
+| **Opponents** | robot players, so a single human can play a full game |
+| **Scoring** | construction cost, wonders, completed city, one-of-each-type bonus |
+| **Interface** | terminal, with ANSI colours |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* **Java 17** — standard library only, no external dependency
+* **Eclipse** — the repository is an Eclipse project; any IDE or a bare `javac` works too
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- ARCHITECTURE -->
+## Architecture
+
+A deliberate MVC split, which is also what the assignment asked for:
+
+```
+src/
+├── application/   Application (entry point), Jeu (turn loop and scoring), Configuration (the deck)
+├── controleur/    Interaction — everything read from and printed to the terminal
+├── modele/        Personnage and its 8 subclasses, Joueur, Quartier, Pioche,
+│                  PlateauDeJeu, Caracteristiques (the wonders' effects)
+└── test/          16 test classes, one per model class
+```
+
+Only `controleur/` talks to the terminal: the model knows nothing about input or output, which is what
+makes the test classes possible without a console harness.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+* A **JDK 17** or later
   ```sh
-  npm install npm@latest -g
+  javac --version
   ```
 
-### Installation
+### Compile and run
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repository
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/GabinSMD/citadelles.git
+   cd citadelles
    ```
-3. Install NPM packages
+2. Compile every source file into `bin/`
    ```sh
-   npm install
+   javac -encoding UTF-8 -d bin $(find src -name '*.java')
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+3. Play
+   ```sh
+   java -cp bin application.Application
    ```
+
+In Eclipse, importing the folder as an existing project is enough — `.classpath` already points `src`
+at `bin`.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- USAGE EXAMPLES -->
+<!-- USAGE -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+The game runs entirely in the terminal: it prints the board, the hands and the districts built, then
+prompts for each choice — pick a character, take gold or draw districts, build, use your power. Use a
+terminal that renders ANSI escape codes, otherwise the colours show up as raw characters.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- TESTS -->
+## Tests
+
+`src/test/` holds 16 test classes, one per model class (`TestRoi`, `TestAssassin`, `TestPioche`…).
+They are **not** JUnit: each exposes its own `main` and prints its assertions, so they run like any
+other class.
+
+```sh
+java -cp bin test.TestRoi
+```
+
+Turning them into JUnit tests is the single most useful thing anyone could contribute here — see the
+roadmap.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ] Graphical interface (announced when the project was handed in, never built)
+- [ ] Migrate `src/test/` to JUnit 5 and add a build tool (Maven or Gradle)
+- [ ] Support 5 to 7 players end to end, since the scoring already handles them
+- [ ] Human-versus-human play on the same terminal
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/GabinSMD/citadelles/issues) for anything else.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+A finished school project, kept online as a record — but pull requests are welcome, particularly on
+the roadmap items above.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+1. Fork the project
+2. Create your branch (`git checkout -b feature/junit-migration`)
+3. Commit your changes (`git commit -m 'Migrate TestRoi to JUnit 5'`)
+4. Push to the branch and open a pull request
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) and [SECURITY.md](SECURITY.md) first.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
 ## License
 
-Distributed under the  AGPL-3.0 License. See `LICENSE` for more information.
+Distributed under the GNU Affero General Public License v3.0. See [`LICENSE`](LICENSE) for the full
+text.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Gabin Simond — gabin.simond@simondancebros.org
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project link: [https://github.com/GabinSMD/citadelles](https://github.com/GabinSMD/citadelles)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* []()
-* []()
-* []()
+* **Citadels** by Bruno Faidutti — the board game this reimplements
+* [esaip](https://www.esaip.org/) — where the assignment came from
+* [@Arahord](https://github.com/Arahord) and [@C0sinuS](https://github.com/C0sinuS) — the other two thirds of the commits
+* [Best-README-Template](https://github.com/othneildrew/Best-README-Template) — the shape of this file
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/gabinsmd/citadelles?style=for-the-badge
-[contributors-url]: https://github.com/gabinsmd/citadelles/graphs/contributors
-[codefactor-shield]: https://img.shields.io/codefactor/grade/github/gabinsmd/citadelles?label=Codefactor&style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/GabinSMD/citadelles?style=for-the-badge
+[contributors-url]: https://github.com/GabinSMD/citadelles/graphs/contributors
+[codefactor-shield]: https://img.shields.io/codefactor/grade/github/gabinsmd/citadelles?label=CodeFactor&style=for-the-badge
+[codefactor-url]: https://www.codefactor.io/repository/github/gabinsmd/citadelles
 [codacy-shield]: https://img.shields.io/codacy/grade/e5241157c34f40bcb23b37fa098a5622?label=Codacy&style=for-the-badge
 [codacy-url]: https://app.codacy.com/gh/GabinSMD/citadelles/
-[codefactor-url]:https://www.codefactor.io/repository/github/gabinsmd/citadelles
-[commit-shield]: https://img.shields.io/github/commit-activity/w/gabinsmd/citadelles?style=for-the-badge
-[commit-url]: https://github.com/GabinSMD/citadelles/graphs/commit-activity
-[issues-shield]: https://img.shields.io/github/issues/gabinsmd/citadelles?style=for-the-badge
-[issues-url]: https://github.com/gabinsmd/citadelles/issues
-[license-shield]: https://img.shields.io/github/license/gabinsmd/citadelles?style=for-the-badge
-[license-url]: https://github.com/gabinsmd/citadelles/master/LICENSE
-[product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/java-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+[issues-shield]: https://img.shields.io/github/issues/GabinSMD/citadelles?style=for-the-badge
+[issues-url]: https://github.com/GabinSMD/citadelles/issues
+[license-shield]: https://img.shields.io/badge/license-AGPL%20v3-blue.svg?style=for-the-badge
+[license-url]: https://github.com/GabinSMD/citadelles/blob/main/LICENSE
+[java-shield]: https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white
