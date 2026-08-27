@@ -226,5 +226,5 @@ Project link: [https://github.com/GabinSMD/citadelles](https://github.com/GabinS
 [issues-shield]: https://img.shields.io/github/issues/GabinSMD/citadelles?style=for-the-badge
 [issues-url]: https://github.com/GabinSMD/citadelles/issues
 [license-shield]: https://img.shields.io/badge/license-AGPL%20v3-blue.svg?style=for-the-badge
-[license-url]: https://github.com/GabinSMD/citadelles/blob/main/LICENSE
+[license-url]: https://github.com/GabinSMD/citadelles/blob/master/LICENSE
 [java-shield]: https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white
